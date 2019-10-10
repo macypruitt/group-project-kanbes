@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+  ##
+  ## CONTAINER for Client Side Application
+  ## to test service run:
+  ##     docker-compose up --build -d client
+  ## ----------------------------------------
+  client:
+    build: 
+      context: ./client
+    ports:
+      - 3000:3000 # expose ports - HOST:CONTAINER (for create-react-app)
+      - 35729:35729 # expose ports - HOST:CONTAINER (for serviceworker warm reloading)
+    volumes:
+      - './client:/app/client'
+      - '/app/client/node_modules'
+    depends_on:
+      - server
+    command: npm run client
+  ##
+  ## CONTAINER for Postgres database
+  ## database access URL:
+  ##     postgres://POSTGRES_USER:POSTGRES_PASSWORD@localhost:HOST_PORT/POSTGRES_DB
+  ## to test service run:
+  ##     docker-compose up --build -d database
+  ## ----------------------------------------
+  database:
+    image: postgres:latest
+    restart: always
+    ports:
+      - 54320:5432
+    environment:
+      POSTGRES_USER: primedev
+      POSTGRES_PASSWORD: mast3rK3y
+      POSTGRES_DB: prime_table
+      POSTGRES_HOST: localhost
+    volumes:
+      - ./database/init.sql:/docker-entrypoint-initdb.d/10-init.sql
+      - ./database/data.sql:/docker-entrypoint-initdb.d/20-data.sql
+  ##
+  ## CONTAINER for Server Application
+  ## to test service run:
+  ##     docker-compose up --build -d server
+  ## ----------------------------------------
+  server:
+    build: 
+      context: ./server
+    ports:
+      - 5000:5000 # expose ports - HOST:CONTAINER
+    environment:
+      PORT_DB: 5432
+      POSTGRES_USER: primedev
+      POSTGRES_PASSWORD: mast3rK3y
+      POSTGRES_DB: prime_table
+      POSTGRES_HOST: database
+      CHOKIDAR_USEPOLLING: 'true'
+      NODE_ENV: development
+    volumes:
+      - './server:/app/server'
+      - '/app/server/node_modules'
+      - './server/dist:/app/server/dist'
+    depends_on:
+      - database
+    command: npm run server

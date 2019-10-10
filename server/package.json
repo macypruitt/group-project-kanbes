@@ -1,0 +1,35 @@
+{
+  "name": "prime-project-server",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@types/bcrypt": "^3.0.0",
+    "@types/body-parser": "^1.17.0",
+    "@types/cookie-session": "^2.0.37",
+    "@types/express": "^4.17.0",
+    "@types/node": "^12.0.10",
+    "@types/passport": "^1.0.0",
+    "@types/passport-local": "^1.0.33",
+    "@types/pg": "^7.4.14",
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.6",
+    "cookie-session": "^2.0.0-beta.3",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.4",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "pg": "^7.9.0",
+    "prop-types": "^15.7.2",
+    "typescript": "^3.5.2"
+  },
+  "scripts": {
+    "start": "npm run tsc && node dist/server.js",
+    "server": "nodemon -e ts --ignore './dist' -x npm run server:ts",
+    "server:ts": "tsc -p tsconfig.node.json && node dist/server.js",
+    "tsc": "tsc -p tsconfig.node.json"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.3.0"
+  }
+}

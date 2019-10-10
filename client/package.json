@@ -1,0 +1,31 @@
+{
+  "name": "prime-solo-project-client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://server:5000",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "dotenv": "^4.0.0",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.1",
+    "redux": "^4.0.1",
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^1.0.2"
+  },
+  "scripts": {
+    "client": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
