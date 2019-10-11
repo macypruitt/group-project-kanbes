@@ -6,8 +6,15 @@ import UserTableRow from './UserTableRow';
 
 class UserTable extends Component {
     state = {
-        heading: 'Class Component',
+        isAdding: false
     };
+
+    clickAdd = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: !this.state.isAdding
+        })
+    }
 
     render() {
 
@@ -43,18 +50,27 @@ class UserTable extends Component {
             )
         })
 
+        let newRow;
+        if(this.state.isAdding){
+            const emptyItem = {}
+            newRow = <UserTableRow editable={true} item={emptyItem} />
+        }
+
         return (
             <div>
                 <table className="admin-table">
                     <tr>
-                        <th>Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Role</th>
                         <th>Email</th>
                         <th>Admin level</th>
                         <th>Actions</th>
                     </tr>
                     {userTableData}
+                    {newRow}
                 </table>
+                <button onClick={this.clickAdd}>Add User</button>
             </div>
         );
     }

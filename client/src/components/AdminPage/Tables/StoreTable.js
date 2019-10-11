@@ -50,7 +50,6 @@ class StoreTable extends Component {
             )
         })
 
-
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
@@ -67,7 +66,6 @@ class StoreTable extends Component {
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
-                    
                     {storeTableData}
                     
                     {newRow}

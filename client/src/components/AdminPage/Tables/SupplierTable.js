@@ -6,8 +6,15 @@ import SupplierTableRow from './SupplierTableRow';
 
 class SupplierTable extends Component {
     state = {
-        heading: 'Class Component',
+        isAdding: false
     };
+
+    clickAdd = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: !this.state.isAdding
+        })
+    }
 
     render() {
 
@@ -43,6 +50,12 @@ class SupplierTable extends Component {
             )
         })
 
+        let newRow;
+        if(this.state.isAdding){
+            const emptyItem = {}
+            newRow = <SupplierTableRow editable={true} item={emptyItem} />
+        }
+
         return (
             <div>
                 <table className="admin-table">
@@ -54,7 +67,10 @@ class SupplierTable extends Component {
                         <th>Action</th>
                     </tr>
                     {supplierTableData}
+
+                    {newRow}
                 </table>
+                <button onClick={this.clickAdd}>Add Store</button>
             </div>
         );
     }
