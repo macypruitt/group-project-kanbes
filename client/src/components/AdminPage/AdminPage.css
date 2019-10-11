@@ -10,6 +10,7 @@
     text-align: center;
     border-spacing: 1;
     padding: 3px;
+    border-collapse: collapse;
 }
 
 .admin-table > th{

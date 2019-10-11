@@ -15,20 +15,22 @@ class StoreTable extends Component {
                 {
                     name: 'Hooha',
                     address: '321 Achoooo',
-                    order: 1
+                    order: 1,
+                    status: 'active'
                 },
                 {
                     name: 'Hooha',
                     address: '321 Achoooo',
-                    order: 2
+                    order: 2,
+                    status: 'probation'
                 },
                 {
                     name: 'Hooha',
                     address: '321 Achoooo',
-                    order: 3
+                    order: 3,
+                    status: 'prospect'
                 },
             ];
-
 
         let storeTableData = mockStoreArray.map((item, index) => {
             return (
@@ -45,6 +47,7 @@ class StoreTable extends Component {
                         <th>Store name</th>
                         <th>Address</th>
                         <th>Order #</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                     

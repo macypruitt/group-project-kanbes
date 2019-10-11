@@ -13,8 +13,8 @@ class StoreTableRow extends Component {
                 <td>{this.props.item.name}</td>
                 <td>{this.props.item.address}</td>
                 <td>{this.props.item.order}</td>
+                <td>{this.props.item.status}</td>
                 <td><button>Edit</button></td>
-                
             </tr>
         );
     }
