@@ -6,8 +6,15 @@ import StoreTableRow from './StoreTableRow';
 
 class StoreTable extends Component {
     state = {
-        heading: 'Class Component',
+        isAdding: false
     };
+
+    clickAdd = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: !this.state.isAdding
+        })
+    }
 
     render() {
 
@@ -43,6 +50,13 @@ class StoreTable extends Component {
             )
         })
 
+
+        let newRow;
+        if(this.state.isAdding){
+            const emptyItem = {}
+            newRow = <StoreTableRow editable={true} item={emptyItem} />
+        }
+
         return (
             <div>
                 <table className="admin-table">
@@ -55,8 +69,10 @@ class StoreTable extends Component {
                     </tr>
                     
                     {storeTableData}
-
+                    
+                    {newRow}
                 </table>
+                <button onClick={this.clickAdd}>Add Store</button>
             </div>
         );
     }

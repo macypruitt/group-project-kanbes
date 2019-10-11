@@ -4,7 +4,7 @@ import mapStoreToProps from '../../../redux/mapStoreToProps';
 
 class StoreTableRow extends Component {
     state = {
-        isEditable: false,
+        isEditable: this.props.editable || false,
         item: {}
     };
     
