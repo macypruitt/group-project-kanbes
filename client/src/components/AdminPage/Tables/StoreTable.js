@@ -13,18 +13,21 @@ class StoreTable extends Component {
 
         let mockStoreArray = [
                 {
+                    id:1,
                     name: 'Hooha',
                     address: '321 Achoooo',
                     order: 1,
                     status: 'active'
                 },
                 {
+                    id:2,
                     name: 'Hooha',
                     address: '321 Achoooo',
                     order: 2,
                     status: 'probation'
                 },
-                {
+                {   
+                    id:3,
                     name: 'Hooha',
                     address: '321 Achoooo',
                     order: 3,

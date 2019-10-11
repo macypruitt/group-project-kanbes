@@ -23,16 +23,16 @@ class AdminPage extends Component {
                 <h3>Stores</h3>
                 <StoreTable />
                 <br />
+                <button>Add Store</button>
                 
                 <h3>Users</h3>
                 <UserTable />
+                <button>Add Users</button>
                 <br />
                 
                 <h3>Suppliers</h3>
                 <SupplierTable />
-
-
-
+                <button>Add Supplier</button>
 
             </div>
         );

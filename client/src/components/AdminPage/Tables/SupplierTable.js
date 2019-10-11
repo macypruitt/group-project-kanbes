@@ -51,6 +51,7 @@ class SupplierTable extends Component {
                         <th>Contact name</th>
                         <th>Contact #</th>
                         <th>Address</th>
+                        <th>Action</th>
                     </tr>
                     {supplierTableData}
                 </table>
