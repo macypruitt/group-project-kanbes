@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
 
-class StoreTableRow extends Component {
+class SupplierTableRow extends Component {
     state = {
         heading: 'Class Component',
     };
@@ -11,8 +11,9 @@ class StoreTableRow extends Component {
         return (
             <tr>
                 <td>{this.props.item.name}</td>
+                <td>{this.props.item.contact_name}</td>
+                <td>{this.props.item.contact_number}</td>
                 <td>{this.props.item.address}</td>
-                <td>{this.props.item.order}</td>
                 <td><button>Edit</button></td>
                 
             </tr>
@@ -20,4 +21,4 @@ class StoreTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(StoreTableRow);
+export default connect(mapStoreToProps)(SupplierTableRow);

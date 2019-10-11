@@ -19,10 +19,17 @@ class AdminPage extends Component {
         return (
             <div className="admin-container">
                 <h2>Admin Page</h2>
-
+                
+                <h3>Stores</h3>
                 <StoreTable />
-                {/* <UserTable />
-                <SupplierTable /> */}
+                <br />
+                
+                <h3>Users</h3>
+                <UserTable />
+                <br />
+                
+                <h3>Suppliers</h3>
+                <SupplierTable />
 
 
 

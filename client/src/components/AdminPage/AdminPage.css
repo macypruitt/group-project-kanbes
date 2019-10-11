@@ -1,16 +1,15 @@
 .admin-container {
     margin: auto;
-    
+    text-align: center;
 }
 
-
-
-
-.admin-table{
+.admin-table, td{
     border: 1px solid black;
     width: 80%;
     margin: auto;
     text-align: center;
+    border-spacing: 1;
+    padding: 3px;
 }
 
 .admin-table > th{
