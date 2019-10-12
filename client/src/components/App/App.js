@@ -19,6 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import DriverView from '../DriverView/DriverView';
 
 import './App.css';
 
@@ -76,6 +77,11 @@ class App extends Component {
               path="/registration"
               authRedirect="/admin"
               component={RegisterPage}
+            />
+            <Route
+            exact
+            path="/driver"
+            component={DriverView}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
