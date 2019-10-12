@@ -7,12 +7,16 @@ import {
   CssBaseline,
   Toolbar,
   Typography,
-  IconButton
+  IconButton,
+  Drawer,
+  Divider,
+  Hidden
 } from '@material-ui/core';
 
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { lightGreen } from '@material-ui/core/colors';
+
 
 
 const drawerWidth = 240;
@@ -74,7 +78,24 @@ const styles = (theme: Theme) =>
 });
 
 class KanbeTemplate extends Component {
+  state = {
+    drawerOpen: false
+  }
+
+  handleDrawerToggle = () => {
+    this.setState({drawerOpen: !this.state.drawerOpen})
+  }
+
     render() {
+      const drawer = (
+        <div>
+          <div className={this.props.classes.toolbar} />
+          Hello
+          <Divider />
+          Test
+          <Divider />
+        </div>
+      )
         return (
             <div className={this.props.classes.root}>
                 <CssBaseline />
@@ -99,9 +120,43 @@ class KanbeTemplate extends Component {
                         </Typography>
                     </Toolbar>
                 </AppBar>
-                <h1>Template!</h1>
+                <nav className={this.props.classes.drawer} aria-label="mailbox folders">
+                  {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+                  <Hidden smUp implementation="css">
+                    <Drawer 
+                      className={this.props.classes.drawer}
+                      variant="persistent"
+                      anchor={'left'}
+                      open={this.state.drawerOpen}
+                      onClose={this.handleDrawerToggle}
+                      classes={{
+                        paper: this.props.classes.drawerPaper,
+                      }}
+                      ModalProps={{
+                        keepMounted: true, // Better open performance on mobile.
+                      }}
+                    >
+                      {drawer}
+                    </Drawer>
+                  </Hidden>
+                  <Hidden xsDown implementation="css">
+                    <Drawer
+                      classes={{
+                        paper: this.props.classes.drawerPaper,
+                      }}
+                      variant="permanent"
+                      open
+                    >
+                      {drawer}
+                    </Drawer>
+                   </Hidden>
+                </nav>
+                <main className={this.props.classes.content}>
+                  <div className={this.props.classes.toolbar} />
+                  <h1>Template!</h1>
+                </main>
             </div>
-        )
+        );
     }
     
 }
