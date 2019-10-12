@@ -11,19 +11,24 @@ class DriverView extends Component {
         this.state = {
             formControls: {
                 par: {
-                    value: ''
+                    value: '',
+                    placeholder: 'par'
                 },
                 lastPar: {
-                    value: ''
+                    value: '',
+                    placeholder: 'last par'
                 },
                 sold: {
-                    value: ''
+                    value: '',
+                    placeholder: 'sold'
                 },
                 shrink: {
-                    value: ''
+                    value: '',
+                    placeholder: 'shrink'
                 },
                 added: {
-                    value: ''
+                    value: '',
+                    placeholder: 'added'
                 }
             }
         }
@@ -43,43 +48,53 @@ class DriverView extends Component {
             }
         });
     }
-
+    formSubmitHandler = () => {
+        console.dir(this.state.formControls)
+    }
 
     render() {
         return (
-            <div>
+            <div className="container">
 
 
                 <form>
+                    
                     <input type="text"
                         name="par"
+                        placeholder={this.state.formControls.par.placeholder}
                         value={this.state.formControls.par.value}
                         onChange={this.changeHandler}
                     />
-
+                    
                     <input type="text"
                         name="last par"
+                        placeholder={this.state.formControls.lastPar.placeholder}
                         value={this.state.formControls.lastPar.value}
                         onChange={this.changeHandler}
                     />
-
+                    
                     <input type="text"
                         name="sold"
+                        placeholder={this.state.formControls.sold.placeholder}
                         value={this.state.formControls.sold.value}
                         onChange={this.changeHandler}
                     />
-
+                    
                     <input type="text"
                         name="shrink"
+                        placeholder={this.state.formControls.shrink.placeholder}
                         value={this.state.formControls.shrink.value}
                         onChange={this.changeHandler}
                     />
-
+                    
                     <input type="text"
                         name="added"
+                        placeholder={this.state.formControls.added.placeholder}
                         value={this.state.formControls.added.value}
                         onChange={this.changeHandler}
                     />
+
+                    <button onClick={this.formSubmitHandler}> Submit </button>
                 </form>
             </div>
         );
