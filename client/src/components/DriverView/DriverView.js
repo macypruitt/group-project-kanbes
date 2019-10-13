@@ -12,23 +12,17 @@ class DriverView extends Component {
             formControls: {
                 par: {
                     value: '',
-                    placeholder: 'par'
                 },
                 lastPar: {
                     value: '',
-                    placeholder: 'last par'
                 },
                 sold: {
-                    value: '',
-                    placeholder: 'sold'
-                },
+                    value: '',                },
                 shrink: {
                     value: '',
-                    placeholder: 'shrink'
                 },
                 added: {
                     value: '',
-                    placeholder: 'added'
                 }
             }
         }
@@ -41,6 +35,7 @@ class DriverView extends Component {
 
         this.setState({
             formControls: {
+                ...this.state.formControls,
                 [name]: {
                     ...this.state.formControls[name],
                     value
@@ -61,28 +56,25 @@ class DriverView extends Component {
                     
                     <input type="text"
                         name="par"
-                        placeholder={this.state.formControls.par.placeholder}
+                        
                         value={this.state.formControls.par.value}
                         onChange={this.changeHandler}
                     />
                     
                     <input type="text"
                         name="last par"
-                        placeholder={this.state.formControls.lastPar.placeholder}
                         value={this.state.formControls.lastPar.value}
                         onChange={this.changeHandler}
                     />
                     
                     <input type="text"
                         name="sold"
-                        placeholder={this.state.formControls.sold.placeholder}
                         value={this.state.formControls.sold.value}
                         onChange={this.changeHandler}
                     />
                     
                     <input type="text"
                         name="shrink"
-                        placeholder={this.state.formControls.shrink.placeholder}
                         value={this.state.formControls.shrink.value}
                         onChange={this.changeHandler}
                     />
