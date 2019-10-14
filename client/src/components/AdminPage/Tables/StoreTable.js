@@ -23,30 +23,6 @@ class StoreTable extends Component {
     render() {
         const storesArray = this.props.store.stores
 
-        // let mockStoreArray = [
-        //         {
-        //             id:1,
-        //             name: 'Hooha',
-        //             address: '321 Achoooo',
-        //             order: 1,
-        //             status: 'active'
-        //         },
-        //         {
-        //             id:2,
-        //             name: 'Hooha',
-        //             address: '321 Achoooo',
-        //             order: 2,
-        //             status: 'probation'
-        //         },
-        //         {   
-        //             id:3,
-        //             name: 'Hooha',
-        //             address: '321 Achoooo',
-        //             order: 3,
-        //             status: 'prospect'
-        //         },
-        //     ];
-
         let storeTableData = storesArray.map((item, index) => {
             return (
                 <StoreTableRow 
@@ -67,8 +43,12 @@ class StoreTable extends Component {
                     <tr>
                         <th>Store name</th>
                         <th>Address</th>
-                        <th>Order #</th>
-                        <th>Status</th>
+                        <th>Delivery Order</th>
+                        <th>Store Status</th>
+                        <th>Store Contact Name</th>
+                        <th>Store Contact Phone</th>
+                        <th>Store Contact Email</th>
+                        <th>Store Phone</th>
                         <th>Actions</th>
                     </tr>
                     {storeTableData}
