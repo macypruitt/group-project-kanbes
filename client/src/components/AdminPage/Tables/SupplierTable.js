@@ -53,7 +53,7 @@ class SupplierTable extends Component {
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
-            newRow = <SupplierTableRow editable={true} item={emptyItem} />
+            newRow = <SupplierTableRow editable={true} addable={true} item={emptyItem} />
         }
 
         return (

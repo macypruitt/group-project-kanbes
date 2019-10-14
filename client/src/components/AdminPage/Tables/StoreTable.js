@@ -53,7 +53,7 @@ class StoreTable extends Component {
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
-            newRow = <StoreTableRow editable={true} item={emptyItem} />
+            newRow = <StoreTableRow editable={true} addable={true} item={emptyItem} />
         }
 
         return (

@@ -5,6 +5,7 @@ import mapStoreToProps from '../../../redux/mapStoreToProps';
 class SupplierTableRow extends Component {
     state = {
         isEditable: this.props.editable || false,
+        isAddable: this.props.addable || false,
         item: {}
     };
 
@@ -36,13 +37,23 @@ class SupplierTableRow extends Component {
         ////WILL BE PUT TO DATABASE ONCE CONNECTED TO SERVER
     }
 
-    render() {
+    clickAdd = (event) => {
+        this.setState({
+            isEditable: !this.state.isEditable,
+            isAddable: !this.state.isAddable
+        })
+        console.log(this.state)
+        ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
+    }
 
+    render() {
+        ////row data is passed to this component through props from SupplierTable.js
         let name = this.props.item.name;
         let contact_name = this.props.item.contact_name;
         let contact_number = this.props.item.contact_number;
         let address = this.props.item.address;
         let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
+
         if(this.state.isEditable){
             name = <input 
                     className="row-input" 
@@ -66,6 +77,11 @@ class SupplierTableRow extends Component {
             editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
         }
         
+        ////if Add Store button is clicked
+        if(this.state.isAddable){
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+        }
+
         return (
             <tr>
                 <td>{name}</td>
