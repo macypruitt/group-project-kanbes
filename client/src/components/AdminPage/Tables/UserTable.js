@@ -53,7 +53,7 @@ class UserTable extends Component {
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
-            newRow = <UserTableRow editable={true} item={emptyItem} />
+            newRow = <UserTableRow editable={true} addable={true} item={emptyItem} />
         }
 
         return (
