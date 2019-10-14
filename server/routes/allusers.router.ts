@@ -20,11 +20,9 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
 router.post('/newUser', (req: Request, res: Response, next: express.NextFunction): void => {
   const username: string = req.body.username;
   const password: string = encryptPassword(req.body.password);
-  // const username: string = req.body.username;
-  // const password: string = req.body.password;
   const firstName: string = req.body.first_name;
   const lastName: string = req.body.last_name;
-  const email: string = req.body.email;
+  const email: string | null = req.body.email;
   const role: string = req.body.role;
   const adminLevel: string = req.body.admin_level;
 
@@ -38,6 +36,23 @@ router.post('/newUser', (req: Request, res: Response, next: express.NextFunction
 });
 
 //edit current user
-router.put('/editUser/:id')
+router.put('/editUser/:id', (req: Request, res: Response, next: express.NextFunction): void => {
+  const username: string = req.body.username;
+  const password: string = encryptPassword(req.body.password);
+  const firstName: string = req.body.first_name;
+  const lastName: string = req.body.last_name;
+  const email: string | null = req.body.email;
+  const role: string = req.body.role;
+  const adminLevel: string = req.body.admin_level;
+  const id: string = req.params.id;
+
+  const queryText: string = `UPDATE "user" SET "first_name"=$1, "last_name"=$2, "username"=$3, "email"=$4, "password"=$5, "role"=$6, "admin_level"=$7 WHERE id=$8 `;
+  pool.query(queryText, [firstName, lastName, username, email, password, role, adminLevel, id])
+    .then(() => res.sendStatus(201))
+    .catch((err) => {
+      console.log(`Error editing user: ${err}`);
+      res.sendStatus(500)}
+    );
+});
 
 export default router;
