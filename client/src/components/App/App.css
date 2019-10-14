@@ -17,10 +17,6 @@ form {
     border-radius: 2px;
 }
 
-input {
-    margin: 5px;
-    margin-bottom: 10px;
-}
 
 .log-in, .log-out, .register {
   background-color: #00acb0;
