@@ -50,6 +50,7 @@ class UserTable extends Component {
             )
         })
 
+        ////a new row is added when the 'Add User' button is clicked
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
