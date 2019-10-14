@@ -4,6 +4,7 @@ import sessionMiddleware from './modules/session-middleware';
 import passport from './strategies/user.strategy';
 import userRouter from './routes/user.router';
 import allUsersRouter from './routes/allusers.router';
+import allSuppliersRouter from './routes/allSuppliers.router';
 
 require('dotenv').config();
 
@@ -24,6 +25,7 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/allUsers', allUsersRouter);
+app.use('/api/allSuppliers', allSuppliersRouter);
 
 // Serve static files
 app.use(express.static('build'));
