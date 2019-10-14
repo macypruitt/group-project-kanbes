@@ -25,9 +25,30 @@ function* fetchUsers() {
   }
 }
 
+// Saga to POST a User to the database
+function* addUser(action) {
+  try {
+    yield axios.post('/api/allUsers/newUser', action.payload);
+    yield put({type: 'FETCH_USERS'});
+  } catch (error) {
+    console.log('Error with admin adding new user: ', error);
+  }
+}
+
+// Saga to update user data in database
+function* updateUser(action) {
+  try {
+    yield axios.put(`/api/allUsers/editUser/${action.payload.id}`, action.payload);
+    yield put({type: 'FETCH_USERS'});
+  } catch (error) {
+    console.log('Error with admin editing user: ', error);
+  }
+}
 
 function* usersSaga() {
   yield takeLatest('FETCH_USERS', fetchUsers);
+  yield takeLatest('ADD_USER', addUser);
+  yield takeLatest('UPDATE_USER', updateUser);
 }
 
 export default usersSaga;

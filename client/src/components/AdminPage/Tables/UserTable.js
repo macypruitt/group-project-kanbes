@@ -69,6 +69,8 @@ const usersArray = this.props.store.users
             <div>
                 <table className="admin-table">
                     <tr>
+                        <th>Username</th>
+                        <th>Password</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Role</th>

@@ -35,6 +35,11 @@ class UserTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE PUT TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({type: 'UPDATE_USER', 
+            payload: {
+                ...this.state.item
+            }
+        })
     }
 
     clickAdd = (event) => {
@@ -44,18 +49,36 @@ class UserTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({type: 'ADD_USER', 
+            payload: {
+                ...this.state.item
+            }
+        })
     }
 
     render() {
          ////row data is passed to this component through props from UserTable.js
+        let username = this.props.item.username;
+        let password = this.props.item.password;
         let first_name = this.props.item.first_name;
         let last_name = this.props.item.last_name;
         let role = this.props.item.role;
         let email = this.props.item.email;
-        let admin_level = this.props.item.status;
+        let admin_level = this.props.item.admin_level;
         let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
 
         if(this.state.isEditable){
+            
+            username = <input 
+                    className="row-input" 
+                    placeholder={username}
+                    onChange={(event) => this.handleChangeInputText(event, 'username')}
+                    />
+            password = <input 
+                    className="row-input" 
+                    placeholder={password}
+                    onChange={(event) => this.handleChangeInputText(event, 'password')}
+                    />
             first_name = <input 
                     className="row-input" 
                     placeholder={first_name}
@@ -85,6 +108,8 @@ class UserTableRow extends Component {
 
         return (
             <tr>
+                <td>{username}</td>
+                <td>{password}</td>
                 <td>{first_name}</td>
                 <td>{last_name}</td>
                 <td>{role}</td>
