@@ -52,6 +52,12 @@ class StoreTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({
+            type: 'POST_STORE',
+            payload: {
+                ...this.state.item
+            }
+        })
     }
 
     render() {
@@ -59,12 +65,11 @@ class StoreTableRow extends Component {
         let name = this.props.item.name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
-        let status = this.props.item.status.toString();
+        let status = this.props.item.status;
         let contactEmail = this.props.item.contact_email;
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
         let storePhone = this.props.item.store_phone_number;
-        let ID = this.props.item.id;
         let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
 
         console.log(status)
@@ -80,22 +85,22 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'address')} />
             order = <input className="row-input"
                 placeholder={order}
-                onChange={(event) => this.handleChangeInputText(event, 'order')} />
+                onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
             status = <input className="row-input"
                 placeholder={status}
                 onChange={(event) => this.handleChangeInputText(event, 'status')} />
             contactEmail = <input className="row-input"
                 placeholder={contactEmail}
-                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_email')} />
             contactName = <input className="row-input"
                 placeholder={contactName}
-                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_name')} />
             contactPhone = <input className="row-input"
                 placeholder={contactPhone}
-                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_phone')} />
             storePhone = <input className="row-input"
                 placeholder={storePhone}
-                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+                onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} />
             editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
         }
 

@@ -44,7 +44,7 @@ class StoreTable extends Component {
                         <th>Store name</th>
                         <th>Address</th>
                         <th>Delivery Order</th>
-                        <th>Store Status</th>
+                        <th>Active?</th>
                         <th>Store Contact Name</th>
                         <th>Store Contact Phone</th>
                         <th>Store Contact Email</th>
