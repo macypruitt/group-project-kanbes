@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
+import AdminPage from '../AdminPage/AdminPage';
 
 
 class App extends Component {
@@ -48,8 +49,9 @@ class App extends Component {
               component={LandingPage}
             />
             <Route
-              exact path="/kanbe"
-              component={KanbeTemplate}
+              exact
+              path="/admin"
+              component={AdminPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
