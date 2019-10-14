@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import NavBar from '../NavBar/NavBar';
+import AdminPage from '../AdminPage/AdminPage';
 
 import './App.css';
 
@@ -50,8 +50,8 @@ class App extends Component {
             />
             <Route
               exact
-              path="/NavBar"
-              component={NavBar}
+              path="/admin"
+              component={AdminPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
