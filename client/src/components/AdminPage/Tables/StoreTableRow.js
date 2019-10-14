@@ -8,13 +8,13 @@ class StoreTableRow extends Component {
         isAddable: this.props.addable || false,
         item: {}
     };
-    
+
     clickEdit = (event) => {
         this.setState({
             ...this.state,
             isEditable: !this.state.isEditable,
             item: this.props.item
-        }, ()=>{
+        }, () => {
             console.log(this.state)
         })
     }
@@ -25,7 +25,8 @@ class StoreTableRow extends Component {
             ...this.state,
             item: {
                 ...this.state.item,
-                [dataKey]:fieldValue}
+                [dataKey]: fieldValue
+            }
         })
         console.log(this.state);
     }
@@ -36,6 +37,12 @@ class StoreTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE PUT TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({
+            type: 'PUT_STORE',
+            payload: {
+                ...this.state.item
+            }
+        })
     }
 
     clickAdd = (event) => {
@@ -57,46 +64,47 @@ class StoreTableRow extends Component {
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
         let storePhone = this.props.item.store_phone_number;
+        let ID = this.props.item.id;
         let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
-        
+
         console.log(status)
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
-        if(this.state.isEditable){
-            name = <input 
-                    className="row-input" 
-                    placeholder={name}
-                    onChange={(event) => this.handleChangeInputText(event, 'name')}
-                     />
+        if (this.state.isEditable) {
+            name = <input
+                className="row-input"
+                placeholder={name}
+                onChange={(event) => this.handleChangeInputText(event, 'name')}
+            />
             address = <input className="row-input"
-                        placeholder={address} 
-                        onChange={(event) => this.handleChangeInputText(event, 'address')}/>
-            order = <input className="row-input" 
-                        placeholder={order} 
-                        onChange={(event) => this.handleChangeInputText(event, 'order')}/>
-            status = <input className="row-input" 
-                        placeholder={status} 
-                        onChange={(event) => this.handleChangeInputText(event, 'status')}/>
-            contactEmail = <input className="row-input" 
-                        placeholder={contactEmail} 
-                        onChange={(event) => this.handleChangeInputText(event, 'status')}/>
-            contactName = <input className="row-input" 
-                        placeholder={contactName} 
-                        onChange={(event) => this.handleChangeInputText(event, 'status')}/>
-            contactPhone = <input className="row-input" 
-                        placeholder={contactPhone} 
-                        onChange={(event) => this.handleChangeInputText(event, 'status')}/>
-            storePhone = <input className="row-input" 
-                        placeholder={storePhone} 
-                        onChange={(event) => this.handleChangeInputText(event, 'status')}/>
+                placeholder={address}
+                onChange={(event) => this.handleChangeInputText(event, 'address')} />
+            order = <input className="row-input"
+                placeholder={order}
+                onChange={(event) => this.handleChangeInputText(event, 'order')} />
+            status = <input className="row-input"
+                placeholder={status}
+                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+            contactEmail = <input className="row-input"
+                placeholder={contactEmail}
+                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+            contactName = <input className="row-input"
+                placeholder={contactName}
+                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+            contactPhone = <input className="row-input"
+                placeholder={contactPhone}
+                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+            storePhone = <input className="row-input"
+                placeholder={storePhone}
+                onChange={(event) => this.handleChangeInputText(event, 'status')} />
             editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
-        if(this.state.isAddable){
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button> 
-        
+        if (this.state.isAddable) {
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+
         }
-        
+
 
         return (
             <tr>

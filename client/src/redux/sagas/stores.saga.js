@@ -25,9 +25,19 @@ function* fetchStores() {
   }
 }
 
+function* putStore(action) {
+  console.log(action)
+  try {
+    yield axios.put(`api/all/stores/${action.payload.id}`, action.payload);
+    yield put({ type: 'FETCH_STORES'});
+  } catch (err) {
+    console.log('PUT store error: ', err)
+  }
+}
 
 function* storesSaga() {
   yield takeLatest('FETCH_STORES', fetchStores);
+  yield takeLatest('PUT_STORE', putStore);
 }
 
 export default storesSaga;
