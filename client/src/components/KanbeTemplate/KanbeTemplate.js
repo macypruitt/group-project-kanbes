@@ -10,12 +10,15 @@ import {
   IconButton,
   Drawer,
   Divider,
+  MenuList,
+  MenuItem
   // Hidden
 } from '@material-ui/core';
 
+
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { lightGreen } from '@material-ui/core/colors';
+
 // import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
@@ -30,7 +33,6 @@ const styles = (theme: Theme) =>
       // color: lightGreen[300]
     },
     appBar: {
-      colorPrimary: lightGreen[300],
       transition: theme.transitions.create(['margin', 'width'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -80,6 +82,9 @@ const styles = (theme: Theme) =>
       }),
       marginLeft: 0,
     },
+    toolbar: {
+      backgroundColor:'#a4bd83',
+    }
   });
 
 class KanbeTemplate extends Component {
@@ -102,23 +107,23 @@ class KanbeTemplate extends Component {
         <CssBaseline />
         <AppBar
           position="fixed"
-          className={clsx(this.props.classes.appBar &&
-            this.props.classes.appBarShift)}
+          className={clsx(this.props.classes.appBar, { 
+            [this.props.classes.appBarShift]: this.state.open,
+          })}
         >
-          <Toolbar>
+          <Toolbar className={this.props.classes.toolbar}>
             <IconButton
-              color='primary'
               aria-label="open drawer"
               onClick={this.handleDrawerOpen}
               edge="start"
-              // className={clsx(this.props.classes.menuButton &&
-              //   this.props.classes.hide)}
+              className={clsx(this.props.classes.menuButton, this.state.open &&
+                this.props.classes.hide)}
             >
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap>
               Kanbe's Market
-                        </Typography>
+            </Typography>
           </Toolbar>
         </AppBar>
         {/* <nav className={this.props.classes.drawer} aria-label="mailbox folders"> */}
@@ -126,7 +131,7 @@ class KanbeTemplate extends Component {
           <Drawer
             className={this.props.classes.drawer}
             variant="persistent"
-            anchor={'left'}
+            anchor="left"
             open={this.state.open}
             classes={{
               paper: this.props.classes.drawerPaper,
@@ -141,20 +146,30 @@ class KanbeTemplate extends Component {
               </IconButton>
             </div>
             <Divider />
-            {/* {drawer} */}
+            <MenuList>
+              <MenuItem>
+                Performance
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                Admin
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                Warehouse Inventory
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                Invoices
+              </MenuItem>
+            </MenuList>
           </Drawer>
-          {/* <Drawer
-                      classes={{
-                        paper: this.props.classes.drawerPaper,
-                      }}
-                      variant="permanent"
-                      open
-                    >
-                      {drawer}
-                    </Drawer> */}
+          
         <main className={this.props.classes.content}>
-          <div className={this.props.classes.toolbar} />
-          <h1>Template!</h1>
+          <div className={this.props.classes.toolbar}></div>
+
+          {this.props.children}
+          
         </main>
       </div>
     );

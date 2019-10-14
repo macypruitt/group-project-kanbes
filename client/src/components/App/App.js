@@ -27,9 +27,11 @@ class App extends Component {
 
   render() {
     return (
-        <Router>
+      
+      <Router>
+        <KanbeTemplate>
         <div>
-          <Nav />
+          {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -85,7 +87,8 @@ class App extends Component {
           </Switch>
           <Footer />
         </div>
-      </Router>
+      </KanbeTemplate>
+    </Router>
   )}
 }
 
