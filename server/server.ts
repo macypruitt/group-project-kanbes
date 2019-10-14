@@ -3,10 +3,12 @@ import bodyParser from 'body-parser';
 import sessionMiddleware from './modules/session-middleware';
 import passport from './strategies/user.strategy';
 import userRouter from './routes/user.router';
+import allUsersRouter from './routes/allusers.router';
 
 require('dotenv').config();
 
 const app: any = express();
+// const allUsersRouter = require('./routes/allusers.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -21,6 +23,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/allUsers', allUsersRouter);
 
 // Serve static files
 app.use(express.static('build'));
