@@ -51,7 +51,7 @@ class StoreTableRow extends Component {
         ////row data is passed to this component through props from StoreTable.js
         let name = this.props.item.name;
         let address = this.props.item.address;
-        let order = this.props.item.order;
+        let order = this.props.item.delivery_route_order;
         let status = this.props.item.status;
         let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
         

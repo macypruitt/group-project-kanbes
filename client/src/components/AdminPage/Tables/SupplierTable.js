@@ -5,6 +5,11 @@ import mapStoreToProps from '../../../redux/mapStoreToProps';
 import SupplierTableRow from './SupplierTableRow';
 
 class SupplierTable extends Component {
+
+    componentDidMount() {
+        this.props.dispatch({type: 'FETCH_SUPPLIERS' })
+    }
+
     state = {
         isAdding: false
     };
@@ -18,31 +23,33 @@ class SupplierTable extends Component {
 
     render() {
 
-        const mockSupplierArray = [
-            {
-                id: 1,
-                name: 'C&C',
-                contact_name: 'Johnny Veg',
-                contact_number: '816-911-9111',
-                address: '5901 Hotchip Lane'
-            },
-            {
-                id: 1,
-                name: 'C&C',
-                contact_name: 'Johnny Veg',
-                contact_number: '816-911-9111',
-                address: '5901 Hotchip Lane'
-            },
-            {
-                id: 1,
-                name: 'C&C',
-                contact_name: 'Johnny Veg',
-                contact_number: '816-911-9111',
-                address: '5901 Hotchip Lane'
-            }
-        ]
+        const suppliersArray = this.props.store.suppliers
 
-        let supplierTableData = mockSupplierArray.map((item, index) => {
+        // const mockSupplierArray = [
+        //     {
+        //         id: 1,
+        //         name: 'C&C',
+        //         contact_name: 'Johnny Veg',
+        //         contact_number: '816-911-9111',
+        //         address: '5901 Hotchip Lane'
+        //     },
+        //     {
+        //         id: 1,
+        //         name: 'C&C',
+        //         contact_name: 'Johnny Veg',
+        //         contact_number: '816-911-9111',
+        //         address: '5901 Hotchip Lane'
+        //     },
+        //     {
+        //         id: 1,
+        //         name: 'C&C',
+        //         contact_name: 'Johnny Veg',
+        //         contact_number: '816-911-9111',
+        //         address: '5901 Hotchip Lane'
+        //     }
+        // ]
+
+        let supplierTableData = suppliersArray.map((item, index) => {
             return (
                 <SupplierTableRow 
                     key={index} 

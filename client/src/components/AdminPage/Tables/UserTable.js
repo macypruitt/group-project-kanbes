@@ -5,6 +5,11 @@ import mapStoreToProps from '../../../redux/mapStoreToProps';
 import UserTableRow from './UserTableRow';
 
 class UserTable extends Component {
+componentDidMount() {
+    this.props.dispatch({type: 'FETCH_USERS' })
+}
+
+
     state = {
         isAdding: false
     };
@@ -18,31 +23,34 @@ class UserTable extends Component {
 
     render() {
 
-        const mockUserArray = [
-            {
-                first_name: "Shanice",
-                last_name: "Gipson",
-                email: "wahoo@yup.com",
-                role: "boss",
-                admin_level: "3"
-            },
-            {
-                first_name: "Shanice",
-                last_name: "Gipson",
-                email: "wahoo@yup.com",
-                role: "boss",
-                admin_level: "3"
-            },
-            {
-                first_name: "Shanice",
-                last_name: "Gipson",
-                email: "wahoo@yup.com",
-                role: "boss",
-                admin_level: "3"
-            },
-        ]
+const usersArray = this.props.store.users
 
-        let userTableData = mockUserArray.map((item, index) => {
+
+        // const mockUserArray = [
+        //     {
+        //         first_name: "Shanice",
+        //         last_name: "Gipson",
+        //         email: "wahoo@yup.com",
+        //         role: "boss",
+        //         admin_level: "3"
+        //     },
+        //     {
+        //         first_name: "Shanice",
+        //         last_name: "Gipson",
+        //         email: "wahoo@yup.com",
+        //         role: "boss",
+        //         admin_level: "3"
+        //     },
+        //     {
+        //         first_name: "Shanice",
+        //         last_name: "Gipson",
+        //         email: "wahoo@yup.com",
+        //         role: "boss",
+        //         admin_level: "3"
+        //     },
+        // ]
+
+        let userTableData = usersArray.map((item, index) => {
             return (
                 <UserTableRow 
                     key={index} 

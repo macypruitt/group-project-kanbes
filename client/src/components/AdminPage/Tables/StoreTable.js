@@ -5,6 +5,10 @@ import mapStoreToProps from '../../../redux/mapStoreToProps';
 import StoreTableRow from './StoreTableRow';
 
 class StoreTable extends Component {
+    componentDidMount() {
+        this.props.dispatch({type: 'FETCH_STORES' })
+    }
+
     state = {
         isAdding: false
     };
@@ -17,32 +21,33 @@ class StoreTable extends Component {
     }
 
     render() {
+        const storesArray = this.props.store.stores
 
-        let mockStoreArray = [
-                {
-                    id:1,
-                    name: 'Hooha',
-                    address: '321 Achoooo',
-                    order: 1,
-                    status: 'active'
-                },
-                {
-                    id:2,
-                    name: 'Hooha',
-                    address: '321 Achoooo',
-                    order: 2,
-                    status: 'probation'
-                },
-                {   
-                    id:3,
-                    name: 'Hooha',
-                    address: '321 Achoooo',
-                    order: 3,
-                    status: 'prospect'
-                },
-            ];
+        // let mockStoreArray = [
+        //         {
+        //             id:1,
+        //             name: 'Hooha',
+        //             address: '321 Achoooo',
+        //             order: 1,
+        //             status: 'active'
+        //         },
+        //         {
+        //             id:2,
+        //             name: 'Hooha',
+        //             address: '321 Achoooo',
+        //             order: 2,
+        //             status: 'probation'
+        //         },
+        //         {   
+        //             id:3,
+        //             name: 'Hooha',
+        //             address: '321 Achoooo',
+        //             order: 3,
+        //             status: 'prospect'
+        //         },
+        //     ];
 
-        let storeTableData = mockStoreArray.map((item, index) => {
+        let storeTableData = storesArray.map((item, index) => {
             return (
                 <StoreTableRow 
                     key={index} 
