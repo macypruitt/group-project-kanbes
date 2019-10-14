@@ -6,6 +6,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "dotenv": "^4.0.0",
+    "material-table": "^1.52.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -17,10 +18,15 @@
     "redux-saga": "^1.0.2"
   },
   "scripts": {
+    "start": "node server/server.js",
     "client": "react-scripts start",
+    "server": "nodemon --watch server server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   },
   "browserslist": [
     ">0.2%",

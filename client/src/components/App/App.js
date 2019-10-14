@@ -19,7 +19,11 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+<<<<<<< HEAD
 import AdminPage from '../AdminPage/AdminPage';
+=======
+import DriverView from '../DriverView/DriverView';
+>>>>>>> 988c18db485f76100a193c584dc9cedb89811eef
 
 import './App.css';
 
@@ -82,6 +86,11 @@ class App extends Component {
               path="/registration"
               authRedirect="/admin"
               component={RegisterPage}
+            />
+            <Route
+            exact
+            path="/driver"
+            component={DriverView}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
