@@ -20,6 +20,13 @@ class StoreTable extends Component {
         })
     }
 
+    clickAddCancel = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: false
+        })
+    }
+
     render() {
         const storesArray = this.props.store.stores
 
@@ -60,7 +67,7 @@ class StoreTable extends Component {
                     {newRow}
                 </table>
                 <button onClick={this.clickAdd}>Add Store</button>
-                <button onClick={this.clickAdd}>Cancel</button>
+                <button onClick={this.clickAddCancel}>Cancel</button>
             </div>
         );
     }
