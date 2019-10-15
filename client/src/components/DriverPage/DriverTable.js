@@ -47,6 +47,7 @@ class DriverTable extends Component {
                     <thead>
                         <tr>
                             <th>Product</th>
+                            <th>Sub-type</th>
                             <th>Standard Par</th>
                             <th>Last Par</th>
                             <th>Sold</th>
@@ -57,7 +58,6 @@ class DriverTable extends Component {
                     </thead>
                     <tbody>
                     {driverDataForRender}
-
                     {newRow}
                     </tbody>
                 </table>
