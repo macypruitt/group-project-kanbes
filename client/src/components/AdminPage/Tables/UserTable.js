@@ -1,8 +1,26 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
-
+import { Button } from '@material-ui/core';
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import UserTableRow from './UserTableRow';
+
+const styles = theme => ({
+    buttonPositive: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
+    },
+    input: {
+        display: 'none',
+    }
+});
 
 class UserTable extends Component {
 componentDidMount() {
@@ -29,7 +47,7 @@ componentDidMount() {
     }
 
     render() {
-
+        const { classes, theme } = this.props;
         const usersArray = this.props.store.users;
 
 
@@ -88,11 +106,18 @@ componentDidMount() {
                     {userTableData}
                     {newRow}
                 </table>
-                <button onClick={this.clickAddUser}>Add User</button>
-                <button onClick={this.clickAddCancel}>Cancel</button>
+                <Button className={classes.buttonPositive} onClick={this.clickAddUser}>Add User</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
             </div>
         );
     }
 }
 
-export default connect(mapStoreToProps)(UserTable);
+UserTable.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(UserTable)
+);
