@@ -65,7 +65,10 @@ class StoreTableRow extends Component {
         let name = this.props.item.name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
-        let status = this.props.item.status;
+        let status = this.props.item.status
+        if (this.props.item.status === true | this.props.item.status === false) {
+            status = this.props.item.status.toString();
+        } 
         let contactEmail = this.props.item.contact_email;
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
