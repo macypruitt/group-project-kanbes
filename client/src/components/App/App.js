@@ -19,7 +19,9 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import DriverView from '../DriverView/DriverView';
+
+import AdminPage from '../AdminPage/AdminPage';
+import DriverPage from '../DriverPage/DriverPage';
 
 import './App.css';
 
@@ -47,6 +49,16 @@ class App extends Component {
               exact
               path="/home"
               component={LandingPage}
+            />
+            <Route
+              exact
+              path="/admin"
+              component={AdminPage}
+            />
+            <Route
+              exact
+              path="/driver"
+              component={DriverPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -81,7 +93,7 @@ class App extends Component {
             <Route
             exact
             path="/driver"
-            component={DriverView}
+            component={DriverPage}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

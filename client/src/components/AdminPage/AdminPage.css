@@ -1,0 +1,26 @@
+.admin-container {
+    margin: auto;
+    text-align: center;
+}
+
+.admin-table{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    border-spacing: 1;
+    border-collapse: collapse;
+}
+
+.admin-table td{
+    border: 1px solid black;
+}
+
+.admin-table > th{
+    padding: 10px;
+}
+
+.row-input{
+    width:100%;
+    box-sizing: border-box;
+    display: block;
+}
