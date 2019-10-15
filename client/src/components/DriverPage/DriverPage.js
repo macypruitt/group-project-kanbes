@@ -4,6 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import DriverTable from './DriverTable';
 import DriverTableRow from './DriverTableRow';
+import './DriverPage.css'
 
 class DriverPage extends Component {
     
@@ -27,7 +28,7 @@ class DriverPage extends Component {
                 product_sub_type: 'Big Red',
                 standard_par: 12,
                 last_par: 8,
-                store_id: 3,
+                store_id: 3
             }
         ]
 

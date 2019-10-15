@@ -25,3 +25,7 @@
   box-sizing: border-box;
   display: block;
 }
+
+h2{
+  text-align: center;
+}

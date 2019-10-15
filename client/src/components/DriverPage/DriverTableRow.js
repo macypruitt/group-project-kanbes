@@ -55,39 +55,52 @@ class DriverTableRow extends Component {
         let product_sub_type = this.props.item.product_sub_type;
         let standard_par = this.props.item.standard_par;
         let last_par = this.props.item.last_par;
-        let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>;
+        let sold;
         let shrink;
         let notes;
+        let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>;
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if(this.state.isEditable){
-            product_name = <input 
+            // product_name = <input 
+            //         className="row-input" 
+            //         placeholder={product_name}
+            //         onChange={(event) => this.handleChangeInputText(event, 'product_name')}
+            //          />
+            // product_sub_type = <input 
+           
+            //         className="row-input" 
+            //         placeholder={product_sub_type}
+            //         onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
+            //          />
+            standard_par = <input 
                     type="tel"
                     pattern="[0-9]*"
-                    className="row-input" 
-                    placeholder={product_name}
-                    onChange={(event) => this.handleChangeInputText(event, 'product_name')}
-                     />
-            product_sub_type = <input 
-                    className="row-input" 
-                    placeholder={product_sub_type}
-                    onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
-                     />
-            standard_par = <input 
                     className="row-input" 
                     placeholder={standard_par}
                     onChange={(event) => this.handleChangeInputText(event, 'standard_par')}
                      />
             last_par = <input 
+                    type="tel"
+                    pattern="[0-9]*"
                     className="row-input" 
                     placeholder={last_par}
                     onChange={(event) => this.handleChangeInputText(event, 'last_par')}
                      />
+            sold = <input 
+                    type="tel"
+                    pattern="[0-9]*"
+                    className="row-input" 
+                    onChange={(event) => this.handleChangeInputText(event, 'sold')}
+                     />
             shrink = <input 
+                    type="tel"
+                    pattern="[0-9]*"
                     className="row-input" 
                     onChange={(event) => this.handleChangeInputText(event, 'shrink')}
                      />
             notes = <input 
+                    type="text"
                     className="row-input" 
                     onChange={(event) => this.handleChangeInputText(event, 'notes')}
                      />
@@ -97,6 +110,17 @@ class DriverTableRow extends Component {
          ////if 'Add Store' button is clicked, Edit changes to Add
          if(this.state.isAddable){
             editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+            product_name = <input 
+            className="row-input" 
+            placeholder={product_name}
+            onChange={(event) => this.handleChangeInputText(event, 'product_name')}
+             />
+    product_sub_type = <input 
+   
+            className="row-input" 
+            placeholder={product_sub_type}
+            onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
+             />
         }
 
         return (
@@ -106,6 +130,7 @@ class DriverTableRow extends Component {
                     <td>{product_sub_type}</td>
                     <td>{standard_par}</td>
                     <td>{last_par}</td>
+                    <td>{sold}</td>
                     <td>{shrink}</td>
                     <td>{notes}</td>
                     <td>{editOrSaveButton}</td>
