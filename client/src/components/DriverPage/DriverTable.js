@@ -6,18 +6,23 @@ import DriverTableRow from './DriverTableRow';
 
 class DriverTable extends Component {
     state = {
-        isAdding: false
+        isAdding: false,
+        itemsToSubmit: []
     };
 
     clickAdd = (event) => {
+        ////'Add Product' button changes state, triggering render of new row
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
         })
     }
 
-    render() {
+    clickExportInvoice = (event) => {
+        ////push history invoice page
+    }
 
+    render() {
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
         driverDataForRender = this.props.dataForDriver;
@@ -29,7 +34,7 @@ class DriverTable extends Component {
             })  
         }
 
-          ////adds a new row when 'Add Store' button is clicked
+          ////adds a new row that is ready to be edited
           let newRow;
           if(this.state.isAdding){
               const emptyItem = {}
@@ -57,11 +62,11 @@ class DriverTable extends Component {
                     </tbody>
                 </table>
 
-                <button onClick={this.clickAdd}>Add Store</button>
+                <button onClick={this.clickAdd}>Add Product</button>
 
                 <br />
 
-                <button onClick={this.clickAdd}>Export Weekly Invoice</button>
+                <button onClick={this.clickExportInvoice}>Export Weekly Invoice</button>
 
             </div>
         );

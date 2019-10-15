@@ -62,6 +62,8 @@ class DriverTableRow extends Component {
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if(this.state.isEditable){
             product_name = <input 
+                    type="tel"
+                    pattern="[0-9]*"
                     className="row-input" 
                     placeholder={product_name}
                     onChange={(event) => this.handleChangeInputText(event, 'product_name')}
