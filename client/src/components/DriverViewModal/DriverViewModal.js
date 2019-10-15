@@ -1,19 +1,23 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import React from 'react';
+import Swal from 'sweetAlert2'
 
-class Modal extends Component {
-    state = {
-        heading: 'Class Component',
-    };
+Swal.fire({
+  title: 'Are you sure?',
+  text: "This is to confirm your entry",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#008000',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Yes, save it!'
+}).then((result) => {
+  if (result.value) {
+    Swal.fire(
+      'Saved!',
+      'Your entry has been saved.',
+      'success'
+    )
+  }
+})
 
-    render() {
-        return (
-            <div>
-                <h2>{this.state.heading}</h2>
-            </div>
-        );
-    }
-}
 
-export default connect(mapStoreToProps)(Modal);
+export default DriverViewModal;
