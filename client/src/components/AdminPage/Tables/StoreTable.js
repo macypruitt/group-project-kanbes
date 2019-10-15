@@ -60,7 +60,7 @@ class StoreTable extends Component {
                     {newRow}
                 </table>
                 <button onClick={this.clickAdd}>Add Store</button>
-                <button onClick={this.clickAdd}>Cancel Add Store</button>
+                <button onClick={this.clickAdd}>Cancel</button>
             </div>
         );
     }
