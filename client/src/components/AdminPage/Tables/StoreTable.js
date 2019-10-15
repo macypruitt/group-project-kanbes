@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
+import { Button } from '@material-ui/core';
 
 import StoreTableRow from './StoreTableRow';
 
@@ -13,7 +14,8 @@ class StoreTable extends Component {
         isAdding: false
     };
 
-    clickAdd = (event) => {
+    clickAddStore = (event) => {
+        console.log('in add store')
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
@@ -34,18 +36,15 @@ class StoreTable extends Component {
             return (
                 <StoreTableRow
                     key={index}
-                    item={item} />
+                    item={item} 
+                    />
             )
         })
-
-        let rowStyle = {
-            display: 'none'
-        }
 
         let newRow;
         if (this.state.isAdding) {
             const emptyItem = {}
-            newRow = <StoreTableRow style={rowStyle} editable={true} addable={true} item={emptyItem} />
+            newRow = <StoreTableRow clickAddStore={this.clickAddStore} editable={true} addable={true} item={emptyItem} />
         }
 
         return (
@@ -66,8 +65,8 @@ class StoreTable extends Component {
 
                     {newRow}
                 </table>
-                <button onClick={this.clickAdd}>Add Store</button>
-                <button onClick={this.clickAddCancel}>Cancel</button>
+                <Button onClick={this.clickAddStore}>Add Store</Button>
+                <Button onClick={this.clickAddCancel}>Cancel</Button>
             </div>
         );
     }
