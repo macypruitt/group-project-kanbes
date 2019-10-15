@@ -6,7 +6,7 @@ import StoreTableRow from './StoreTableRow';
 
 class StoreTable extends Component {
     componentDidMount() {
-        this.props.dispatch({type: 'FETCH_STORES' })
+        this.props.dispatch({ type: 'FETCH_STORES' })
     }
 
     state = {
@@ -25,25 +25,29 @@ class StoreTable extends Component {
 
         let storeTableData = storesArray.map((item, index) => {
             return (
-                <StoreTableRow 
-                    key={index} 
+                <StoreTableRow
+                    key={index}
                     item={item} />
             )
         })
 
+        let rowStyle = {
+            display: 'none'
+        }
+
         let newRow;
-        if(this.state.isAdding){
+        if (this.state.isAdding) {
             const emptyItem = {}
-            newRow = <StoreTableRow editable={true} addable={true} item={emptyItem} />
+            newRow = <StoreTableRow style={rowStyle} editable={true} addable={true} item={emptyItem} />
         }
 
         return (
             <div>
                 <table className="admin-table">
                     <tr>
+                        <th>Delivery Order</th>
                         <th>Store name</th>
                         <th>Address</th>
-                        <th>Delivery Order</th>
                         <th>Active?</th>
                         <th>Store Contact Name</th>
                         <th>Store Contact Phone</th>
@@ -52,10 +56,11 @@ class StoreTable extends Component {
                         <th>Actions</th>
                     </tr>
                     {storeTableData}
-                    
+
                     {newRow}
                 </table>
                 <button onClick={this.clickAdd}>Add Store</button>
+                <button onClick={this.clickAdd}>Cancel Add Store</button>
             </div>
         );
     }

@@ -60,6 +60,13 @@ class StoreTableRow extends Component {
         })
     }
 
+    clickCancelEdit = (event) => {
+        this.setState({
+            isEditable: false,
+        })
+    }
+
+
     render() {
         ////row data is passed to this component through props from StoreTable.js
         let name = this.props.item.name;
@@ -68,7 +75,7 @@ class StoreTableRow extends Component {
         let status = this.props.item.status
         if (this.props.item.status === true | this.props.item.status === false) {
             status = this.props.item.status.toString();
-        } 
+        }
         let contactEmail = this.props.item.contact_email;
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
@@ -78,6 +85,9 @@ class StoreTableRow extends Component {
         console.log(status)
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
+            order = <input className="row-input"
+                placeholder={order}
+                onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
             name = <input
                 className="row-input"
                 placeholder={name}
@@ -86,9 +96,6 @@ class StoreTableRow extends Component {
             address = <input className="row-input"
                 placeholder={address}
                 onChange={(event) => this.handleChangeInputText(event, 'address')} />
-            order = <input className="row-input"
-                placeholder={order}
-                onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
             status = <input className="row-input"
                 placeholder={status}
                 onChange={(event) => this.handleChangeInputText(event, 'status')} />
@@ -104,21 +111,24 @@ class StoreTableRow extends Component {
             storePhone = <input className="row-input"
                 placeholder={storePhone}
                 onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} />
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
+            editOrSaveButton = <div> <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
+                <button onClick={this.clickCancelEdit}>Cancel</button>
+            </div>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+            editOrSaveButton = <div> <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+            </div>
 
         }
 
 
         return (
             <tr>
+                <td>{order}</td>
                 <td>{name}</td>
                 <td>{address}</td>
-                <td>{order}</td>
                 <td>{status}</td>
                 <td>{contactName}</td>
                 <td>{contactPhone}</td>
