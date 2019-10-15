@@ -2,13 +2,57 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
 import { Button, Input } from '@material-ui/core';
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+
+const styles = theme => ({
+    buttonPositive: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
+    },
+    input: {
+        display: 'none',
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
+});
 
 class StoreTableRow extends Component {
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
-        item: {}
+        item: {},
+        status: '',
+        labelWidth: 0
     };
+
+
+    // handleChange = (event,dataKey) => {
+    //     this.setState({
+    //         ...this.state,
+    //         [event.target.name]: event.target.value,
+    //     })
+    // };
 
     clickEdit = (event) => {
         this.setState({
@@ -26,8 +70,9 @@ class StoreTableRow extends Component {
             ...this.state,
             item: {
                 ...this.state.item,
-                [dataKey]: fieldValue
-            }
+                [dataKey]: fieldValue,
+            },
+            [event.target.name]: event.target.value
         })
         console.log(this.state);
     }
@@ -52,7 +97,7 @@ class StoreTableRow extends Component {
             isEditable: !this.state.isEditable,
             isAddable: !this.state.isAddable
         })
-            
+
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
         this.props.dispatch({
             type: 'POST_STORE',
@@ -69,6 +114,7 @@ class StoreTableRow extends Component {
     }
 
     render() {
+        const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
         let name = this.props.item.name;
         let address = this.props.item.address;
@@ -81,9 +127,8 @@ class StoreTableRow extends Component {
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
         let storePhone = this.props.item.store_phone_number;
-        let editOrSaveButton = <Button onClick={this.clickEdit}>Edit</Button>
+        let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
-        console.log(status)
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
             order = <Input className="row-input"
@@ -97,9 +142,21 @@ class StoreTableRow extends Component {
             address = <Input className="row-input"
                 placeholder={address}
                 onChange={(event) => this.handleChangeInputText(event, 'address')} />
-            status = <Input className="row-input"
-                placeholder={status}
-                onChange={(event) => this.handleChangeInputText(event, 'status')} />
+            status = <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="status">{status}</InputLabel>
+                <Select
+                    className="row-input"
+                    onChange={(event) => this.handleChangeInputText(event, 'status')}
+                    value={this.state.status}
+                    inputProps={{
+                        name: 'status',
+                        id: 'status',
+                    }}
+                >
+                    <MenuItem value={'true'}>True</MenuItem>
+                    <MenuItem value={'false'}>False</MenuItem>
+                </Select>
+            </FormControl>
             contactEmail = <Input className="row-input"
                 placeholder={contactEmail}
                 onChange={(event) => this.handleChangeInputText(event, 'contact_email')} />
@@ -112,14 +169,14 @@ class StoreTableRow extends Component {
             storePhone = <Input className="row-input"
                 placeholder={storePhone}
                 onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} />
-            editOrSaveButton = <div> <Button data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
-                <Button onClick={this.clickCancelEdit}>Cancel</Button>
+            editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
-            editOrSaveButton = <Button data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
+            editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
 
 
@@ -139,4 +196,12 @@ class StoreTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(StoreTableRow);
+StoreTableRow.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(StoreTableRow)
+);
+

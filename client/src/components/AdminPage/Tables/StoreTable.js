@@ -2,8 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../../redux/mapStoreToProps';
 import { Button } from '@material-ui/core';
-
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
+
+
+const styles = theme => ({
+    buttonPositive: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
+    },
+    input: {
+        display: 'none',
+    }
+});
+
 
 class StoreTable extends Component {
     componentDidMount() {
@@ -30,14 +49,15 @@ class StoreTable extends Component {
     }
 
     render() {
+        const { classes, theme } = this.props;
         const storesArray = this.props.store.stores
 
         let storeTableData = storesArray.map((item, index) => {
             return (
                 <StoreTableRow
                     key={index}
-                    item={item} 
-                    />
+                    item={item}
+                />
             )
         })
 
@@ -65,11 +85,19 @@ class StoreTable extends Component {
 
                     {newRow}
                 </table>
-                <Button onClick={this.clickAddStore}>Add Store</Button>
-                <Button onClick={this.clickAddCancel}>Cancel</Button>
+                <Button className={classes.buttonPositive} onClick={this.clickAddStore}>Add Store</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
             </div>
         );
     }
 }
 
-export default connect(mapStoreToProps)(StoreTable);
+
+StoreTable.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(StoreTable)
+);
