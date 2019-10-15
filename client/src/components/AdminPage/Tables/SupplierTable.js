@@ -14,10 +14,17 @@ class SupplierTable extends Component {
         isAdding: false
     };
 
-    clickAdd = (event) => {
+    clickAddSupplier = (event) => {
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
+        })
+    }
+
+    clickAddCancel = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: false
         })
     }
 
@@ -60,7 +67,7 @@ class SupplierTable extends Component {
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
-            newRow = <SupplierTableRow editable={true} addable={true} item={emptyItem} />
+            newRow = <SupplierTableRow clickAddSupplier={this.clickAddSupplier} editable={true} addable={true} item={emptyItem} />
         }
 
         return (
@@ -77,7 +84,8 @@ class SupplierTable extends Component {
 
                     {newRow}
                 </table>
-                <button onClick={this.clickAdd}>Add Store</button>
+                <button onClick={this.clickAddSupplier}>Add Supplier</button>
+                <button onClick={this.clickAddCancel}>Cancel</button>
             </div>
         );
     }

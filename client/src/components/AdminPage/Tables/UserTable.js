@@ -14,16 +14,23 @@ componentDidMount() {
         isAdding: false
     };
 
-    clickAdd = (event) => {
+    clickAddUser = (event) => {
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
         })
     }
 
+    clickAddCancel = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: false
+        })
+    }
+
     render() {
 
-const usersArray = this.props.store.users
+        const usersArray = this.props.store.users;
 
 
         // const mockUserArray = [
@@ -62,7 +69,7 @@ const usersArray = this.props.store.users
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
-            newRow = <UserTableRow editable={true} addable={true} item={emptyItem} />
+            newRow = <UserTableRow clickAddUser={this.clickAddUser} editable={true} addable={true} item={emptyItem} />
         }
 
         return (
@@ -81,7 +88,8 @@ const usersArray = this.props.store.users
                     {userTableData}
                     {newRow}
                 </table>
-                <button onClick={this.clickAdd}>Add User</button>
+                <button onClick={this.clickAddUser}>Add User</button>
+                <button onClick={this.clickAddCancel}>Cancel</button>
             </div>
         );
     }
