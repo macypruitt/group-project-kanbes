@@ -21,8 +21,8 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-// import { Route, MemoryRouter } from 'react-router';
-// import { Link as RouterLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
+
 
 
 
@@ -51,8 +51,34 @@ class NavAdmin extends Component {
     handleToggleWarehouse = () => {
         this.setState({ expandWarehouse: !this.state.expand })
     }
-    
 
+    moveToAdminPage = (event) => {
+        this.props.history.push("/admin");
+    }
+   
+    moveToInvoicePage = (event) => {
+        this.props.history.push("/invoice");
+    }
+    
+    moveToInventoryPage = (event) => {
+        this.props.history.push("/inventory");
+    }
+
+    moveToPurchasePage = (event) => {
+        this.props.history.push("/purchase");
+    }
+
+    moveToStorePage = (event) => {
+        this.props.history.push("/store");
+    }
+
+    moveToSupplierPage = (event) => {
+        this.props.history.push("/supplier");
+    }
+
+    moveToProducePage = (event) => {
+        this.props.history.push("/produce");
+    }
       
     render() {
         
@@ -73,19 +99,19 @@ class NavAdmin extends Component {
                 </ListItem>
                     <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem button onClick={this.moveToStorePage} className={this.props.classes.nested}>
                             <ListItemIcon>
                             <StoreIcon />
                             </ListItemIcon>
                             <ListItemText primary="Store" />
                         </ListItem>
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
                             <ListItemIcon>
                             <SupervisorAccountIcon />
                             </ListItemIcon>
                             <ListItemText primary="Supplier" />
                         </ListItem>
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem button onClick={this.moveToProducePage} className={this.props.classes.nested}>
                             <ListItemIcon>
                             <ListAltIcon />
                             </ListItemIcon>
@@ -93,7 +119,7 @@ class NavAdmin extends Component {
                         </ListItem>
                         </List>
                     </Collapse>
-                <ListItem button>
+                <ListItem button onClick={this.moveToAdminPage}>
                 <ListItemIcon>
                     <AssignmentIndIcon />
                 </ListItemIcon>
@@ -108,13 +134,13 @@ class NavAdmin extends Component {
                 </ListItem>
                 <Collapse in={this.state.expandWarehouse} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem button onClick={this.moveToInventoryPage} className={this.props.classes.nested}>
                             <ListItemIcon>
                             <StoreIcon />
                             </ListItemIcon>
                             <ListItemText primary="Inventory" />
                         </ListItem>
-                        <ListItem button className={this.props.classes.nested}>
+                        <ListItem button onClick={this.moveToPurchasePage} className={this.props.classes.nested}>
                             <ListItemIcon>
                             <ShoppingCartIcon />
                             </ListItemIcon>
@@ -122,7 +148,7 @@ class NavAdmin extends Component {
                         </ListItem>
                         </List>
                     </Collapse>
-                <ListItem button>
+                <ListItem button onClick={this.moveToInvoicePage}>
                 <ListItemIcon>
                     <LayersIcon />
                 </ListItemIcon>
@@ -135,4 +161,4 @@ class NavAdmin extends Component {
     }
 }
 
-export default connect(mapStoreToProps) (withStyles(styles)(NavAdmin));
+export default connect(mapStoreToProps) (withStyles(styles)(withRouter(NavAdmin)));

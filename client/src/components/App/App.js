@@ -13,13 +13,18 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminPage from '../AdminPage/AdminPage';
+import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
+import InvoicePage from '../InvoicePage/InvoicePage';
+import InventoryPage from '../InventoryPage/InventoryPage';
+import PurchasePage from '../PurchasePage/PurchasePage';
+import ProducePage from '../ProducePage/ProducePage';
+import SupplierPage from '../SupplierPage/SupplierPage';
+import StorePage from '../StorePage/StorePage';
 
 
 
@@ -41,12 +46,12 @@ class App extends Component {
             <Route
               exact
               path="/about"
-              component={AboutPage}
+              component={KanbeTemplate}
             />
             <Route
               exact
               path="/home"
-              component={LandingPage}
+              component={LoginPage}
             />
             <Route
               exact
@@ -55,8 +60,33 @@ class App extends Component {
             />
             <Route
               exact
-              path="/login"
-              component={LoginPage}
+              path="/invoice"
+              component={InvoicePage}
+            />
+            <Route
+              exact
+              path="/inventory"
+              component={InventoryPage}
+            />
+            <Route
+              exact
+              path="/purchase"
+              component={PurchasePage}
+            />
+            <Route
+              exact
+              path="/store"
+              component={StorePage}
+            />
+            <Route
+              exact
+              path="/supplier"
+              component={SupplierPage}
+            />
+            <Route
+              exact
+              path="/produce"
+              component={ProducePage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
