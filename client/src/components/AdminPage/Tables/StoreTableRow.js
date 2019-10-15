@@ -38,21 +38,16 @@ const styles = theme => ({
 });
 
 class StoreTableRow extends Component {
+
+
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
+        // editDeliveryOder: this.props.orderIsEditable || false,
         item: {},
         status: '',
         labelWidth: 0
     };
-
-
-    // handleChange = (event,dataKey) => {
-    //     this.setState({
-    //         ...this.state,
-    //         [event.target.name]: event.target.value,
-    //     })
-    // };
 
     clickEdit = (event) => {
         this.setState({
@@ -65,6 +60,14 @@ class StoreTableRow extends Component {
     }
 
     handleChangeInputText(event, dataKey) {
+        // let deliveryOrderArray = [];
+        // for(let i=0;i<this.props.store.stores.length; i++){
+        //     deliveryOrderArray.push(this.props.store.stores[i].delivery_route_order)
+        // }
+        // console.log(deliveryOrderArray.includes('3'))
+        // if(dataKey==='delivery_route_order' && deliveryOrderArray.includes(event.target.value)) {
+        //     console.log('value already exists')
+        // }
         const fieldValue = event.target.value;
         this.setState({
             ...this.state,
@@ -113,7 +116,14 @@ class StoreTableRow extends Component {
         })
     }
 
+
+
     render() {
+        // let deliveryOrderArray = [];
+        // for(let i=0;i<this.props.store.stores.length; i++){
+        //     deliveryOrderArray.push(this.props.store.stores[i].delivery_route_order)
+        // }
+
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
         let name = this.props.item.name;
@@ -129,11 +139,15 @@ class StoreTableRow extends Component {
         let storePhone = this.props.item.store_phone_number;
         let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
-        ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
-        if (this.state.isEditable) {
+        if (this.props.store.editDeliveryOrderStatus) {
             order = <Input className="row-input"
                 placeholder={order}
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
+        }
+
+        ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
+        if (this.state.isEditable) {
+
             name = <Input
                 className="row-input"
                 placeholder={name}
@@ -177,6 +191,9 @@ class StoreTableRow extends Component {
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
+            order = <Input className="row-input"
+            placeholder={order}
+            onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
 

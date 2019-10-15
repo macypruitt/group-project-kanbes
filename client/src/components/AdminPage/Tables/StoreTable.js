@@ -30,7 +30,8 @@ class StoreTable extends Component {
     }
 
     state = {
-        isAdding: false
+        isAdding: false,
+        orderIsEditable: false,
     };
 
     clickAddStore = (event) => {
@@ -44,11 +45,26 @@ class StoreTable extends Component {
     clickAddCancel = (event) => {
         this.setState({
             ...this.state,
-            isAdding: false
+            isAdding: false,
+            orderIsEditable: false
         })
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
+    }
+
+    clickEditDeliveryOrder = (event) => {
+        this.setState({
+            orderIsEditable: !this.state.orderIsEditable
+        })
+        
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE',payload: this.props.store.editDeliveryOrderStatus  })
+    }
+
+    clickSaveDeliveryOrder = (event) => {
+        //put to database
     }
 
     render() {
+        console.log(this.props.store.editDeliveryOrderStatus)
         const { classes, theme } = this.props;
         const storesArray = this.props.store.stores
 
@@ -65,6 +81,11 @@ class StoreTable extends Component {
         if (this.state.isAdding) {
             const emptyItem = {}
             newRow = <StoreTableRow clickAddStore={this.clickAddStore} editable={true} addable={true} item={emptyItem} />
+        }
+
+        let editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickEditDeliveryOrder}>Edit Delivery Order</Button>
+        if (this.props.store.editDeliveryOrderStatus) {
+            editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickSaveDeliveryOrder}>Save New Delivery Order</Button>
         }
 
         return (
@@ -85,6 +106,7 @@ class StoreTable extends Component {
 
                     {newRow}
                 </table>
+                {editorSaveDeliveryButton}
                 <Button className={classes.buttonPositive} onClick={this.clickAddStore}>Add Store</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
             </div>
