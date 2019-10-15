@@ -10,8 +10,8 @@ import {
   IconButton,
   Drawer,
   Divider,
-  MenuList,
-  MenuItem
+  Container,
+  // List,
   // Hidden
 } from '@material-ui/core';
 
@@ -19,8 +19,10 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 
-// import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+
+import NavAdmin from '../Nav/Nav.Admin';
 
 
 
@@ -30,61 +32,81 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
-      // color: lightGreen[300]
+    },
+    toolbar: {
+      paddingRight: 24, // keep right padding when drawer closed
+      backgroundColor:'#a4bd83',
+    },
+    toolbarIcon: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar,
     },
     appBar: {
-      transition: theme.transitions.create(['margin', 'width'], {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
     },
     appBarShift: {
-      width: `calc(100% -${drawerWidth}px)`,
       marginLeft: drawerWidth,
-      transition: theme.transitions.create(['margin', 'width'], {
-        easing: theme.transitions.easing.easeOut,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.enteringScreen,
       }),
     },
     menuButton: {
-      marginRight: theme.spacing(2),
+      marginRight: 36,
     },
-    hide: {
+    menuButtonHidden: {
       display: 'none',
     },
-    drawer: {
-      width: drawerWidth,
-      flexShrink: 0,
+    title: {
+      flexGrow: 1,
     },
     drawerPaper: {
+      position: 'relative',
+      whiteSpace: 'nowrap',
       width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
     },
-    drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
-    },
-    content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
+    drawerPaperClose: {
+      overflowX: 'hidden',
+      transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      marginLeft: -drawerWidth,
+      width: theme.spacing(7),
+      [theme.breakpoints.up('sm')]: {
+        width: theme.spacing(9),
+      },
     },
-    contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
+    appBarSpacer: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      height: '100vh',
+      overflow: 'auto',
     },
-    toolbar: {
-      backgroundColor:'#a4bd83',
-    }
+    container: {
+      paddingTop: theme.spacing(4),
+      paddingBottom: theme.spacing(4),
+    },
+    paper: {
+      padding: theme.spacing(2),
+      display: 'flex',
+      overflow: 'auto',
+      flexDirection: 'column',
+    },
+    fixedHeight: {
+      height: 240,
+    },
   });
 
 class KanbeTemplate extends Component {
@@ -106,7 +128,7 @@ class KanbeTemplate extends Component {
       <div className={this.props.classes.root}>
         <CssBaseline />
         <AppBar
-          position="fixed"
+          position="absolute"
           className={clsx(this.props.classes.appBar, { 
             [this.props.classes.appBarShift]: this.state.open,
           })}
@@ -121,7 +143,7 @@ class KanbeTemplate extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" noWrap>
+            <Typography component="h1" variant="h6" noWrap className={this.props.classes.title}>
               Kanbe's Market
             </Typography>
           </Toolbar>
@@ -137,39 +159,24 @@ class KanbeTemplate extends Component {
               paper: this.props.classes.drawerPaper,
             }}
           >
-            <div className={this.props.classes.drawerHeader}>
+            <div className={this.props.classes.toolbarIcon}>
               <IconButton onClick={this.handleDrawerClose}>
                 {/* {this.props.theme.direction === 'ltr' ? 
                 <ChevronLeftIcon /> :  */}
-                <ChevronRightIcon />
+                <ChevronLeftIcon />
                 {/* } */}
               </IconButton>
             </div>
             <Divider />
-            <MenuList>
-              <MenuItem>
-                Performance
-              </MenuItem>
-              <Divider />
-              <MenuItem>
-                Admin
-              </MenuItem>
-              <Divider />
-              <MenuItem>
-                Warehouse Inventory
-              </MenuItem>
-              <Divider />
-              <MenuItem>
-                Invoices
-              </MenuItem>
-            </MenuList>
+            <NavAdmin />
+            <Divider />
           </Drawer>
           
         <main className={this.props.classes.content}>
-          <div className={this.props.classes.toolbar}></div>
-
+          <div className={this.props.classes.appBarSpacer} />
+          <Container maxWidth="lg" className={this.props.classes.container}>
           {this.props.children}
-          
+          </Container>
         </main>
       </div>
     );

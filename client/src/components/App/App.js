@@ -8,7 +8,7 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+// import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
@@ -19,8 +19,8 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import AdminPage from '../AdminPage/AdminPage';
+
 
 
 class App extends Component {
@@ -30,7 +30,7 @@ class App extends Component {
     return (
       
       <Router>
-        <KanbeTemplate>
+        
         <div>
           {/* <Nav /> */}
           <Switch>
@@ -52,6 +52,11 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminPage}
+            />
+            <Route
+              exact
+              path="/login"
+              component={LoginPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -89,7 +94,7 @@ class App extends Component {
           </Switch>
           <Footer />
         </div>
-      </KanbeTemplate>
+      
     </Router>
   )}
 }

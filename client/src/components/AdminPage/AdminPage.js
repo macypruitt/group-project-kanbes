@@ -7,27 +7,31 @@ import UserTable from './Tables/UserTable';
 import SupplierTable from './Tables/SupplierTable';
 
 import './AdminPage.css'
+import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
 class AdminPage extends Component {
     
     render() {
 
         return (
-            <div className="admin-container">
+            <KanbeTemplate>
+                <div className="admin-container">
+                    
+                    <h2>Admin Page</h2>
+                    
+                    <h3>Stores</h3>
+                    <StoreTable />
+                    <br />
+                    
+                    <h3>Users</h3>
+                    <UserTable />
+                    <br />
+                    
+                    <h3>Suppliers</h3>
+                    <SupplierTable />
+                </div>
+            </KanbeTemplate>
                 
-                <h2>Admin Page</h2>
-                
-                <h3>Stores</h3>
-                <StoreTable />
-                <br />
-                
-                <h3>Users</h3>
-                <UserTable />
-                <br />
-                
-                <h3>Suppliers</h3>
-                <SupplierTable />
-            </div>
         );
     }
 }
