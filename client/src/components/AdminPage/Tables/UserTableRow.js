@@ -43,6 +43,7 @@ class UserTableRow extends Component {
     }
 
     clickAdd = (event) => {
+        this.props.clickAddUser();
         this.setState({
             isEditable: !this.state.isEditable,
             isAddable: !this.state.isAddable
@@ -53,6 +54,12 @@ class UserTableRow extends Component {
             payload: {
                 ...this.state.item
             }
+        })
+    }
+
+    clickCancelEdit = event => {
+        this.setState({
+            isEditable: false,
         })
     }
 
@@ -98,7 +105,9 @@ class UserTableRow extends Component {
             admin_level = <input className="row-input" 
                         placeholder={admin_level} 
                         onChange={(event) => this.handleChangeInputText(event, 'admin_level')}/>
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
+            editOrSaveButton = <div><button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
+                            <button onClick={this.clickCancelEdit}>Cancel</button>
+                            </div>
         }
 
         ////if Add Store button is clicked

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { put, takeLatest } from 'redux-saga/effects';
 
-// worker Saga: will be fired on "FETCH_USER" actions
+// GET for to grab all suppliers in database: will be fired on "FETCH_SUPPLIERS" actions
 function* fetchSuppliers() {
   try {
     // const config = {
@@ -25,9 +25,30 @@ function* fetchSuppliers() {
   }
 }
 
+// Saga to POST a supplier to database. Fired off by 'ADD_SUPPLIER'
+function* addSupplier(action) {
+  try {
+    yield axios.post('/api/allSuppliers/newSupplier', action.payload);
+    yield put({type: 'FETCH_SUPPLIERS'});
+  } catch (error) {
+    console.log('Error with admin adding new supplier: ', error);
+  }
+} 
+
+// Saga to update supplier data in database. Fired off by 'UPDATE_SUPPLIER'
+function* updateSupplier(action) {
+  try {
+    yield axios.put(`/api/allSuppliers/editSupplier/${action.payload.id}`, action.payload);
+    yield put({type: 'FETCH_SUPPLIERS'});
+  } catch (error) {
+    console.log('Error with admin editing supplier: ', error);
+  }
+}
 
 function* suppliersSaga() {
   yield takeLatest('FETCH_SUPPLIERS', fetchSuppliers);
+  yield takeLatest('ADD_SUPPLIER', addSupplier);
+  yield takeLatest('UPDATE_SUPPLIER', updateSupplier);
 }
 
 export default suppliersSaga;
