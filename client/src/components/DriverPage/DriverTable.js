@@ -6,22 +6,35 @@ import DriverTableRow from './DriverTableRow';
 
 class DriverTable extends Component {
     state = {
-        heading: 'Class Component',
+        isAdding: false
     };
 
-    
+    clickAdd = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: !this.state.isAdding
+        })
+    }
+
     render() {
 
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
         driverDataForRender = this.props.dataForDriver;
+
+        ////if reducer holds data, map it into rows of the table
         if(driverDataForRender.length > 0){
             driverDataForRender = driverDataForRender.map((item, index) => {
-                return <DriverTableRow key={index} data={item} />
-            })
-            
+                return <DriverTableRow key={index} item={item} />
+            })  
         }
 
+          ////adds a new row when 'Add Store' button is clicked
+          let newRow;
+          if(this.state.isAdding){
+              const emptyItem = {}
+              newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddStore={this.clickAdd}/>
+          }
 
         return (
             <div>
@@ -29,7 +42,7 @@ class DriverTable extends Component {
                     <thead>
                         <tr>
                             <th>Product</th>
-                            <th>Ideal Par</th>
+                            <th>Standard Par</th>
                             <th>Last Par</th>
                             <th>Sold</th>
                             <th>Shrink</th>
@@ -38,9 +51,18 @@ class DriverTable extends Component {
                         </tr>
                     </thead>
                     <tbody>
+                    {driverDataForRender}
 
+                    {newRow}
                     </tbody>
                 </table>
+
+                <button onClick={this.clickAdd}>Add Store</button>
+
+                <br />
+
+                <button onClick={this.clickAdd}>Export Weekly Invoice</button>
+
             </div>
         );
     }

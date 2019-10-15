@@ -9,12 +9,14 @@ class DriverPage extends Component {
     
     
     state = {
-        heading: 'Class Component',
+        
     };
-
+    componentDidMount(){
+        ////Saga dispatches GET, stores in reducer
+    }
 
     render() {
-        ////this simulates the array data from the database query
+        ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver=[];
         dataForDriver = [
             {   
@@ -32,6 +34,8 @@ class DriverPage extends Component {
         if(dataForDriver.length > 0){
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
             ////data from reducer is passed to table as props
+
+            const storeName = dataForDriver
         }
 
 
