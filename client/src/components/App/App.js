@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DriverView from '../DriverView/DriverView';
+import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
 import './App.css';
 
@@ -78,10 +79,15 @@ class App extends Component {
               authRedirect="/admin"
               component={RegisterPage}
             />
-            <Route
+            {/* <Route
             exact
             path="/driver"
             component={DriverView}
+            /> */}
+            <Route
+            exact 
+            path="/modal"
+            component={DriverViewModal}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

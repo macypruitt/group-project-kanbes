@@ -1,23 +1,31 @@
-import React from 'react';
-import Swal from 'sweetAlert2'
 
-Swal.fire({
-  title: 'Are you sure?',
-  text: "This is to confirm your entry",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#008000',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, save it!'
-}).then((result) => {
-  if (result.value) {
-    Swal.fire(
-      'Saved!',
-      'Your entry has been saved.',
-      'success'
-    )
-  }
-})
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import Swal from 'sweetalert2-react'
+import mapStoreToProps from '../../redux/mapStoreToProps';
+
+class DriverViewModal extends Component {
+    state = {
+      show: 'Content Saved'
+    };
+    
+
+render() {
+
+    return (
+        <div>
+<button onClick={() => this.setState({ show: true })}>Alert</button>
+      <Swal
+        show={this.state.show}
+        title="Demo"
+        text="SweetAlert in React"
+        onConfirm={() => this.setState({ show: false })}
+      />
 
 
-export default DriverViewModal;
+        </div>
+    );
+}
+}
+
+export default connect(mapStoreToProps)(DriverViewModal);
