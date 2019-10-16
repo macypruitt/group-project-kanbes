@@ -86,6 +86,7 @@ class StoreTable extends Component {
             )
         })
 
+        ////adds a new row when 'Add Store' button is clicked
         let newRow;
         if (this.state.isAdding) {
             const emptyItem = {}

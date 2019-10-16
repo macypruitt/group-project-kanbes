@@ -19,7 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+
 import AdminPage from '../AdminPage/AdminPage';
+import DriverPage from '../DriverPage/DriverPage';
+import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
 import './App.css';
 
@@ -53,6 +56,11 @@ class App extends Component {
               path="/admin"
               component={AdminPage}
             />
+            <Route
+              exact
+              path="/driver"
+              component={DriverPage}
+            />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -82,6 +90,16 @@ class App extends Component {
               path="/registration"
               authRedirect="/admin"
               component={RegisterPage}
+            />
+            {/* <Route
+            exact
+            path="/driver"
+            component={DriverView}
+            /> */}
+            <Route
+            exact 
+            path="/modal"
+            component={DriverViewModal}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

@@ -51,30 +51,6 @@ class SupplierTable extends Component {
         const { classes, theme } = this.props;
         const suppliersArray = this.props.store.suppliers
 
-        // const mockSupplierArray = [
-        //     {
-        //         id: 1,
-        //         name: 'C&C',
-        //         contact_name: 'Johnny Veg',
-        //         contact_number: '816-911-9111',
-        //         address: '5901 Hotchip Lane'
-        //     },
-        //     {
-        //         id: 1,
-        //         name: 'C&C',
-        //         contact_name: 'Johnny Veg',
-        //         contact_number: '816-911-9111',
-        //         address: '5901 Hotchip Lane'
-        //     },
-        //     {
-        //         id: 1,
-        //         name: 'C&C',
-        //         contact_name: 'Johnny Veg',
-        //         contact_number: '816-911-9111',
-        //         address: '5901 Hotchip Lane'
-        //     }
-        // ]
-
         let supplierTableData = suppliersArray.map((item, index) => {
             return (
                 <SupplierTableRow 
@@ -83,6 +59,7 @@ class SupplierTable extends Component {
             )
         })
 
+        ////a new row is added when 'Add Supplier' button is clicked
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
