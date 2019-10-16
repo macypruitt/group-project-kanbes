@@ -109,7 +109,8 @@ const styles = (theme: Theme) =>
 
 class KanbeTemplate extends Component {
   state = {
-    open: false
+    open: false,
+    admin_level: 2
   }
 
   handleDrawerOpen = () => {
@@ -122,6 +123,27 @@ class KanbeTemplate extends Component {
 
   render() {
     
+    let drawer;
+
+    if(this.state.admin_level == 1) {
+      drawer = 
+      <div>
+        <Divider />
+        <NavAdmin />
+        <Divider />
+        <NavDriver />
+      </div>
+    }
+
+    if(this.state.admin_level == 2 ) {
+      drawer = 
+      <div>
+        <Divider />
+        <NavDriver />
+      </div>
+    }
+      
+
     return (
       <div className={this.props.classes.root}>
         <CssBaseline />
@@ -165,10 +187,8 @@ class KanbeTemplate extends Component {
                 {/* } */}
               </IconButton>
             </div>
-            <Divider />
-            <NavAdmin />
-            <Divider />
-            <NavDriver />
+            {drawer}
+            
           </Drawer>
           
         <main className={this.props.classes.content}>
