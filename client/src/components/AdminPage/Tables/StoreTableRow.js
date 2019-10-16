@@ -37,6 +37,7 @@ const styles = theme => ({
     },
 });
 
+
 class StoreTableRow extends Component {
 
 
@@ -45,6 +46,7 @@ class StoreTableRow extends Component {
         isAddable: this.props.addable || false,
         // editDeliveryOder: this.props.orderIsEditable || false,
         item: {},
+        deliveryOrderArray: this.props.store.stores,
         status: '',
         labelWidth: 0
     };
@@ -60,14 +62,6 @@ class StoreTableRow extends Component {
     }
 
     handleChangeInputText(event, dataKey) {
-        // let deliveryOrderArray = [];
-        // for(let i=0;i<this.props.store.stores.length; i++){
-        //     deliveryOrderArray.push(this.props.store.stores[i].delivery_route_order)
-        // }
-        // console.log(deliveryOrderArray.includes('3'))
-        // if(dataKey==='delivery_route_order' && deliveryOrderArray.includes(event.target.value)) {
-        //     console.log('value already exists')
-        // }
         const fieldValue = event.target.value;
         this.setState({
             ...this.state,
@@ -77,7 +71,29 @@ class StoreTableRow extends Component {
             },
             [event.target.name]: event.target.value
         })
+    }
+
+
+
+    handleChangeDeliveryOrder(event, dataKey) {
+        let storeArray = this.props.store.stores;
+        const fieldValue = event.target.value;
+        const placeholder = event.target.placeholder
+        for (let i = 0; i < storeArray.length; i++) {
+            if (storeArray[i].delivery_route_order == placeholder) {
+                storeArray[i].delivery_route_order = fieldValue
+            }
+        }
+
+        this.setState({
+            ...this.state,
+            deliveryOrderArray: storeArray,
+            [event.target.name]: event.target.value
+        })
         console.log(this.state);
+
+        //dispatch to reducer that holds delivery route array globally and then dispatch that array from store table component on save
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_ARRAY', payload: this.state.deliveryOrderArray })
     }
 
     clickSave = (event) => {
@@ -119,10 +135,6 @@ class StoreTableRow extends Component {
 
 
     render() {
-        // let deliveryOrderArray = [];
-        // for(let i=0;i<this.props.store.stores.length; i++){
-        //     deliveryOrderArray.push(this.props.store.stores[i].delivery_route_order)
-        // }
 
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
@@ -142,7 +154,7 @@ class StoreTableRow extends Component {
         if (this.props.store.editDeliveryOrderStatus) {
             order = <Input className="row-input"
                 placeholder={order}
-                onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
+                onChange={(event) => this.handleChangeDeliveryOrder(event, 'delivery_route_order')} />
         }
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
@@ -192,8 +204,8 @@ class StoreTableRow extends Component {
         if (this.state.isAddable) {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
             order = <Input className="row-input"
-            placeholder={order}
-            onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
+                placeholder={order}
+                onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
 

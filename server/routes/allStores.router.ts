@@ -54,16 +54,17 @@ router.put('/update/DeliveryRoutes', (req: Request, res: Response, next: express
     console.log('req.body', req.body)
 
     let queryText: string = `UPDATE "stores"
-                    SET "delivery_route_order" = CASE "id"`
+                    SET "delivery_route_order" = CASE "id" `
 
     for (let i = 0; i < deliveryRoutesArray.length; i++) {
-        let queryStringToAdd = 'WHEN ' + deliveryRoutesArray[i].id + 'THEN' + deliveryRoutesArray[i].delivery_route_order
+        let queryStringToAdd = ' WHEN ' + deliveryRoutesArray[i].id + ' THEN ' + deliveryRoutesArray[i].delivery_route_order
         queryText += queryStringToAdd
     }
 
-    queryText += `ELSE "delivery_route_order" END`
 
+    queryText += ` ELSE "delivery_route_order" END`
 
+console.log(queryText)
 
     pool.query(queryText)
         .then(() => { res.sendStatus(201) })
