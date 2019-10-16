@@ -1,24 +1,23 @@
 import React, { Component } from "react";
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
+// import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import DashboardIcon from '@material-ui/icons/Dashboard';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+
 // import PeopleIcon from '@material-ui/icons/People';
-import BarChartIcon from '@material-ui/icons/BarChart';
-import LayersIcon from '@material-ui/icons/Layers';
+// import BarChartIcon from '@material-ui/icons/BarChart';
+// import LayersIcon from '@material-ui/icons/Layers';
 import Collapse from '@material-ui/core/Collapse';
-import StoreIcon from '@material-ui/icons/Store';
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+// import StoreIcon from '@material-ui/icons/Store';
+// import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import { 
     createStyles,
     withStyles
 } from "@material-ui/core";
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { connect } from 'react-redux';
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
-import ListAltIcon from '@material-ui/icons/ListAlt';
+// import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+// import ListAltIcon from '@material-ui/icons/ListAlt';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { withRouter } from 'react-router';
@@ -66,35 +65,24 @@ class NavDriver extends Component {
                 className={this.props.classes.root}
             >
                 <ListItem button onClick={this.handleToggle}>
-                    <ListItemIcon>
-                        <StoreIcon />
-                    </ListItemIcon>
                     <ListItemText primary="Delivery" />
                     {this.state.expand ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
                     <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                        <ListItem button onClick={this.moveTo} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <StoreIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Store" />
+                        <ListItem button onClick={this.moveToDriverPage} className={this.props.classes.nested}>
+                            <ListItemText primary="Store 1" />
                         </ListItem>
                         <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <SupervisorAccountIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Supplier" />
+                           
+                            <ListItemText primary="Store 2" />
                         </ListItem>
                         <ListItem button onClick={this.moveToProducePage} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <ListAltIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Produce" />
+                            
+                            <ListItemText primary="Store 3" />
                         </ListItem>
                         </List>
                     </Collapse>
-                
             </List>
 
         )

@@ -23,6 +23,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
 
 import NavAdmin from '../Nav/Nav.Admin';
+import NavDriver from '../Nav/Nav.Driver';
 
 
 
@@ -167,6 +168,7 @@ class KanbeTemplate extends Component {
             <Divider />
             <NavAdmin />
             <Divider />
+            <NavDriver />
           </Drawer>
           
         <main className={this.props.classes.content}>

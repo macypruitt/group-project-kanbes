@@ -19,7 +19,6 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import AdminPage from '../AdminPage/AdminPage';
-<<<<<<< HEAD
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import InvoicePage from '../InvoicePage/InvoicePage';
 import InventoryPage from '../InventoryPage/InventoryPage';
@@ -28,10 +27,8 @@ import ProducePage from '../ProducePage/ProducePage';
 import SupplierPage from '../SupplierPage/SupplierPage';
 import StorePage from '../StorePage/StorePage';
 
-=======
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
->>>>>>> develop
 
 
 class App extends Component {
@@ -93,6 +90,9 @@ class App extends Component {
               exact
               path="/produce"
               component={ProducePage}
+            />
+            <Route
+              exact
               path="/driver"
               component={DriverPage}
             />
