@@ -19,9 +19,10 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import DriverView from '../DriverView/DriverView';
-import DriverViewModal from '../DriverViewModal/DriverViewModal';
+
 import AdminPage from '../AdminPage/AdminPage';
+import DriverPage from '../DriverPage/DriverPage';
+import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
 import './App.css';
 
@@ -54,6 +55,11 @@ class App extends Component {
               exact
               path="/admin"
               component={AdminPage}
+            />
+            <Route
+              exact
+              path="/driver"
+              component={DriverPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
