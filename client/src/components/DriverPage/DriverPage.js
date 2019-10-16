@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+
 import DriverTable from './DriverTable';
-import DriverTableRow from './DriverTableRow';
 import './DriverPage.css'
 
 class DriverPage extends Component {
     
     state = {
-        heading: 'Store Name'
+        heading:'Store Name'
     };
+
     componentDidMount(){
         ////Saga dispatches GET, stores in reducer
         ////setState using store name as header
@@ -38,10 +39,12 @@ class DriverPage extends Component {
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
         }
 
+      
 
         return (
             <div className="driver-container">
                 <h2>{this.state.heading}</h2>
+              
                 {driverTableHolder}
             </div>
         );

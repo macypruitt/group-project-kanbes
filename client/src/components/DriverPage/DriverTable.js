@@ -18,10 +18,6 @@ class DriverTable extends Component {
         })
     }
 
-    clickExportInvoice = (event) => {
-        ////push history invoice page
-    }
-
     render() {
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
@@ -61,13 +57,8 @@ class DriverTable extends Component {
                     {newRow}
                     </tbody>
                 </table>
-
                 <button onClick={this.clickAdd}>Add Product</button>
-
                 <br />
-
-                <button onClick={this.clickExportInvoice}>Export Weekly Invoice</button>
-
             </div>
         );
     }

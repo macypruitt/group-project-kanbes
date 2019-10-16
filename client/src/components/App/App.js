@@ -90,11 +90,7 @@ class App extends Component {
               authRedirect="/admin"
               component={RegisterPage}
             />
-            <Route
-            exact
-            path="/driver"
-            component={DriverPage}
-            />
+          
 
             {/* If none of the other routes matched, we will show a 404. */}
             <Route render={() => <h1>404</h1>} />
