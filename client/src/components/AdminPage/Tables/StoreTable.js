@@ -17,7 +17,7 @@ class StoreTable extends Component {
     }
 
     render() {
-
+        ////made up data for the purpose of testing client-side logic
         let mockStoreArray = [
                 {
                     id:1,
@@ -42,6 +42,7 @@ class StoreTable extends Component {
                 },
             ];
 
+        ////map function to create rows with array data
         let storeTableData = mockStoreArray.map((item, index) => {
             return (
                 <StoreTableRow 
@@ -50,6 +51,7 @@ class StoreTable extends Component {
             )
         })
 
+        ////adds a new row when 'Add Store' button is clicked
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}

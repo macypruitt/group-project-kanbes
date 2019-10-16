@@ -17,7 +17,9 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+
 import AdminPage from '../AdminPage/AdminPage';
+<<<<<<< HEAD
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import InvoicePage from '../InvoicePage/InvoicePage';
 import InventoryPage from '../InventoryPage/InventoryPage';
@@ -26,6 +28,10 @@ import ProducePage from '../ProducePage/ProducePage';
 import SupplierPage from '../SupplierPage/SupplierPage';
 import StorePage from '../StorePage/StorePage';
 
+=======
+import DriverPage from '../DriverPage/DriverPage';
+import DriverViewModal from '../DriverViewModal/DriverViewModal';
+>>>>>>> develop
 
 
 class App extends Component {
@@ -87,6 +93,8 @@ class App extends Component {
               exact
               path="/produce"
               component={ProducePage}
+              path="/driver"
+              component={DriverPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -117,6 +125,16 @@ class App extends Component {
               path="/registration"
               authRedirect="/admin"
               component={RegisterPage}
+            />
+            {/* <Route
+            exact
+            path="/driver"
+            component={DriverView}
+            /> */}
+            <Route
+            exact 
+            path="/modal"
+            component={DriverViewModal}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}

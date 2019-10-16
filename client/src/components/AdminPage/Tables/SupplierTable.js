@@ -50,6 +50,7 @@ class SupplierTable extends Component {
             )
         })
 
+        ////a new row is added when 'Add Supplier' button is clicked
         let newRow;
         if(this.state.isAdding){
             const emptyItem = {}
@@ -70,7 +71,7 @@ class SupplierTable extends Component {
 
                     {newRow}
                 </table>
-                <button onClick={this.clickAdd}>Add Store</button>
+                <button onClick={this.clickAdd}>Add Supplier</button>
             </div>
         );
     }
