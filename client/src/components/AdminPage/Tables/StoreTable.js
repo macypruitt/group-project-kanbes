@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
+import Swal from 'sweetalert2-react';
 
 
 const styles = theme => ({
@@ -32,10 +33,10 @@ class StoreTable extends Component {
     state = {
         isAdding: false,
         orderIsEditable: false,
+        show: false
     };
 
     clickAddStore = (event) => {
-        console.log('in add store')
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
@@ -55,8 +56,17 @@ class StoreTable extends Component {
         this.setState({
             orderIsEditable: !this.state.orderIsEditable
         })
-        
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE',payload: this.props.store.editDeliveryOrderStatus  })
+
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
+
+        //check if delivery order array has duplicate values
+        var values = this.props.store.deliveryOrderArray
+        console.log(values)
+        var valueArr = values.map(function(item){ return item.delivery_route_order });
+        var isDuplicate = valueArr.some(function(item, idx){ 
+            return valueArr.indexOf(item) != idx 
+        });
+        console.log(isDuplicate);
     }
 
 
@@ -65,24 +75,37 @@ class StoreTable extends Component {
         this.setState({
             orderIsEditable: !this.state.orderIsEditable
         })
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus });
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES',payload: this.props.store.deliveryOrderArray })
+       
+        //check if delivery order array has duplicate values
+        var values = this.props.store.deliveryOrderArray
+        console.log(values)
+        var valueArr = values.map(function(item){ return parseFloat(item.delivery_route_order) });
+        console.log(valueArr)
+        var isDuplicate = valueArr.some(function(item, idx){ 
+            return valueArr.indexOf(item) != idx 
+        });
+        console.log(isDuplicate);
+
+        if(isDuplicate)
+        this.setState({ show: true })
+
+this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
+        
     }
 
     render() {
 
-        
-
-        console.log(this.props.store.editDeliveryOrderStatus)
         const { classes, theme } = this.props;
         const storesArray = this.props.store.stores
 
         let storeTableData = storesArray.map((item, index) => {
             return (
+
                 <StoreTableRow
                     key={index}
                     item={item}
                 />
+
             )
         })
 
@@ -119,6 +142,12 @@ class StoreTable extends Component {
                 {editorSaveDeliveryButton}
                 <Button className={classes.buttonPositive} onClick={this.clickAddStore}>Add Store</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+                <Swal
+                    show={this.state.show}
+                    title="ALERT!"
+                    text="You entered a duplicate delivery route order"
+                    onConfirm={() => this.setState({ show: false })}
+                />
             </div>
         );
     }
