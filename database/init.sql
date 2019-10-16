@@ -96,7 +96,7 @@ CREATE TABLE "outgoing_store" (
 "product_id" INT REFERENCES "products",
 "user_id" INT REFERENCES "user",
 "supplier_id" INT REFERENCES "suppliers",
-"store_sale_date" TIMESTAMP,
+"last_modified" TIMESTAMP,
 "sold_product_count" INT,
 "shrink_product_count" INT,
 "standard_par" INT NOT NULL,
