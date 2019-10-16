@@ -9,7 +9,6 @@ class InventoryPage extends Component {
         return(
             <KanbeTemplate>
                 <p>This is the inventory page</p>
-
             </KanbeTemplate>
         )
     }
