@@ -23,6 +23,17 @@ const styles = theme => ({
     }
 });
 
+let countArr = 
+
+        [
+            {id:1, delivery_route_order: 45},
+            {id:2, delivery_route_order: 46}
+            ]
+
+            countArr = JSON.stringify(countArr)
+        
+        // pm.variables.set('countArr', JSON.stringify(countArr)); // Adding the property to a variable which we will reference in the request body
+
 
 class StoreTable extends Component {
     componentDidMount() {
@@ -59,11 +70,16 @@ class StoreTable extends Component {
         this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE',payload: this.props.store.editDeliveryOrderStatus  })
     }
 
+
+
     clickSaveDeliveryOrder = (event) => {
-        //put to database
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES',payload: countArr })
     }
 
     render() {
+
+        
+
         console.log(this.props.store.editDeliveryOrderStatus)
         const { classes, theme } = this.props;
         const storesArray = this.props.store.stores

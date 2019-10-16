@@ -34,6 +34,15 @@ function* putStore(action) {
   }
 }
 
+function* putDeliveryOrders(action) {
+  try {
+    yield axios.put('api/all/stores/update/DeliveryRoutes', action.payload);
+    yield put({ type: 'FETCH_STORES' });
+  } catch (err) {
+    console.log('PUT store error: ', err)
+  }
+}
+
 function* postStore(action) {
   try {
     yield axios.post('api/all/stores', action.payload);
@@ -48,6 +57,7 @@ function* storesSaga() {
   yield takeLatest('FETCH_STORES', fetchStores);
   yield takeLatest('PUT_STORE', putStore);
   yield takeLatest('POST_STORE', postStore);
+  yield takeLatest('UPDATE_DELIVERY_ROUTES', putDeliveryOrders)
 }
 
 export default storesSaga;
