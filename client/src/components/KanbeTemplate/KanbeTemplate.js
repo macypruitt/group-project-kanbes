@@ -83,10 +83,7 @@ const styles = (theme: Theme) =>
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up('sm')]: {
-        width: theme.spacing(9),
-      },
+      width: 0,
     },
     appBarSpacer: theme.mixins.toolbar,
     content: {
@@ -156,7 +153,7 @@ class KanbeTemplate extends Component {
             anchor="left"
             open={this.state.open}
             classes={{
-              paper: this.props.classes.drawerPaper,
+              paper: clsx(this.props.classes.drawerPaper, !this.state.open && this.props.classes.drawerPaperClose),
             }}
           >
             <div className={this.props.classes.toolbarIcon}>
