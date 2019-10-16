@@ -5,7 +5,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class TemplateClass extends Component {
     state = {
-        heading: 'Class Component',
+        heading: 'Manager View',
     };
 
     render() {
