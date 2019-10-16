@@ -62,9 +62,9 @@ class StoreTable extends Component {
         //check if delivery order array has duplicate values
         var values = this.props.store.deliveryOrderArray
         console.log(values)
-        var valueArr = values.map(function(item){ return item.delivery_route_order });
-        var isDuplicate = valueArr.some(function(item, idx){ 
-            return valueArr.indexOf(item) != idx 
+        var valueArr = values.map(function (item) { return item.delivery_route_order });
+        var isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
         });
         console.log(isDuplicate);
     }
@@ -75,22 +75,22 @@ class StoreTable extends Component {
         this.setState({
             orderIsEditable: !this.state.orderIsEditable
         })
-       
+
         //check if delivery order array has duplicate values
         var values = this.props.store.deliveryOrderArray
         console.log(values)
-        var valueArr = values.map(function(item){ return parseFloat(item.delivery_route_order) });
+        var valueArr = values.map(function (item) { return parseFloat(item.delivery_route_order) });
         console.log(valueArr)
-        var isDuplicate = valueArr.some(function(item, idx){ 
-            return valueArr.indexOf(item) != idx 
+        var isDuplicate = valueArr.some(function (item, idx) {
+            return valueArr.indexOf(item) != idx
         });
         console.log(isDuplicate);
 
-        if(isDuplicate)
-        this.setState({ show: true })
+        if (isDuplicate)
+            this.setState({ show: true })
 
-this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
-        
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
+
     }
 
     render() {
