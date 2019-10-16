@@ -19,7 +19,7 @@ import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import ManagerPage from '../ManagerPage/ManagerPage'
 import AdminPage from '../AdminPage/AdminPage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
@@ -91,11 +91,11 @@ class App extends Component {
               authRedirect="/admin"
               component={RegisterPage}
             />
-            {/* <Route
+            <Route
             exact
-            path="/driver"
-            component={DriverView}
-            /> */}
+            path="/manager"
+            component={ManagerPage}
+            />
             <Route
             exact 
             path="/modal"

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 
-class TemplateClass extends Component {
+class ManagerPage extends Component {
     state = {
         heading: 'Manager View',
     };
@@ -17,4 +17,4 @@ class TemplateClass extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(TemplateClass);
+export default connect(mapStoreToProps)(ManagerPage);
