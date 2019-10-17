@@ -6,6 +6,7 @@ import userRouter from './routes/user.router';
 import allUsersRouter from './routes/allusers.router';
 import allSuppliersRouter from './routes/allSuppliers.router';
 import allStoresRouter from './routes/allStores.router';
+import storeInventoryRouter from './routes/storeInventory.router';
 
 require('dotenv').config();
 
@@ -28,6 +29,7 @@ app.use('/api/user', userRouter);
 app.use('/api/allUsers', allUsersRouter);
 app.use('/api/allSuppliers', allSuppliersRouter);
 app.use('/api/all/stores', allStoresRouter);
+app.use('/api/store/inventory', storeInventoryRouter);
 
 // Serve static files
 app.use(express.static('build'));
