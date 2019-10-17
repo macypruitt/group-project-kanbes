@@ -4,9 +4,13 @@
   "private": true,
   "proxy": "http://server:5000",
   "dependencies": {
+    "@material-ui/core": "^4.5.1",
+    "@material-ui/icons": "^4.5.1",
     "axios": "^0.18.0",
+    "clsx": "^1.0.4",
     "dotenv": "^4.0.0",
     "material-table": "^1.52.0",
+    "react-bootstrap-sweetalert": "^4.4.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
@@ -15,7 +19,11 @@
     "react-scripts": "^3.0.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
-    "redux-saga": "^1.0.2"
+    "redux-saga": "^1.0.2",
+    "sweetalert2": "^8.18.3",
+    "sweetalert2-react": "^0.8.3"
+
+    
   },
   "scripts": {
     "start": "node server/server.js",

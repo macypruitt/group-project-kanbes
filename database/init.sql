@@ -22,7 +22,7 @@ CREATE TABLE "stores" (
 "contact_email" VARCHAR(100),
 "status" BOOLEAN NOT NULL,
 "store_phone_number" VARCHAR(255),
-"delivery_route_order" INT NOT NULL
+"delivery_route_order" INT UNIQUE NOT NULL
 );
 
 CREATE TABLE "suppliers" (
