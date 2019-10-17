@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
 
 import DriverTable from './DriverTable';
@@ -44,12 +45,16 @@ class DriverPage extends Component {
       
 
         return (
-            <div className="driver-container">
+            <KanbeTemplate>
+                <div className="driver-container">
                 <h2>{this.state.heading}</h2>
               
                 {driverTableHolder}
             </div>
-        );
+        
+
+            </KanbeTemplate>
+        )
     }
 }
 
