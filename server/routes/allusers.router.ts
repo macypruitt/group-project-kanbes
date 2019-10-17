@@ -78,7 +78,7 @@ async function mail(password: string, userEmail: any) {
   let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      type: "login",
+      type: 'login',
       user: "ellensaylor8@gmail.com",
       pass: "Y3llow088"
     }
