@@ -14,8 +14,8 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
                             JOIN "products" ON "products"."id" = "outgoing_store"."product_id"
                             JOIN "stores" ON "stores"."id" = "outgoing_store"."store_id"
                             JOIN "suppliers" ON "suppliers"."id" = "outgoing_store"."supplier_id"
-                            WHERE "stores"."id" = $1 
-                            AND "last_modified"=(SELECT MAX("last_modified") FROM "outgoing_store");`;
+                            WHERE "stores"."id" = $1;`
+                            // AND "last_modified"=(SELECT MAX("last_modified") FROM "outgoing_store");`;
 
     const storeId: string = req.params.id;
 
