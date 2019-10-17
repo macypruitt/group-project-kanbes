@@ -15,14 +15,14 @@ CREATE TABLE "user" (
 
 CREATE TABLE "stores" (
 "id" SERIAL PRIMARY KEY,
-"name" VARCHAR(255) UNIQUE NOT NULL,
+"name" VARCHAR(255) NOT NULL,
 "address" VARCHAR UNIQUE NOT NULL,
 "contact_name" VARCHAR(180),
 "contact_phone" VARCHAR(255),
 "contact_email" VARCHAR(100),
 "status" BOOLEAN NOT NULL,
 "store_phone_number" VARCHAR(255),
-"delivery_route_order" INT UNIQUE NOT NULL
+"delivery_route_order" INT NOT NULL
 );
 
 CREATE TABLE "suppliers" (
@@ -96,7 +96,7 @@ CREATE TABLE "outgoing_store" (
 "product_id" INT REFERENCES "products",
 "user_id" INT REFERENCES "user",
 "supplier_id" INT REFERENCES "suppliers",
-"store_sale_date" TIMESTAMP,
+"last_modified" TIMESTAMP,
 "sold_product_count" INT,
 "shrink_product_count" INT,
 "standard_par" INT NOT NULL,

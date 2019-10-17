@@ -92,7 +92,7 @@ class LoginPage extends Component {
           <Typography component="h1" variant="h5">
             Sign in
             </Typography>
-          <form className={this.props.classes.form} onSubmit={this.login}>
+          <form className={this.props.classes.form} >
             <TextField
               variant="outlined"
               margin="normal"
@@ -129,7 +129,7 @@ class LoginPage extends Component {
               variant="contained"
               color="primary"
               className={this.props.classes.submit}
-              onClick={() => { this.props.dispatch({ type: 'FETCH_USER' }) }}
+              onClick={this.login}
             >
               Sign In
           </Button>

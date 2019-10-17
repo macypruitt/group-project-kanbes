@@ -10,7 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Collapse from '@material-ui/core/Collapse';
 // import StoreIcon from '@material-ui/icons/Store';
 // import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import { 
+import {
     createStyles,
     withStyles
 } from "@material-ui/core";
@@ -25,39 +25,50 @@ import { withRouter } from 'react-router';
 
 
 
-const styles = (theme: Theme) => 
+const styles = (theme: Theme) =>
     createStyles({
-    root: {
-      width: '100%',
-      maxWidth: 360,
-      backgroundColor: theme.palette.background.paper,
-    },
-    nested: {
-      paddingLeft: theme.spacing(4),
-    },
-  });
+        root: {
+            width: '100%',
+            maxWidth: 360,
+            backgroundColor: theme.palette.background.paper,
+        },
+        nested: {
+            paddingLeft: theme.spacing(4),
+        },
+    });
 
 class NavDriver extends Component {
+
     state = {
         expand: false,
-        
+
     }
 
     handleToggle = () => {
         this.setState({ expand: !this.state.expand })
     }
 
-   
+
 
     moveToDriverPage = (event) => {
         this.props.history.push("/driver");
     }
-   
-      
-    render() {
-        
 
-        
+
+    render() {
+        const storesArray = this.props.store.stores
+
+        let storeNavData = storesArray.map((item, index) => {
+            return (
+
+                <ListItem key={index} button onClick={this.moveToDriverPage} className={this.props.classes.nested}>
+                    <ListItemText primary={item.name} />
+                </ListItem>
+
+            )
+        })
+
+
         return (
             <List
                 component="nav"
@@ -68,25 +79,15 @@ class NavDriver extends Component {
                     <ListItemText primary="Delivery" />
                     {this.state.expand ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-                    <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                        <ListItem button onClick={this.moveToDriverPage} className={this.props.classes.nested}>
-                            <ListItemText primary="Food Mart, 8025 Hickman" />
-                        </ListItem>
-                        <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
-                           
-                            <ListItemText primary="Store 2" />
-                        </ListItem>
-                        <ListItem button onClick={this.moveToProducePage} className={this.props.classes.nested}>
-                            
-                            <ListItemText primary="Store 3" />
-                        </ListItem>
-                        </List>
-                    </Collapse>
+                <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                        {storeNavData}
+                    </List>
+                </Collapse>
             </List>
 
         )
     }
 }
 
-export default connect(mapStoreToProps) (withStyles(styles)(withRouter(NavDriver)));
+export default connect(mapStoreToProps)(withStyles(styles)(withRouter(NavDriver)));
