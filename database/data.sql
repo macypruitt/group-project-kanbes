@@ -4,8 +4,19 @@ VALUES ('Maxfield', 'Kaniger', 'mkaniger', 'mkan@kanbesmarkets.org', 'mkaniger12
 ('Ryan', 'Reynolds', 'rreynolds', 'ryguy@kanbesmarkets.org', 'ryanreynolds1234', 'Driver', 2);
 
 INSERT INTO "stores" ("name", "address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
-VALUES ('Store1', '123 main st', 'joe', '8164444444', 'joe@email.com', true, '8162222222', 1),
-('Store2', '456 cherry st', 'sam', '8165555555', 'sam@email.com', true, '8163333333', 2);
+VALUES ('Food Mart', '8025 Hickman Mills Drive, KCMO 64132', 'update', 'update', 'update', true, 'update', 1),
+('One Stop', '4511 E. Truman Road, KCMO 64127', 'update', 'update', 'update', true, 'update', 2),
+('Food Mart', '2101 E. 39th Street, KCMO 64109', 'update', 'update', 'update', true, 'update', 3),
+('Food Mart', '4501 Cleveland Avenue, KCMO 64130', 'update', 'update', 'update', true, 'update', 4),
+('Food Mart', '5901 Troost Avenue, KCMO 64110', 'update', 'update', 'update', true, 'update', 5),
+('Food Mart', '8505 Woodland Avenue, KCMO 64131', 'update', 'update', 'update', true, 'update', 6),
+('Brooklyn Market', '2119 Independence Avenue, KCMO 64124', 'update', 'update', 'update', true, 'update', 7),
+('Superior Mini Mart', '3701 St. John Ave., KCMO 64123', 'update', 'update', 'update', true, 'update', 8),
+('Grab-A-Bite', '4916 E. 39th Street, KCMO 64128', 'update', 'update', 'update', true, 'update', 9),
+('Xpress Mart', '1800 Benton Blvd., KCMO 64127', 'update', 'update', 'update', true, 'update', 10),
+('Nelson''s Island', '4303 E. 9th St., KCMO 64124', 'update', 'update', 'update', true, 'update', 11),
+('Good Stop', '2604 E 27th St., KCMO 64127', 'update', 'update', 'update', true, 'update', 12),
+('Guru World', '4205 East 24th St., KCMO, USA', 'update', 'update', 'update', true, 'update', 13);
 
 INSERT INTO "invoices" ("start_date", "end_date", "store_id")
 VALUES ('2019-10-01 17:36:00', '2019-10-08 12:18:00', 1),
@@ -57,7 +68,7 @@ INSERT INTO "outgoing_store" (
 "product_id",
 "user_id",
 "supplier_id",
-"store_sale_date",
+"last_modified",
 "sold_product_count",
 "shrink_product_count",
 "standard_par",

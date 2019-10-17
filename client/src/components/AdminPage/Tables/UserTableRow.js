@@ -124,11 +124,11 @@ class UserTableRow extends Component {
                 placeholder={username}
                 onChange={(event) => this.handleChangeInputText(event, 'username')}
             />
-            password = <Input
-                className="row-input"
-                placeholder={password}
-                onChange={(event) => this.handleChangeInputText(event, 'password')}
-            />
+            // password = <Input
+            //     className="row-input"
+            //     placeholder={password}
+            //     onChange={(event) => this.handleChangeInputText(event, 'password')}
+            // />
             first_name = <Input
                 className="row-input"
                 placeholder={first_name}
@@ -175,7 +175,7 @@ class UserTableRow extends Component {
         return (
             <tr>
                 <td>{username}</td>
-                <td>{password}</td>
+                {/* <td>{password}</td> */}
                 <td>{first_name}</td>
                 <td>{last_name}</td>
                 <td>{role}</td>
