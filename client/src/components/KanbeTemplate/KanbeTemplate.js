@@ -110,7 +110,7 @@ const styles = (theme: Theme) =>
 class KanbeTemplate extends Component {
   state = {
     open: false,
-    admin_level: 2
+    admin_level: 1
   }
 
   handleDrawerOpen = () => {
