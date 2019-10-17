@@ -8,6 +8,10 @@ import * as nodemailer from 'nodemailer';
 require('dotenv').config()
 
 const router: express.Router = express.Router();
+const USERNAME: string = process.env.USERNAME != null ? process.env.USERNAME : '';
+const PASSWORD: string = process.env.PASSWORD != null ? process.env.PASSWORD: '';
+
+console.log('username ', process.env.USERNAME, ' password ', process.env.PASSWORD)
 
 //get all users
 router.get('/', (req: Request, res: Response, next: express.NextFunction): void => {
@@ -20,26 +24,6 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
     }
     );
 });
-
-//post new user
-// router.post('/newUser', (req: Request, res: Response, next: express.NextFunction): void => {
-//   const username: string = req.body.username;
-//   const password: string = encryptPassword(req.body.password);
-//   const firstName: string = req.body.first_name;
-//   const lastName: string = req.body.last_name;
-//   const email: string | null = req.body.email;
-//   const role: string = req.body.role;
-//   const adminLevel: string = req.body.admin_level;
-
-//   const queryText: string = `INSERT INTO "user" (first_name, last_name, username, email, password, role, admin_level) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-//   pool.query(queryText, [firstName, lastName, username, email, password, role, adminLevel])
-//     .then(() => res.sendStatus(201))
-//     .catch((err) => {
-//       console.log(`Error saving user to database: ${err}`);
-//       res.sendStatus(500)}
-//     );
-// });
-
 
 //post new user and create password and send to user email
 router.post('/newUser', (req: Request, res: Response, next: express.NextFunction): void => {
@@ -75,12 +59,12 @@ router.post('/newUser', (req: Request, res: Response, next: express.NextFunction
 // async..await is not allowed in global scope, must use a wrapper
 async function mail(password: string, userEmail: any) {
 
-  let transporter = nodemailer.createTransport({
+  let transporter: nodemailer.Transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
       type: 'login',
-      user: "ellensaylor8@gmail.com",
-      pass: "Y3llow088"
+      user: USERNAME,
+      pass: PASSWORD
     }
   });
 
