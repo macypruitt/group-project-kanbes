@@ -75,6 +75,6 @@ INSERT INTO "outgoing_store" (
 "last_par",
 "notes")
 VALUES (1, 1, 3, 1, '2019-10-06 23:37:00', 1, 1, 10, 7, 'Low on stock. Had to reduce par to 7.'),
-VALUES (1, 2, 3, 2, '2019-10-07 21:37:00', 1, 1, 7, 5, 'Low on stock. Had to reduce par to 5.'),
-VALUES (2, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6, ''),
-VALUES (2, 2, 3, 2, '2019-10-15 23:37:00', 1, 1, 8, 7, 'Low on stock. Had to reduce par to 7.');
+(1, 2, 3, 2, '2019-10-07 21:37:00', 1, 1, 7, 5, 'Low on stock. Had to reduce par to 5.'),
+(2, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6, ''),
+(2, 2, 3, 2, '2019-10-15 23:37:00', 1, 1, 8, 7, 'Low on stock. Had to reduce par to 7.');
