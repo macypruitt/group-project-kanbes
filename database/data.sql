@@ -3,7 +3,7 @@ VALUES ('Maxfield', 'Kaniger', 'mkaniger', 'mkan@kanbesmarkets.org', 'mkaniger12
 ('Keith', 'Mulloy', 'kmulloy', 'kmulloy@kanbesmarkets.org', 'keithmulloy1234', 'Program Manager', 1),
 ('Ryan', 'Reynolds', 'rreynolds', 'ryguy@kanbesmarkets.org', 'ryanreynolds1234', 'Driver', 2);
 
-INSERT INTO "stores" ("name", "address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
+INSERT INTO "stores" ("store_name", "address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
 VALUES ('Food Mart', '8025 Hickman Mills Drive, KCMO 64132', 'update', 'update', 'update', true, 'update', 1),
 ('One Stop', '4511 E. Truman Road, KCMO 64127', 'update', 'update', 'update', true, 'update', 2),
 ('Food Mart', '2101 E. 39th Street, KCMO 64109', 'update', 'update', 'update', true, 'update', 3),
@@ -26,7 +26,7 @@ INSERT INTO "products" ("product_name", "product_sub_type")
 VALUES ('apple', 'granny smith'),
 ('orange', 'navel');
 
-INSERT INTO "suppliers" ("name", "contact_name", "contact_number", "address")
+INSERT INTO "suppliers" ("supplier_name", "contact_name", "contact_number", "address")
 VALUES ('C & C Produce', 'Tony Gaspipe', '1234567', '400 Main Street, Kansas City, MO'),
 ('Stoney Crest Farm', 'Joe Farmer', '2345678', '501 Middle of Nowhere, Kansas City, MO'),
 ('After The Harvest', NULL, null, '999 Cherry Lane, KC, MO');

@@ -39,6 +39,10 @@ const styles = (theme: Theme) =>
 
 class NavDriver extends Component {
 
+    componentDidMount() {
+        this.props.dispatch({type: 'FETCH_STORES'})
+    }
+
     state = {
         expand: false,
 
@@ -62,13 +66,13 @@ class NavDriver extends Component {
             return (
 
                 <ListItem key={index} button onClick={this.moveToDriverPage} className={this.props.classes.nested}>
-                    <ListItemText primary={item.name} />
+                    <ListItemText primary={item.store_name} />
                 </ListItem>
 
             )
         })
 
-
+        console.log(storeNavData)
         return (
             <List
                 component="nav"
