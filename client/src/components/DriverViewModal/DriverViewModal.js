@@ -1,7 +1,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import Swal from 'sweetalert2-react'
+import Swal from 'sweetalert2-react';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 class DriverViewModal extends Component {
