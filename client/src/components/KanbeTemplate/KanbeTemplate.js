@@ -24,6 +24,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import NavAdmin from '../Nav/Nav.Admin';
 import NavDriver from '../Nav/Nav.Driver';
+import mapStoreToProps from '../../redux/mapStoreToProps';
+import { connect } from 'react-redux';
 
 
 //Styling for appbar and drawer in Material UI
@@ -111,7 +113,6 @@ const styles = (theme: Theme) =>
 class KanbeTemplate extends Component {
   state = {
     open: false,
-    admin_level: 1
   }
 
   handleDrawerOpen = () => {
@@ -123,10 +124,11 @@ class KanbeTemplate extends Component {
   }
 
   render() {
-    
+    const adminLevel = this.props.store.user.admin_level
     let drawer;
+    
 
-    if(this.state.admin_level == 1) {
+    if(adminLevel == 1) {
       drawer = 
       <div>
         <Divider />
@@ -136,7 +138,7 @@ class KanbeTemplate extends Component {
       </div>
     }
 
-    if(this.state.admin_level == 2 ) {
+    if(adminLevel == 2 ) {
       drawer = 
       <div>
         <Divider />
@@ -206,4 +208,4 @@ class KanbeTemplate extends Component {
 
 }
 
-export default withStyles(styles)(KanbeTemplate);
+export default connect(mapStoreToProps)(withStyles(styles)(KanbeTemplate));
