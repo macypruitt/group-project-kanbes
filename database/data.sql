@@ -68,7 +68,7 @@ INSERT INTO "outgoing_store" (
 "product_id",
 "user_id",
 "supplier_id",
-"store_sale_date",
+"last_modified",
 "sold_product_count",
 "shrink_product_count",
 "standard_par",
