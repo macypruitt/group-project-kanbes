@@ -16,6 +16,8 @@ class DriverPage extends Component {
     componentDidMount(){
         ////Saga dispatches GET, stores in reducer
         ////setState using store name as header
+        
+        // this.props.dispatch({type: 'FETCH_STORE_INVENTORY', payload: });
     }
 
     render() {
