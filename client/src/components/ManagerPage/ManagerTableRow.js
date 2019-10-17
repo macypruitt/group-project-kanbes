@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-class ManagerPage extends Component {
+class ManagerTableRow extends Component {
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,

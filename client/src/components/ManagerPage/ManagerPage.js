@@ -2,6 +2,49 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
+import ManagerTable from './ManagerTable'
+
+class ManagerPage extends Component {
+    state = {
+        heading: 'Warehouse View'
+    };
+
+    componentDidMount() {
+
+    }
+
+    render() {
+        let dataForWareHouse = [];
+
+        dataForWareHouse = [];
+
+        dataForWareHouse = [
+            {
+                origin: 'Honduras',
+                unit_sale_price: 1.50,
+                expiration_date: 12 / 25 / 2019,
+                donated: 'yes',
+                count: 25,
+                supplier_id: 12345,
+                pounds: 20
+
+
+            }
+        ]
+
+        let managerTableHolder;
+        if (dataForWareHouse.length > 0) {
+            managerTableHolder = <ManagerTable dataForWareHouse={dataForWareHouse} />
+        }
+        return (
+            <div className="warehouse-container">
+                <h2>{this.state.heading}</h2>
+
+                {managerTableHolder}
+            </div>
+        );
+    }
+}
 
 
 export default connect(mapStoreToProps)(ManagerPage);
