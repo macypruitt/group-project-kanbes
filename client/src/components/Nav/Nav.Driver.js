@@ -71,7 +71,7 @@ class NavDriver extends Component {
                     <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
                         <ListItem button onClick={this.moveToDriverPage} className={this.props.classes.nested}>
-                            <ListItemText primary="Store 1" />
+                            <ListItemText primary="Food Mart, 8025 Hickman" />
                         </ListItem>
                         <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
                            

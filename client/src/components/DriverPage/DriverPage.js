@@ -10,13 +10,15 @@ import './DriverPage.css'
 class DriverPage extends Component {
     
     state = {
-        heading:'Store Name'
+        storeName:'Food Mart, 8025 Hickman'
     };
 
     componentDidMount(){
         ////Saga dispatches GET, stores in reducer
         ////setState using store name as header
     }
+
+
 
     render() {
         ////this simulates the array data from the database query; it will be replaced with reducer data
@@ -30,9 +32,10 @@ class DriverPage extends Component {
                 product_sub_type: 'Big Red',
                 standard_par: 12,
                 last_par: 8,
-                store_id: 3
+                store_id: 3,
             }
         ]
+
 
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder;
@@ -40,12 +43,17 @@ class DriverPage extends Component {
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
         }
 
+
+        var today = new Date();
+        var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       
 
         return (
             <KanbeTemplate>
                 <div className="driver-container">
-                <h2>{this.state.heading}</h2>
+                <h2>{this.state.storeName}</h2>
+                <h3>{date}</h3>
               
                 {driverTableHolder}
             </div>

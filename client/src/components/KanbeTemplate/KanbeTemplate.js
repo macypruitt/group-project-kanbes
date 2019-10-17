@@ -21,12 +21,12 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
-
+import LogOutButton from '../LogOutButton/LogOutButton';
 import NavAdmin from '../Nav/Nav.Admin';
 import NavDriver from '../Nav/Nav.Driver';
 
 
-
+//Styling for appbar and drawer in Material UI
 const drawerWidth = 240;
 
 const styles = (theme: Theme) =>
@@ -107,10 +107,11 @@ const styles = (theme: Theme) =>
     },
   });
 
+//Component for template: AppBar affects Green bar across the top Drawer is sliding nav
 class KanbeTemplate extends Component {
   state = {
     open: false,
-    admin_level: 2
+    admin_level: 1
   }
 
   handleDrawerOpen = () => {
@@ -188,7 +189,9 @@ class KanbeTemplate extends Component {
               </IconButton>
             </div>
             {drawer}
-            
+            <Divider />
+            <LogOutButton />
+            <Divider />
           </Drawer>
           
         <main className={this.props.classes.content}>
