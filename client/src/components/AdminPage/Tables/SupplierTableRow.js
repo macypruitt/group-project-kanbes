@@ -101,7 +101,7 @@ class SupplierTableRow extends Component {
     render() {
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from SupplierTable.js
-        let name = this.props.item.name;
+        let name = this.props.item.supplier_name;
         let contact_name = this.props.item.contact_name;
         let contact_number = this.props.item.contact_number;
         let address = this.props.item.address;

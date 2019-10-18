@@ -7,13 +7,15 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Collapse from '@material-ui/core/Collapse';
 import {
     createStyles,
-    withStyles
+    withStyles,
+    Grid
 } from "@material-ui/core";
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { connect } from 'react-redux';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { withRouter } from 'react-router';
+import './Nav.Driver.css'
 
 
 
@@ -48,6 +50,7 @@ class NavDriver extends Component {
 
 
     moveToDriverPage = (id) => {
+        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
         this.props.history.push(`/driver/${id}`);
     }
 
@@ -59,7 +62,14 @@ class NavDriver extends Component {
             return (
 
                 <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} className={this.props.classes.nested}>
-                    <ListItemText primary={item.name} />
+                    <Grid container spacing={2}>
+                        <Grid item xs={12}>
+                            <ListItemText primary={item.store_name} />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <ListItemText className="address" primary={item.address} />
+                        </Grid>
+                    </Grid>
                 </ListItem>
 
             )

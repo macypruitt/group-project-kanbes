@@ -138,7 +138,7 @@ class StoreTableRow extends Component {
 
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
-        let name = this.props.item.name;
+        let name = this.props.item.store_name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
         let status = this.props.item.status
