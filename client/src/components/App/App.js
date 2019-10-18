@@ -16,7 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 import UserPage from '../UserPage/UserPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import ManagerPage from '../ManagerPage/ManagerPage'
 import AdminPage from '../AdminPage/AdminPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import InvoicePage from '../InvoicePage/InvoicePage';
@@ -119,6 +119,11 @@ class App extends Component {
               component={ManagerPage}
             />
            
+            <Route
+            exact
+            path="/manager"
+            component={ManagerPage}
+            />
             <Route
             exact 
             path="/modal"
