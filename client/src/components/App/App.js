@@ -42,7 +42,7 @@ class App extends Component {
           {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
-            <Redirect exact from="/" to="/home" />
+            <Redirect exact from="/" to="/login" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
             <Route
@@ -86,7 +86,12 @@ class App extends Component {
               path="/produce"
               component={ProducePage}
             />
-          
+            {/* <ProtectedRoute
+              exact
+              path="/driver/:id"
+              component={DriverPage}
+            /> */}
+
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
@@ -98,14 +103,14 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/login"
-              driverRedirect="/driver"
+              driverRedirect="/driver/:id"
               managerRedirect="/manager"
               directorRedirect="/director"
               component={LoginPage}
             />
             <ProtectedRoute
               exact
-              path="/driver"
+              path="/driver/:id"
               component={DriverPage}
             />
             <ProtectedRoute

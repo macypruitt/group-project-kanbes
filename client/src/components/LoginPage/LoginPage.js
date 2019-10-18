@@ -79,11 +79,22 @@ class LoginPage extends Component {
   }
 
   render() {
-
+   const loginError = this.props.store.errors.loginMessage
 
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+          <div>
+            {this.props.store.errors.loginMessage && (
+             <h2
+                className="alert"
+                role="alert"
+              >
+                {this.props.store.errors.loginMessage}
+            </h2>
+            )}
+          </div>
+          
         <img className={'kanbe-img'} src={KanbeLogo} alt="Kanbe's Market Logo" />
         <div className={this.props.classes.paper}>
           <Avatar className={this.props.classes.avatar}>

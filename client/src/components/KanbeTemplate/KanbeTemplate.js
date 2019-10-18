@@ -133,7 +133,6 @@ class KanbeTemplate extends Component {
       <div>
         <Divider />
         <NavAdmin />
-        <Divider />
         <NavDriver />
       </div>
     }

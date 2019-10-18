@@ -49,7 +49,7 @@ class NavAdmin extends Component {
     }
 
     handleToggleWarehouse = () => {
-        this.setState({ expandWarehouse: !this.state.expand })
+        this.setState({ expandWarehouse: !this.state.expandWarehouse })
     }
 
     moveToAdminPage = (event) => {
