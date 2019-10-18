@@ -11,7 +11,7 @@ class ManagerTable extends Component {
     };
 
     clickAdd = (event) => {
-        this.setstate({
+        this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
         })
@@ -23,13 +23,13 @@ class ManagerTable extends Component {
         warehouseDataForRender = this.props.dataForWarehouse;
 
         ////if reducer holds data, map it into rows of the table
-        if(warehouseDataForRender.length > 0) {
+        if (warehouseDataForRender.length > 0) {
             warehouseDataForRender = warehouseDataForRender.map((item, index) => {
                 return <ManagerTableRow key={index} item={item} />
             })
         }
         let newRow;
-        if(this.state.isAdding) {
+        if (this.state.isAdding) {
             const emptyItem = {}
             newRow = <ManagerTableRow editable={true} addable={true} item={emptyItem} clickAddStore={this.clickAdd} />
         }
@@ -55,9 +55,9 @@ class ManagerTable extends Component {
                 </table>
                 <button onClick={this.clickAdd}>Add Product</button>
                 <br />
-                </div>
-                
-            
+            </div>
+
+
         );
     }
 

@@ -66,63 +66,60 @@ class ManagerTableRow extends Component {
                 placeholder={origin}
                 onChange={(event) => this.handleChangeInputText(event, 'origin')}
             />
-        
-        unit_sale_price = <input
-            type="text"
-            className="row-input"
-            placeholder={unit_sale_price}
-            onChange={(event) => this.handleChangeInputText(event, 'unit_sale_price')}
-        />
 
-        expiration_date = <input
-            type="text"
-            className="row-input"
-            placeholder={expiration_date}
-            onChange={(event) => this.handleChangeInputText(event, 'last_par')}
-        />
-        donated = <input
-            type="text"
-            className="row-input"
-            placeholder={donated}
-            onChange={(event) => this.handleChangeInputText(event, 'sold')}
-        />
-        count= <input
-            type="number"
-            className="row-input"
-            placeholder={count}
-            onChange={(event) => this.handleChangeInputText(event, 'count')}
-        />
-        supplier_id= <input
-            type="number"
-            className="row-input"
-            placeholder={supplier_id}
-            onChange={(event) => this.handleChangeInputText(event, 'supplier_id')}
-        />
-        pounds= <input
-            type="number"
-            className="row-input"
-            placeholder={pounds}
-            onChange={(event) => this.handleChangeInputText(event, 'pounds')}
-        />
-        editOrSaveButton = <button data-id={this.props.item.id} 
-        onClick={this.clickSave}>Save</button>
+            unit_sale_price = <input
+                type="text"
+                className="row-input"
+                placeholder={unit_sale_price}
+                onChange={(event) => this.handleChangeInputText(event, 'unit_sale_price')}
+            />
+
+            expiration_date = <input
+                type="text"
+                className="row-input"
+                placeholder={expiration_date}
+                onChange={(event) => this.handleChangeInputText(event, 'expiration_date')}
+            />
+            donated = <input
+                type="text"
+                className="row-input"
+                placeholder={donated}
+                onChange={(event) => this.handleChangeInputText(event, 'donated')}
+            />
+            count = <input
+                type="number"
+                className="row-input"
+                placeholder={count}
+                onChange={(event) => this.handleChangeInputText(event, 'count')}
+            />
+            supplier_id = <input
+                type="number"
+                className="row-input"
+                placeholder={supplier_id}
+                onChange={(event) => this.handleChangeInputText(event, 'supplier_id')}
+            />
+            pounds = <input
+                type="number"
+                className="row-input"
+                placeholder={pounds}
+                onChange={(event) => this.handleChangeInputText(event, 'pounds')}
+            />
+            editOrSaveButton = <button data-id={this.props.item.id}
+                onClick={this.clickSave}>Save</button>
         }
         return (
-            <div>
-                <h2>{this.state.heading}</h2>
-
-            <tr id={this.props.key}>
-            <td>{origin}</td>
-            <td>{unit_sale_price}</td>
-            <td>{expiration_date}</td>
-            <td>{donated}</td>
-            <td>{count}</td>
-            <td>{supplier_id}</td>
-            <td>{pounds}</td>
-            <td>{editOrSaveButton}</td>
-        </tr>
-        </div>
-
+                
+                
+                    <tr id={this.props.key}>
+                        <td>{origin}</td>
+                        <td>{unit_sale_price}</td>
+                        <td>{expiration_date}</td>
+                        <td>{donated}</td>
+                        <td>{count}</td>
+                        <td>{supplier_id}</td>
+                        <td>{pounds}</td>
+                        <td>{editOrSaveButton}</td>
+                    </tr>
         );
     }
 }
