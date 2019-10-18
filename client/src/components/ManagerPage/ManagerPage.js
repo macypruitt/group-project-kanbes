@@ -15,25 +15,25 @@ class ManagerPage extends Component {
     }
 
     render() {
-        let dataForWareHouse = [];
+        let dataForWarehouse = [];
 
-        dataForWareHouse = [
+        dataForWarehouse = [
             {
                 origin: 'Honduras',
-                unit_sale_price: 1.50,
-                expiration_date: 12 / 25 / 2019,
+                unit_sale_price: '1.50',
+                expiration_date: '12 / 25 / 2019',
                 donated: 'yes',
-                count: 25,
-                supplier_id: 12345,
-                pounds: 20
+                count: '25',
+                supplier_id: '12345',
+                pounds: '20'
 
 
             }
         ]
 
         let managerTableHolder;
-        if (dataForWareHouse.length > 0) {
-            managerTableHolder = <ManagerTable dataForWareHouse={dataForWareHouse} />
+        if (dataForWarehouse.length > 0) {
+            managerTableHolder = <ManagerTable dataForWarehouse={dataForWarehouse} />
         }
         return (
             <div className="warehouse-container">

@@ -55,7 +55,9 @@ class ManagerTable extends Component {
                 </table>
                 <button onClick={this.clickAdd}>Add Product</button>
                 <br />
-            </div>
+                </div>
+                
+            
         );
     }
 

@@ -56,7 +56,7 @@ class ManagerTableRow extends Component {
         let count = this.props.item.count;
         let supplier_id = this.props.item.supplier_id;
         let pounds = this.props.item.pounds;
-        let editOrSaveButton = <button onCLick={this.clickEdit}>Edit</button>
+        let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>
 
         if (this.state.isEditable) {
 
@@ -66,7 +66,7 @@ class ManagerTableRow extends Component {
                 placeholder={origin}
                 onChange={(event) => this.handleChangeInputText(event, 'origin')}
             />
-        }
+        
         unit_sale_price = <input
             type="text"
             className="row-input"
@@ -75,7 +75,7 @@ class ManagerTableRow extends Component {
         />
 
         expiration_date = <input
-            type="date"
+            type="text"
             className="row-input"
             placeholder={expiration_date}
             onChange={(event) => this.handleChangeInputText(event, 'last_par')}
@@ -106,6 +106,7 @@ class ManagerTableRow extends Component {
         />
         editOrSaveButton = <button data-id={this.props.item.id} 
         onClick={this.clickSave}>Save</button>
+        }
         return (
             <div>
                 <h2>{this.state.heading}</h2>
