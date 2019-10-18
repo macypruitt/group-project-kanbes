@@ -17,7 +17,6 @@ import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
 import AdminPage from '../AdminPage/AdminPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import InvoicePage from '../InvoicePage/InvoicePage';
@@ -29,6 +28,7 @@ import StorePage from '../StorePage/StorePage';
 
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
+import InvoicePage from '../InvoicePage/InvoicePage';
 
 
 class App extends Component {
@@ -93,8 +93,13 @@ class App extends Component {
             />
             <Route
               exact
-              path="/driver"
+              path="/driver/:id"
               component={DriverPage}
+            />
+            <Route
+              exact
+              path="/invoice"
+              component={InvoicePage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.

@@ -55,6 +55,8 @@ services:
       POSTGRES_DB: prime_table
       POSTGRES_HOST: database
       CHOKIDAR_USEPOLLING: 'true'
+      USERNAME: ${USERNAME}
+      PASSWORD: ${PASSWORD}
       NODE_ENV: development
     volumes:
       - './server:/app/server'
