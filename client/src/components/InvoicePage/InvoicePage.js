@@ -55,8 +55,6 @@ class InvoicePage extends Component {
             console.log(this.state)
         })
     }
-    
- 
 
     render() {
 

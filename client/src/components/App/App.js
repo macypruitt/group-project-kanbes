@@ -8,34 +8,39 @@ import {
 
 import {connect} from 'react-redux';
 
-import Nav from '../Nav/Nav';
+// import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import AdminPage from '../AdminPage/AdminPage';
+import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
+import InvoicePage from '../InvoicePage/InvoicePage';
+import InventoryPage from '../InventoryPage/InventoryPage';
+import PurchasePage from '../PurchasePage/PurchasePage';
+import ProducePage from '../ProducePage/ProducePage';
+import SupplierPage from '../SupplierPage/SupplierPage';
+import StorePage from '../StorePage/StorePage';
+
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 import InvoicePage from '../InvoicePage/InvoicePage';
 
-import './App.css';
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
-  }
+
 
   render() {
     return (
+      
       <Router>
+        
         <div>
-          <Nav />
+          {/* <Nav /> */}
           <Switch>
             {/* Visiting localhost:3000 will redirect to localhost:3000/home */}
             <Redirect exact from="/" to="/home" />
@@ -44,12 +49,12 @@ class App extends Component {
             <Route
               exact
               path="/about"
-              component={AboutPage}
+              component={KanbeTemplate}
             />
             <Route
               exact
               path="/home"
-              component={LandingPage}
+              component={LoginPage}
             />
             <Route
               exact
@@ -58,7 +63,37 @@ class App extends Component {
             />
             <Route
               exact
-              path="/driver"
+              path="/invoice"
+              component={InvoicePage}
+            />
+            <Route
+              exact
+              path="/inventory"
+              component={InventoryPage}
+            />
+            <Route
+              exact
+              path="/purchase"
+              component={PurchasePage}
+            />
+            <Route
+              exact
+              path="/store"
+              component={StorePage}
+            />
+            <Route
+              exact
+              path="/supplier"
+              component={SupplierPage}
+            />
+            <Route
+              exact
+              path="/produce"
+              component={ProducePage}
+            />
+            <Route
+              exact
+              path="/driver/:id"
               component={DriverPage}
             />
             <Route
@@ -112,7 +147,8 @@ class App extends Component {
           </Switch>
           <Footer />
         </div>
-      </Router>
+      
+    </Router>
   )}
 }
 

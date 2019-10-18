@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
+import { withRouter } from 'react-router';
 
 
 import DriverTable from './DriverTable';
@@ -13,11 +15,17 @@ class DriverPage extends Component {
     };
 
     componentDidMount(){
+        console.log(this.props.match.params.id)
         ////Saga dispatches GET, stores in reducer
+        this.props.dispatch({type: 'FETCH_STORE_INVENTORY', payload: 1})
         ////setState using store name as header
+        
+        // this.props.dispatch({type: 'FETCH_STORE_INVENTORY', payload: });
     }
 
     render() {
+console.log(this.props.store.storeInventory)
+
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver=[];
 
@@ -42,13 +50,17 @@ class DriverPage extends Component {
       
 
         return (
-            <div className="driver-container">
+            <KanbeTemplate>
+                <div className="driver-container">
                 <h2>{this.state.heading}</h2>
               
                 {driverTableHolder}
             </div>
-        );
+        
+
+            </KanbeTemplate>
+        )
     }
 }
 
-export default connect(mapStoreToProps)(DriverPage);
+export default connect(mapStoreToProps)(withRouter(DriverPage));
