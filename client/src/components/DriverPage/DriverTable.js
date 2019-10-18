@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+// import  Fab  from '@material-ui/core/Fab';
+import AddIcon from '@material-ui/icons/Add';
 
 import DriverTableRow from './DriverTableRow';
+import { Button } from '@material-ui/core';
 
 class DriverTable extends Component {
     state = {
@@ -57,7 +60,11 @@ class DriverTable extends Component {
                     {newRow}
                     </tbody>
                 </table>
-                <button onClick={this.clickAdd}>Add Product</button>
+                <div>
+                    <Button className="add-button" onClick={this.clickAdd}>
+                        <AddIcon />
+                    </Button>
+                </div>
                 <br />
             </div>
         );
