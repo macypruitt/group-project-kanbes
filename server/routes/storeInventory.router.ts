@@ -30,4 +30,8 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
         );
 });
 
+/**
+ * POST route for specific store inventory
+ */
+
 export default router;
