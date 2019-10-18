@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import MenuItem from '@material-ui/core/MenuItem';
 import Collapse from '@material-ui/core/Collapse';
 import {
     createStyles,
@@ -40,6 +41,7 @@ class NavDriver extends Component {
 
     state = {
         expand: false,
+        selected: null
 
     }
 
@@ -47,6 +49,9 @@ class NavDriver extends Component {
         this.setState({ expand: !this.state.expand })
     }
 
+    updatedSelected = (selectedIndex) => {
+        this.setState({selected: selectedIndex})
+    }
 
 
     moveToDriverPage = (id) => {
@@ -57,20 +62,20 @@ class NavDriver extends Component {
 
     render() {
         const storesArray = this.props.store.stores
+        console.log(storesArray,'this is the stores array');
 
         let storeNavData = storesArray.map((item, index) => {
+            console.log(item, 'this is a item from store array');
             return (
 
-                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} className={this.props.classes.nested}>
+                <MenuItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} />
-                        </Grid>
-                        <Grid item xs={12}>
                             <ListItemText className="address" primary={item.address} />
                         </Grid>
                     </Grid>
-                </ListItem>
+                </MenuItem>
 
             )
         })
@@ -81,13 +86,13 @@ class NavDriver extends Component {
                 aria-labelledby="nested-list-subheader"
                 className={this.props.classes.root}
             >
-                <ListItem button onClick={this.handleToggle}>
+                <MenuItem button onClick={this.handleToggle}>
                     <ListItemIcon>
                         <LocalShippingIcon />
                     </ListItemIcon>
                     <ListItemText primary="Delivery" />
                     {this.state.expand ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
+                </MenuItem>
                 <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
                     <List component="div" disablePadding>
                         {storeNavData}

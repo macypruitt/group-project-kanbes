@@ -10,11 +10,13 @@ class DriverPage extends Component {
     render() {
 
 
-        let storeName = 'test';
+        let storeName = '';
         ////setState using store name as header
         if (this.props.store.storeInventory.length > 0) {
             storeName = this.props.store.storeInventory[0].store_name
         }
+
+        console.log(this.props.store.storeInventory, 'this is store inventory');
        
 
         ////this simulates the array data from the database query; it will be replaced with reducer data
