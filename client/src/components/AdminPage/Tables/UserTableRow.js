@@ -139,9 +139,23 @@ class UserTableRow extends Component {
                 placeholder={last_name}
                 onChange={(event) => this.handleChangeInputText(event, 'last_name')}
             />
-            role = <Input className="row-input"
-                placeholder={role}
-                onChange={(event) => this.handleChangeInputText(event, 'role')} />
+                role = <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="role">{role}</InputLabel>
+                <Select
+                    className="row-input"
+                    onChange={(event) => this.handleChangeInputText(event, 'role')}
+                    value={this.state.role}
+                    inputProps={{
+                        name: 'role',
+                        id: 'role',
+                    }}
+                >
+                    <MenuItem value={'Driver'}>Driver</MenuItem>
+                    <MenuItem value={'Program Manager'}>Program Manager</MenuItem>
+                    <MenuItem value={'Executive Director'}>Executive Director</MenuItem>
+                </Select>
+            </FormControl>
+                
             email = <Input className="row-input"
                 placeholder={email}
                 onChange={(event) => this.handleChangeInputText(event, 'email')} />
