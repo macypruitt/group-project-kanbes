@@ -12,7 +12,7 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
     pool.query(queryText)
         .then((result) => res.send(result.rows))
         .catch((err) => {
-            console.log(`Error in GET all users: ${err}`);
+            console.log(`Error in GET all stores: ${err}`);
             res.sendStatus(500)
         }
         );
