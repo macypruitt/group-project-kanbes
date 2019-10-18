@@ -7,11 +7,6 @@ import DriverTable from './DriverTable';
 import './DriverPage.css'
 
 class DriverPage extends Component {
-
-
-
-
-
     render() {
 
 
@@ -56,7 +51,6 @@ class DriverPage extends Component {
                 <div className="driver-container">
                     <h2>{storeName}</h2>
                     <h3>{date}</h3>
-
                     {driverTableHolder}
                 </div>
             </KanbeTemplate>
