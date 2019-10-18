@@ -20,6 +20,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import PersonIcon from '@material-ui/icons/Person';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 
 import LogOutButton from '../LogOutButton/LogOutButton';
 import NavAdmin from '../Nav/Nav.Admin';
@@ -38,7 +42,7 @@ const styles = (theme: Theme) =>
     },
     toolbar: {
       paddingRight: 24, // keep right padding when drawer closed
-      backgroundColor:'#a4bd83',
+      backgroundColor: '#a4bd83',
     },
     toolbarIcon: {
       display: 'flex',
@@ -125,33 +129,34 @@ class KanbeTemplate extends Component {
 
   render() {
     const adminLevel = this.props.store.user.admin_level
+    const userName = this.props.store.user.first_name;
     let drawer;
-    
 
-    if(adminLevel == 1) {
-      drawer = 
-      <div>
-        <Divider />
-        <NavAdmin />
-        <NavDriver />
-      </div>
+
+    if (adminLevel == 1) {
+      drawer =
+        <div>
+          <Divider />
+          <NavAdmin />
+          <NavDriver />
+        </div>
     }
 
-    if(adminLevel == 2 ) {
-      drawer = 
-      <div>
-        <Divider />
-        <NavDriver />
-      </div>
+    if (adminLevel == 2) {
+      drawer =
+        <div>
+          <Divider />
+          <NavDriver />
+        </div>
     }
-      
+
 
     return (
       <div className={this.props.classes.root}>
         <CssBaseline />
         <AppBar
           position="absolute"
-          className={clsx(this.props.classes.appBar, { 
+          className={clsx(this.props.classes.appBar, {
             [this.props.classes.appBarShift]: this.state.open,
           })}
         >
@@ -172,33 +177,40 @@ class KanbeTemplate extends Component {
         </AppBar>
         {/* <nav className={this.props.classes.drawer} aria-label="mailbox folders"> */}
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Drawer
-            className={this.props.classes.drawer}
-            variant="persistent"
-            anchor="left"
-            open={this.state.open}
-            classes={{
-              paper: clsx(this.props.classes.drawerPaper, !this.state.open && this.props.classes.drawerPaperClose),
-            }}
-          >
-            <div className={this.props.classes.toolbarIcon}>
-              <IconButton onClick={this.handleDrawerClose}>
-                {/* {this.props.theme.direction === 'ltr' ? 
+        <Drawer
+          className={this.props.classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={this.state.open}
+          classes={{
+            paper: clsx(this.props.classes.drawerPaper, !this.state.open && this.props.classes.drawerPaperClose),
+          }}
+        >
+          <div className={this.props.classes.toolbarIcon}>
+            <IconButton onClick={this.handleDrawerClose}>
+              {/* {this.props.theme.direction === 'ltr' ? 
                 <ChevronLeftIcon /> :  */}
-                <ChevronLeftIcon />
-                {/* } */}
-              </IconButton>
-            </div>
-            {drawer}
-            <Divider />
-            <LogOutButton />
-            <Divider />
-          </Drawer>
+              <ChevronLeftIcon />
+              {/* } */}
+            </IconButton>
+          </div>
+          <ListItem>
+            <ListItemIcon>
+              <PersonIcon />
+            </ListItemIcon>
+            <ListItemText primary={userName} />
+          </ListItem>
           
+          {drawer}
+          <Divider />
+          <LogOutButton />
+          <Divider />
+        </Drawer>
+
         <main className={this.props.classes.content}>
           <div className={this.props.classes.appBarSpacer} />
           <Container maxWidth="lg" className={this.props.classes.container}>
-          {this.props.children}
+            {this.props.children}
           </Container>
         </main>
       </div>
