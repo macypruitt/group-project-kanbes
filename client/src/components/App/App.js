@@ -93,7 +93,7 @@ class App extends Component {
             />
             <Route
               exact
-              path="/driver"
+              path="/driver/:id"
               component={DriverPage}
             />
             {/* For protected routes, the view could show one of several things on the same route.
