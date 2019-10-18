@@ -138,7 +138,7 @@ class StoreTableRow extends Component {
 
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
-        let name = this.props.item.store_name;
+        let store_name = this.props.item.store_name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
         let status = this.props.item.status
@@ -160,10 +160,10 @@ class StoreTableRow extends Component {
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
 
-            name = <Input
+            store_name = <Input
                 className="row-input"
-                placeholder={name}
-                onChange={(event) => this.handleChangeInputText(event, 'name')}
+                placeholder={store_name}
+                onChange={(event) => this.handleChangeInputText(event, 'store_name')}
             />
             address = <Input className="row-input"
                 placeholder={address}
@@ -212,7 +212,7 @@ class StoreTableRow extends Component {
         return (
             <tr>
                 <td>{order}</td>
-                <td>{name}</td>
+                <td>{store_name}</td>
                 <td>{address}</td>
                 <td>{status}</td>
                 <td>{contactName}</td>

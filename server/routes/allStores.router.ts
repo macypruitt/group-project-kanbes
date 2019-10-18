@@ -22,7 +22,7 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
  * POST route to post store to database
  */
 router.post('/', (req: Request, res: Response, next: express.NextFunction): void => {
-    const storeName: string = req.body.store_name;
+    const store_name: string = req.body.store_name;
     const address: string = req.body.address;
     const contactName: string | null = req.body.contact_name;
     const contactEmail: string | null = req.body.contact_email;
@@ -35,7 +35,7 @@ router.post('/', (req: Request, res: Response, next: express.NextFunction): void
                                 "contact_email", "contact_phone", "status", "store_phone_number", "delivery_route_order")
                                 VALUES($1, $2, $3, $4, $5, $6, $7, $8);`;
 
-    pool.query(queryText, [storeName, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder])
+    pool.query(queryText, [store_name, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder])
         .then(() => res.sendStatus(201))
         .catch((err) => {
             console.log(`Error posting store to database: ${err}`);
@@ -76,7 +76,7 @@ console.log(queryText)
 });
 
 router.put('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
-    const storeName: string = req.body.store_name;
+    const store_name: string = req.body.store_name;
     const address: string = req.body.address;
     const contactName: string | null = req.body.contact_name;
     const contactEmail: string | null = req.body.contact_email;
@@ -90,7 +90,7 @@ router.put('/:id', (req: Request, res: Response, next: express.NextFunction): vo
                     "contact_email" = $4, "contact_phone" = $5, "status" = $6, "store_phone_number" = $7, "delivery_route_order" = $8
                     WHERE "id" = $9;`;
 
-    pool.query(queryText, [storeName, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder, storeId])
+    pool.query(queryText, [store_name, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder, storeId])
         .then(() => { res.sendStatus(201) })
         .catch((err) => {
             console.log(`Error updating store: ${err}`);
