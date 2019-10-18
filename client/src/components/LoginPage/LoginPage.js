@@ -6,9 +6,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  // Link,
-  // Grid,
-  // Box,
   Container,
   Typography
 
@@ -18,9 +15,12 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { grey } from '@material-ui/core/colors';
+
 import KanbeLogo from './KanbeLogo.png';
 import './LoginPage.css';
 
+
+//Material-ui styling
 const styles = (theme: Theme) =>
   createStyles({
     '@global': {
@@ -48,6 +48,7 @@ const styles = (theme: Theme) =>
       backgroundColor: '#a4bd83'
     },
   });
+
 
 class LoginPage extends Component {
   state = {
@@ -78,11 +79,22 @@ class LoginPage extends Component {
   }
 
   render() {
-
+   const loginError = this.props.store.errors.loginMessage
 
     return (
       <Container component="main" maxWidth="xs">
         <CssBaseline />
+          <div>
+            {this.props.store.errors.loginMessage && (
+             <h2
+                className="alert"
+                role="alert"
+              >
+                {this.props.store.errors.loginMessage}
+            </h2>
+            )}
+          </div>
+          
         <img className={'kanbe-img'} src={KanbeLogo} alt="Kanbe's Market Logo" />
         <div className={this.props.classes.paper}>
           <Avatar className={this.props.classes.avatar}>
@@ -91,7 +103,7 @@ class LoginPage extends Component {
           <Typography component="h1" variant="h5">
             Sign in
             </Typography>
-          <form className={this.props.classes.form} onSubmit={this.login}>
+          <form className={this.props.classes.form} >
             <TextField
               variant="outlined"
               margin="normal"
@@ -128,7 +140,7 @@ class LoginPage extends Component {
               variant="contained"
               color="primary"
               className={this.props.classes.submit}
-              onClick={() => { this.props.dispatch({ type: 'FETCH_USER' }) }}
+              onClick={this.login}
             >
               Sign In
           </Button>

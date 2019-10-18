@@ -5,7 +5,6 @@ import {
 } from 'react-router-dom'
 import {connect} from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 // A Custom Wrapper Component -- This will keep our code DRY.
@@ -26,6 +25,9 @@ const ProtectedRoute = (props) => {
     component: ComponentToProtect,
     // redirect path to be used if the user is authorized
     authRedirect,
+    driverRedirect,
+    managerRedirect,
+    directorRedirect,
     store,
     ...otherProps
   } = props;
@@ -40,15 +42,19 @@ const ProtectedRoute = (props) => {
     // if they are not logged in, check the loginMode on Redux State
     // if the mode is 'login', show the LoginPage
     ComponentToShow = LoginPage;
-  } else {
-    // the the user is not logged in and the mode is not 'login'
-    // show the RegisterPage
-    ComponentToShow = RegisterPage;
   }
 
-  // redirect a logged in user if an authRedirect prop has been provided
-  if (store.user.id && authRedirect != null) {
-    return <Redirect exact from={otherProps.path} to={authRedirect} />;
+  // redirect a logged in user to correct page based on role if an authRedirect prop has been provided
+   if (store.user.id && store.user.role === 'Driver' && driverRedirect != null) {
+    return <Redirect exact from={otherProps.path} to={driverRedirect} />;
+  }
+  
+  if (store.user.id && store.user.role === 'Program Manager' && managerRedirect != null) {
+    return <Redirect exact from={otherProps.path} to={managerRedirect} />;
+  } 
+  
+  if (store.user.id && store.user.role === 'Executive Director' && directorRedirect != null) {
+    return <Redirect exact from={otherProps.path} to={directorRedirect} />;
   }
 
   // We return a Route component that gets added to our list of routes
