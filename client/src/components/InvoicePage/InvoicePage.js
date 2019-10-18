@@ -8,7 +8,6 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles, createStyles, Theme } from "@material-ui/core/styles";
-
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -28,9 +27,10 @@ const styles = (theme: Theme) =>
         }
 });
 
+
 class InvoicePage extends Component {
     state = {
-        selectedDate: (Date.getDate),
+        selectedDate: '',
         selectedStore:  {
             id: 0,
             name: 'SelectStore'

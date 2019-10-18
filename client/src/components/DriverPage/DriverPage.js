@@ -11,7 +11,7 @@ import './DriverPage.css'
 class DriverPage extends Component {
     
     state = {
-        heading:'Store Name'
+        storeName:'Food Mart, 8025 Hickman'
     };
 
     componentDidMount(){
@@ -22,6 +22,8 @@ class DriverPage extends Component {
         
         // this.props.dispatch({type: 'FETCH_STORE_INVENTORY', payload: });
     }
+
+
 
     render() {
 console.log(this.props.store.storeInventory)
@@ -37,9 +39,10 @@ console.log(this.props.store.storeInventory)
                 product_sub_type: 'Big Red',
                 standard_par: 12,
                 last_par: 8,
-                store_id: 3
+                store_id: 3,
             }
         ]
+
 
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder;
@@ -47,12 +50,17 @@ console.log(this.props.store.storeInventory)
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
         }
 
+
+        var today = new Date();
+        var date = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
       
 
         return (
             <KanbeTemplate>
                 <div className="driver-container">
-                <h2>{this.state.heading}</h2>
+                <h2>{this.state.storeName}</h2>
+                <h3>{date}</h3>
               
                 {driverTableHolder}
             </div>

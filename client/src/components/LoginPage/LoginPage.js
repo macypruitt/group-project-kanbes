@@ -6,9 +6,6 @@ import {
   TextField,
   FormControlLabel,
   Checkbox,
-  // Link,
-  // Grid,
-  // Box,
   Container,
   Typography
 
@@ -18,9 +15,12 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { grey } from '@material-ui/core/colors';
+
 import KanbeLogo from './KanbeLogo.png';
 import './LoginPage.css';
 
+
+//Material-ui styling
 const styles = (theme: Theme) =>
   createStyles({
     '@global': {
@@ -48,6 +48,7 @@ const styles = (theme: Theme) =>
       backgroundColor: '#a4bd83'
     },
   });
+
 
 class LoginPage extends Component {
   state = {
