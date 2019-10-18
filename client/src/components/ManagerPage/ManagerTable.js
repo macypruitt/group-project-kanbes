@@ -20,16 +20,16 @@ class ManagerTable extends Component {
     render() {
         ////this prevents error if driver reducer data is unavailable
         let warehouseDataForRender = [];
-        warehouseDataForRender = this.props.dataForDriver;
+        warehouseDataForRender = this.props.dataForWarehouse;
 
         ////if reducer holds data, map it into rows of the table
-        if (warehouseDataForRender.length > 0) {
+        if(warehouseDataForRender.length > 0) {
             warehouseDataForRender = warehouseDataForRender.map((item, index) => {
                 return <ManagerTableRow key={index} item={item} />
             })
         }
         let newRow;
-        if (this.state.isAdding) {
+        if(this.state.isAdding) {
             const emptyItem = {}
             newRow = <ManagerTableRow editable={true} addable={true} item={emptyItem} clickAddStore={this.clickAdd} />
         }

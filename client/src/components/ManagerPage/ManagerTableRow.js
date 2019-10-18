@@ -102,7 +102,7 @@ class ManagerTableRow extends Component {
             type="number"
             className="row-input"
             placeholder={pounds}
-            onChange={(event) => this.handleChangeInputText(event, 'supplier_id')}
+            onChange={(event) => this.handleChangeInputText(event, 'pounds')}
         />
         editOrSaveButton = <button data-id={this.props.item.id} 
         onClick={this.clickSave}>Save</button>

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 import ManagerTable from './ManagerTable'
+import './ManagerPage.css'
 
 class ManagerPage extends Component {
     state = {
@@ -15,8 +16,6 @@ class ManagerPage extends Component {
 
     render() {
         let dataForWareHouse = [];
-
-        dataForWareHouse = [];
 
         dataForWareHouse = [
             {
