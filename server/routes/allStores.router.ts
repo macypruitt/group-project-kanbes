@@ -8,7 +8,21 @@ const router: express.Router = express.Router();
  * GET route to get all stores from database
  */
 router.get('/', (req: Request, res: Response, next: express.NextFunction): void => {
-    const queryText: string = `SELECT * FROM "stores"  ORDER BY "delivery_route_order" ASC`;
+    const queryText: string = `SELECT * FROM "stores" ORDER BY "delivery_route_order" ASC;`;
+    pool.query(queryText)
+        .then((result) => res.send(result.rows))
+        .catch((err) => {
+            console.log(`Error in GET all stores: ${err}`);
+            res.sendStatus(500)
+        }
+        );
+});
+
+/**
+ * GET route to get all active stores from database
+ */
+router.get('/active', (req: Request, res: Response, next: express.NextFunction): void => {
+    const queryText: string = `SELECT * FROM "stores" WHERE "status" = 'TRUE' ORDER BY "delivery_route_order" ASC;`;
     pool.query(queryText)
         .then((result) => res.send(result.rows))
         .catch((err) => {
