@@ -31,15 +31,18 @@ class DriverTableRow extends Component {
         console.log(this.state);
     }
 
-    clickSave = (event) => {
+    clickSaveEntry = (event) => {
         this.setState({
             isEditable: !this.state.isEditable
         })
         console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({type: "ADD_OUTGOING_STORE", payload: this.state.item})
+        // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
+        // this.props.history.push(`/driver/${id}`);
     }
 
-    clickAdd = (event) => {
+    clickAddEntry = (event) => {
         this.props.clickAddStore();
         this.setState({
             isEditable: !this.state.isEditable,
@@ -58,7 +61,7 @@ class DriverTableRow extends Component {
         let sold;
         let shrink;
         let notes;
-        let editOrSaveButton = <button onClick={this.clickEdit}>Edit</button>;
+        let editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if(this.state.isEditable){
@@ -91,25 +94,25 @@ class DriverTableRow extends Component {
                     type="tel"
                     pattern="[0-9]*"
                     className="row-input" 
-                    onChange={(event) => this.handleChangeInputText(event, 'sold')}
+                    onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
                      />
             shrink = <input 
                     type="tel"
                     pattern="[0-9]*"
                     className="row-input" 
-                    onChange={(event) => this.handleChangeInputText(event, 'shrink')}
+                    onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
                      />
             notes = <input 
                     type="text"
                     className="row-input" 
                     onChange={(event) => this.handleChangeInputText(event, 'notes')}
                      />
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSave}>Save</button>
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</button>
         }
 
          ////if 'Add Store' button is clicked, Edit changes to Add
          if(this.state.isAddable){
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAdd}>Add</button>
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAddEntry}>Add Entry</button>
             product_name = <input 
             className="row-input" 
             placeholder={product_name}

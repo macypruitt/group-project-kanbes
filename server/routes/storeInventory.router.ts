@@ -35,34 +35,30 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
 /**
  * POST route to add product inventory change to outgoing_store inventory from database
  */
-// router.post('/', (req: Request, res: Response, next: express.NextFunction): void => {
-//     const newPassword: string = generatePassword(8, false);
+router.post('/outgoing_store', (req: Request, res: Response, next: express.NextFunction): void => {
+
+    const store_id: string = req.body.store_id;
+    const product_id: string = req.body.product_id;;
+    const user_id: string = req.body.user_id;
+    const supplier_id: string = req.body.supplier_id;
+    const last_modified: string | null = req.body.last_modified;
+    const sold_product_count: string = req.body.sold_product_count;
+    const shrink_product_count: string = req.body.shrink_product_count;
+    const standard_par: string = req.body.standard_par;
+    const last_par: string = req.body.last_par;
+    const notes: string = req.body.notes;
   
-//     // store password in database
-//     const username: string = req.body.username;
-//     const password: string = encryptPassword(newPassword);
-//     const firstName: string = req.body.first_name;
-//     const lastName: string = req.body.last_name;
-//     const email: string | null = req.body.email;
-//     const role: string = req.body.role;
-//     const adminLevel: string = req.body.admin_level;
+    const queryText: string = `INSERT INTO "outgoing_store" ( "store_id", "product_id", "user_id", "supplier_id", "last_modified", "sold_product_count", "shrink_product_count", "standard_par", "last_par", "notes")
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`;
+    pool.query(queryText, [store_id, product_id, user_id, supplier_id, last_modified, sold_product_count, shrink_product_count, standard_par, last_par, notes])
+    .then(() => res.sendStatus(201))
+      .catch((err) => {
+        console.log(`Error saving order to outgoing store: ${err}`);
+        res.sendStatus(500)
+      }
+      );
   
-//     const queryText: string = `INSERT INTO "user" (first_name, last_name, username, email, password, role, admin_level) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
-//     pool.query(queryText, [firstName, lastName, username, email, password, role, adminLevel])
-//       .then(() => {
-//         // then email it!
-//         mail(newPassword, email);
+  });
   
-//         // Whatever, just respond. Or move this into a function away from an endpoint and then no response needed.
-//         res.send(newPassword);
-//       }
-//       )
-//       .catch((err) => {
-//         console.log(`Error saving user to database: ${err}`);
-//         res.sendStatus(500)
-//       }
-//       );
-  
-//   });
 
 export default router;
