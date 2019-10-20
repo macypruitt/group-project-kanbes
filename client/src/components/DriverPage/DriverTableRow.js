@@ -55,6 +55,7 @@ class DriverTableRow extends Component {
 
     render() {
         ////row data is passed to this component via props
+
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
         let standard_par = this.props.item.standard_par;
@@ -62,12 +63,19 @@ class DriverTableRow extends Component {
         let sold = this.props.item.sold_product_count;
         let shrink = this.props.item.shrink_product_count;
         let notes = this.props.item.notes;
-        let lastmodified = this.props.item.last_modified;
+        let lastModified = this.props.item.last_modified;
         let editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
-        var today = new Date();
-        var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
-        var time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let today = new Date();
+        let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+        let time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 
+        if ((lastModified.split("T")[0]).split("-")[2] != today.getDate()) {
+            console.log((lastModified.split("T")[0]).split("-")[2]);
+            sold = '';
+            shrink = '';
+            notes = '';
+            lastModified = '';
+        }
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
             // product_name = <input 
@@ -112,7 +120,7 @@ class DriverTableRow extends Component {
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
-            lastmodified = date + time
+            lastModified = date + time
             editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</button>
         }
 
@@ -134,7 +142,7 @@ class DriverTableRow extends Component {
 
         return (
 
-                <tr id={this.props.key}>
+            <tr id={this.props.key}>
                 <td>{product_name}</td>
                 <td>{product_sub_type}</td>
                 <td>{standard_par}</td>
@@ -142,7 +150,7 @@ class DriverTableRow extends Component {
                 <td>{sold}</td>
                 <td>{shrink}</td>
                 <td>{notes}</td>
-                <td>{lastmodified}</td>
+                <td>{lastModified}</td>
                 <td>{editOrSaveButton}</td>
             </tr>
         );
