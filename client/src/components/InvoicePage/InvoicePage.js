@@ -17,40 +17,33 @@ import {
     KeyboardDatePicker,
   } from '@material-ui/pickers';
 
-const styles = (theme: Theme) =>
-    createStyles({
-        formControl: {
-            margin: theme.spacing(1),
-            minWidth: 300
-        },
-        selectEmpty: {
-            marginTop: theme.spacing(2)
-        }
-});
-
 class InvoicePage extends Component {
     state = {
-        selectedDate: (Date.getDate),
-        selectedStore:  {
-            id: 0,
-            name: 'SelectStore'
-        }
+        startDate: (Date.getDate),
+        endDate: (Date.getDate),
+        store_id: null
     };
 
-    handleDateChange = (date) => {
+    /////Handler functions for selecting dates and store
+    handleStartDateChange = (date) => {
         this.setState({
-            selectedDate: date
+            startDate: date
         }, ()=>{
-            console.log(this.state.selectedDate)
+            console.log(this.state)
+        })
+    }
+
+    handleEndDateChange = (date) => {
+        this.setState({
+            endDate: date
+        }, ()=>{
+            console.log(this.state)
         })
     }
 
     handleStoreChange = (event) => {
         this.setState({
-            selectedStore: {
-                name: event.target.value.name,
-                address: event.target.value.address
-            }
+            store_id: event.target.value
         }, () => {
             console.log(this.state)
         })
@@ -66,7 +59,7 @@ class InvoicePage extends Component {
                 unit_sale_price: 4.35,
                 store_id: 4,
                 name: 'Food Mart',
-                address: '123 HotChip lane'
+                address: '123 Junkfood lane'
             },
             {
                 product_name: "Bananas",
@@ -95,17 +88,20 @@ class InvoicePage extends Component {
             })
         }
 
+       
+
         return (
             <div className="invoice-container">
-                <FormControl>
-                    <InputLabel htmlFor="store">{this.state.selectedStore.name}</InputLabel>
+                {/* ////////////////////////////////////////////////// */}
+                <FormControl >
+                    <InputLabel className="store-selector" htmlFor="admin_level">{'Select Store'}</InputLabel>
                     <Select
-                        value={this.state.selectedStore.name}
                         className="store-selector"
-                        onChange={this.handleStoreChange}
+                        onChange={(event) => this.handleStoreChange(event, 'admin_level')}
+                        value={this.state.store_id}
                         inputProps={{
-                            name: this.state.selectedStore.name,
-                            id: 'store',
+                            name: 'store_id',
+                            id: 'store_id',
                         }}
                     >
                         {storeList}
@@ -119,17 +115,34 @@ class InvoicePage extends Component {
                         format="MM/dd/yyyy"
                         margin="normal"
                         id="date-picker-inline"
-                        label="Date picker inline"
-                        value={this.state.selectedDate}
-                        onChange={this.handleDateChange}
+                        label="Select Start Date"
+                        value={this.state.startDate}
+                        onChange={this.handleStartDateChange}
+                        KeyboardButtonProps={{
+                            'aria-label': 'change date',
+                        }}
+                    /> 
+                     <KeyboardDatePicker
+                        disableToolbar
+                        variant="inline"
+                        format="MM/dd/yyyy"
+                        margin="normal"
+                        id="date-picker-inline"
+                        label="Select End Date"
+                        value={this.state.endDate}
+                        onChange={this.handleEndDateChange}
                         KeyboardButtonProps={{
                             'aria-label': 'change date',
                         }}
                     /> 
                 </MuiPickersUtilsProvider>
+                {/* ////////////////////////////////////////////////// */}
                 
-                <h2>Invoice for Date</h2>
+                <h2>Invoice for Store Name </h2>
+                <h4>Date</h4>
+
                 <InvoiceTable mockInvoiceData={mockInvoiceData}/>
+                
                 <div className="invoice-totals">
                     <p>Store:</p>
                     <p>Kanbe's Due:</p>
