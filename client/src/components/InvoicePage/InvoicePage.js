@@ -13,7 +13,6 @@ import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
 
@@ -21,7 +20,7 @@ class InvoicePage extends Component {
     state = {
         startDate: (Date.getDate),
         endDate: (Date.getDate),
-        store_id: null
+        store_name: null
     };
 
     /////Handler functions for selecting dates and store
@@ -43,7 +42,7 @@ class InvoicePage extends Component {
 
     handleStoreChange = (event) => {
         this.setState({
-            store_id: event.target.value
+            store_name: event.target.value
         }, () => {
             console.log(this.state)
         })
@@ -59,7 +58,7 @@ class InvoicePage extends Component {
                 unit_sale_price: 4.35,
                 store_id: 4,
                 name: 'Food Mart',
-                address: '123 Junkfood lane'
+                address: '123 Address St'
             },
             {
                 product_name: "Bananas",
@@ -67,16 +66,16 @@ class InvoicePage extends Component {
                 sold_product_count: 1,
                 unit_sale_price: 4.35,
                 store_id: 4,
-                name: 'Cheeto Town',
-                address: '456 Takis Blvd'
+                name: 'Gas Station',
+                address: '456 Address Blvd'
             }
         ]
 
-        let storeList;
+        let storeSelectorList;
         const storeData = mockInvoiceData;
 
-        if(storeData.length > 0){
-            storeList = storeData.map((item, index) => {
+        if(storeData){
+            storeSelectorList = storeData.map((item, index) => {
                 return(
                     <MenuItem 
                         key={index}
@@ -93,52 +92,54 @@ class InvoicePage extends Component {
         return (
             <div className="invoice-container">
                 {/* ////////////////////////////////////////////////// */}
-                <FormControl >
-                    <InputLabel className="store-selector" htmlFor="admin_level">{'Select Store'}</InputLabel>
-                    <Select
-                        className="store-selector"
-                        onChange={(event) => this.handleStoreChange(event, 'admin_level')}
-                        value={this.state.store_id}
-                        inputProps={{
-                            name: 'store_id',
-                            id: 'store_id',
-                        }}
-                    >
-                        {storeList}
-                    </Select>
-                </FormControl>
-
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                    <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Select Start Date"
-                        value={this.state.startDate}
-                        onChange={this.handleStartDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    /> 
-                     <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Select End Date"
-                        value={this.state.endDate}
-                        onChange={this.handleEndDateChange}
-                        KeyboardButtonProps={{
-                            'aria-label': 'change date',
-                        }}
-                    /> 
-                </MuiPickersUtilsProvider>
+                <div className="invoice-selector-box">
+                    <FormControl >
+                        <InputLabel className="store-selector" htmlFor="admin_level">{'Select Store'}</InputLabel>
+                        <Select
+                            className="store-selector"
+                            onChange={(event) => this.handleStoreChange(event, 'admin_level')}
+                            value={this.state.store_name}
+                            inputProps={{
+                                name: 'store_name',
+                                id: 'store_id',
+                            }}
+                        >
+                            {storeSelectorList}
+                        </Select>
+                    </FormControl>
+                    <br />
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Select Start Date"
+                            value={this.state.startDate}
+                            onChange={this.handleStartDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        /> 
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="Select End Date"
+                            value={this.state.endDate}
+                            onChange={this.handleEndDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                        /> 
+                    </MuiPickersUtilsProvider>
+                </div>
                 {/* ////////////////////////////////////////////////// */}
                 
-                <h2>Invoice for Store Name </h2>
+                <h2>Invoice for {this.state.store_name}</h2>
                 <h4>Date</h4>
 
                 <InvoiceTable mockInvoiceData={mockInvoiceData}/>
