@@ -94,7 +94,8 @@ CREATE TABLE "current_product_prices"
 (
 "id" SERIAL PRIMARY KEY,
 "product_id" INT REFERENCES "products",
-"current_price_per_unit" NUMERIC(8,2) NOT NULL
+"current_price_per_unit" NUMERIC(8,2) NOT NULL,
+"status" BOOLEAN NOT NULL,
 );
 
 CREATE TABLE "outgoing_store" (

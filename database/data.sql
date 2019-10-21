@@ -65,9 +65,10 @@ VALUES (2, 2, 2, '2019-10-04 22:36:00', 2, 1, null),
 
 INSERT INTO "current_product_prices" (
     "product_id",
-    "current_price_per_unit")
-VALUES (1, .30),
-(2, .32);
+    "current_price_per_unit",
+    "status")
+VALUES (1, .30, true),
+(2, .32, true);
 
 INSERT INTO "outgoing_store" (
 "store_id",

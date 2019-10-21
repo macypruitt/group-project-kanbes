@@ -23,31 +23,39 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
 /**
  * POST product to product table
  */
-// router.post('/', (req: Request, res: Response, next: express.NextFunction): void => {
-//     const store_name: string = req.body.store_name;
-//     const address: string = req.body.address;
-//     const contactName: string | null = req.body.contact_name;
-//     const contactEmail: string | null = req.body.contact_email;
-//     const contactPhone: string | null = req.body.contact_phone;
-//     const status: boolean = req.body.status;
-//     const storePhoneNumber: string | null = req.body.store_phone_number;
-//     const deliveryRouteOrder: number = req.body.delivery_route_order;
+router.post('/newProduct', (req: Request, res: Response, next: express.NextFunction): void => {
+    const product_name: string = req.body.product_name;
+    const product_sub_type: string = req.body.product_sub_type;
+    const current_price_per_unit: string = req.body.current_price_per_unit;
+    const status: string = req.body.status;
 
-//     const queryText: string = `INSERT INTO "stores" ("store_name", "address", "contact_name", 
-//                                 "contact_email", "contact_phone", "status", "store_phone_number", "delivery_route_order")
-//                                 VALUES($1, $2, $3, $4, $5, $6, $7, $8);`;
+    let queryText: string = `INSERT INTO "products" ("product_name", "product_sub_type")
+                                VALUES($1, $2) RETURNING "id";`;
 
-//     pool.query(queryText, [store_name, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder])
-//         .then(() => res.sendStatus(201))
-//         .catch((err) => {
-//             console.log(`Error posting store to database: ${err}`);
-//             res.sendStatus(500)
-//         }
-//         );
-// });
+    pool.query(queryText, [product_name, product_sub_type])
+        .then((response) => {
+
+            const product_id = response.rows[0].id; // something that is sitting in response
+            queryText = `INSERT INTO "current_product_prices" ("product_id", "current_price_per_unit", "status")
+                                VALUES($1, $2, $3);`;
+
+            pool.query(queryText, [product_id, current_price_per_unit, status])
+                .then(() => { res.sendStatus(201) })
+                .catch((err) => {
+                    console.log(`Error posting price to database: ${err}`);
+                    res.sendStatus(500)
+                })
+
+        })
+        .catch((err) => {
+            console.log(`Error posting product to database: ${err}`);
+            res.sendStatus(500)
+        });
+});
+
 
 /**
- * PUT price to price table
+ * PUT price to current_product_prices table
  */
 
 router.put('/editPrice/:id', (req: Request, res: Response, next: express.NextFunction): void => {

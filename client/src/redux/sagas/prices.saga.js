@@ -23,6 +23,7 @@ function* addProduct(action) {
   }
 }
 
+
 // Saga to update product price in current_product_prices table in database
 function* updatePrice(action) {
   try {
