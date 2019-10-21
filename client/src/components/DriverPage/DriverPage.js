@@ -8,33 +8,39 @@ import './DriverPage.css'
 
 class DriverPage extends Component {
     componentDidMount(){
-
-    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })
-    
-       
+    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })   
     }
 
     render() {
+        let storeName;
+        let address;
 
+        console.log(this.props.match.params.id, 'clicked id of store!')
+        console.log(this.props.store, 'need to get to the store inventory')
+        // let storeInfo = this.props.store.storeInventory.filter((store, index) => {
+        //     if (this.props.match.params.id == store.store_id){
+        //         return true;
+        //     }
+        //     return false;
+        // });
+        //     console.log(storeInfo[0], 'this is the filtered store information to get name and address');
+        //     let storeName = storeInfo[0]
 
-        let storeName = 'test';
         ////setState using store name as header
         if (this.props.store.stores.length > 0) {
             storeName = this.props.store.stores[0].store_name
+            address = this.props.store.stores[0].address
             let id = this.props.store.stores[0].id
-            // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
+          
         }
-
-       
-
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
-
         ////dataForDriver = this.props.store...........
-        if(this.props.store.storeInventory.length>0){
+        if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
+            console.log(dataForDriver, 'what is this')
         }
-        
+
 
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder;
@@ -49,9 +55,9 @@ class DriverPage extends Component {
         return (
             <KanbeTemplate>
                 <div className="driver-container">
-                    <h2>{storeName}</h2>
+                    <h1>{storeName}</h1>
+                    <h5>{address}</h5>
                     <h3>{date}</h3>
-
                     {driverTableHolder}
                 </div>
             </KanbeTemplate>
