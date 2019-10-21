@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
 
+var today = new Date();
+var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+var time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var currentDateTime = date + time
+
 class DriverTableRow extends Component {
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
+        isUpdatable: this.props.updatable || false,
+        currentTimeStamp: currentDateTime,
         item: {}
     };
 
@@ -14,7 +21,24 @@ class DriverTableRow extends Component {
         this.setState({
             ...this.state,
             isEditable: !this.state.isEditable,
-            item: this.props.item
+            item: {
+                ...this.props.item,
+                last_modified: this.state.currentTimeStamp
+            }
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    clickUpdate = (event) => {
+        this.setState({
+            ...this.state,
+            isEditable: !this.state.isEditable,
+            isUpdatable: !this.state.isUpdatable,
+            item: {
+                ...this.props.item,
+                last_modified: this.state.currentTimeStamp
+            }
         }, () => {
             console.log(this.state)
         })
@@ -39,8 +63,16 @@ class DriverTableRow extends Component {
         console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
-        // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
-        // this.props.history.push(`/driver/${id}`);
+    }
+
+    clickSaveUpdate = (event) => {
+        this.setState({
+            isEditable: false,
+            isUpdatable: false
+        })
+        console.log(this.state)
+        ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
     }
 
     clickAddEntry = (event) => {
@@ -64,10 +96,11 @@ class DriverTableRow extends Component {
         let shrink = this.props.item.shrink_product_count;
         let notes = this.props.item.notes;
         let lastModified = this.props.item.last_modified;
-        let editOrSaveButton = <button onClick={this.clickEdit}>Edit Entry</button>;
+        let editOrSaveButton = <button onClick={this.clickUpdate}>Edit Entry</button>;
         let today = new Date();
         let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         let time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let currentDateTime = date + time
 
         if ((lastModified.split("T")[0]).split("-")[2] != today.getDate()) {
             console.log((lastModified.split("T")[0]).split("-")[2]);
@@ -77,6 +110,8 @@ class DriverTableRow extends Component {
             lastModified = '';
             editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
         }
+
+
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
             // product_name = <input 
@@ -122,7 +157,9 @@ class DriverTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
             lastModified = date + time
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save</button>
+
+
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</button>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
@@ -140,6 +177,30 @@ class DriverTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
             />
             lastModified = date + time
+        }
+
+        if (this.state.isUpdatable) {
+            editOrSaveButton = <button onClick={this.clickSaveUpdate}>Save Update</button>
+            sold = <input
+                type="tel"
+                pattern="[0-9]*"
+                className="row-input"
+                placeholder={this.props.item.sold_product_count}
+                onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
+            />
+            shrink = <input
+                type="tel"
+                pattern="[0-9]*"
+                className="row-input"
+                placeholder={this.props.item.shrink_product_count}
+                onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
+            />
+            notes = <input
+                type="text"
+                className="row-input"
+                placeholder={this.props.item.notes}
+                onChange={(event) => this.handleChangeInputText(event, 'notes')}
+            />
         }
 
         return (

@@ -60,12 +60,14 @@ router.post('/newProduct', (req: Request, res: Response, next: express.NextFunct
 
 router.put('/editPrice/:id', (req: Request, res: Response, next: express.NextFunction): void => {
     const current_price_per_unit: number = req.body.current_price_per_unit
-
+    const status: string = req.body.status;
     const rowId: string = req.params.id;
-    const queryText: string = `UPDATE "current_product_prices" SET "current_price_per_unit" = $1
-                                WHERE "id" = $2;`;
+    const queryText: string = `UPDATE "current_product_prices" 
+                                SET "current_price_per_unit" = $1,
+                                "status" = $2
+                                WHERE "id" = $3;`;
 
-    pool.query(queryText, [current_price_per_unit, rowId])
+    pool.query(queryText, [current_price_per_unit, status, rowId])
         .then(() => { res.sendStatus(201) })
         .catch((err) => {
             console.log(`Error updating store: ${err}`);

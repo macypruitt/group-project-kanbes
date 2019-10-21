@@ -119,6 +119,9 @@ class PricesTableRow extends Component {
         let product_sub_type = this.props.item.product_sub_type;
         let current_price_per_unit = this.props.item.current_price_per_unit;
         let status = this.props.item.status;
+        if (this.props.item.status === true | this.props.item.status === false) {
+            status = this.props.item.status.toString();
+        }
         let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
 
