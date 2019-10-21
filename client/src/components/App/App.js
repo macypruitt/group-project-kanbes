@@ -25,7 +25,6 @@ import PurchasePage from '../PurchasePage/PurchasePage';
 import ProducePage from '../ProducePage/ProducePage';
 import SupplierPage from '../SupplierPage/SupplierPage';
 import StorePage from '../StorePage/StorePage';
-import ManagerPage from '../ManagerPage/ManagerPage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 

@@ -35,7 +35,7 @@ const styles = (theme: Theme) =>
 class NavDriver extends Component {
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_STORES' })
+        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })
     }
 
     state = {
@@ -56,7 +56,7 @@ class NavDriver extends Component {
 
 
     render() {
-        const storesArray = this.props.store.stores
+        const storesArray = this.props.store.activeStores
 
         let storeNavData = storesArray.map((item, index) => {
             return (
