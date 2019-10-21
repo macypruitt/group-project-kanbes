@@ -1,0 +1,23 @@
+.driver-table {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.driver-table td, .driver-table th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.driver-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.driver-table tr:hover {background-color: #ddd;}
+
+.driver-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #60788f;
+  color: white;
+}
+
