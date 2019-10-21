@@ -19,20 +19,14 @@
     padding-right: 20px;
 }
 
-.invoice-totals{
-    border: 1px solid black;
-    margin: 10px;
-    width: 200px;
-    float: right;
-}
-
 .invoice-container{
     width: 80%;
-    max-width: 600px;
+    
     margin: auto;
+    text-align: center;
 }
 
-.store-selector{
+.selector{
     width:200px;
 }
 
@@ -42,5 +36,45 @@
 
 .dateUnfilled{
     font-style: italic;
-    color:#b40000;
+    color:#2ab400;
+}
+
+.totals-box{
+    margin: 10px;
+    text-align: right;
+}
+
+.invoice-header{
+    margin: 20px;
+    display: inline-block;
+    width:100%;
+}
+.invoice-header-table{
+    border-collapse: collapse;
+    padding: 10px;
+    width: 100%
+}
+
+.invoice-header-table > a{
+    margin: 30px;
+}
+
+.invoice-table > tbody > tr:nth-child(odd) {
+    background-color: rgb(235, 235, 235);
+}
+
+.light-bg{
+    background-color:  rgb(235, 235, 235);
+    padding: 5px;
+}
+
+.dark-bg{
+    background-color:  rgb(0, 0, 0);
+    color: white;
+    padding: 5px;
+}
+
+.invoice-logo{
+    width: 300px;
+    display: inline;
 }
