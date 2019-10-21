@@ -77,11 +77,6 @@ class PricesTable extends Component {
             newRow = <PricesTableRow clickEditPrice={this.clickEditPrice} editable={true} addable={true} item={emptyItem} />
         }
 
-        let editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickEditDeliveryOrder}>Edit Delivery Order</Button>
-        if (this.props.store.editDeliveryOrderStatus) {
-            editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickSaveDeliveryOrder}>Save New Delivery Order</Button>
-        }
-
         return (
             <div>
                 <table className="admin-table">
@@ -95,8 +90,7 @@ class PricesTable extends Component {
 
                     {newRow}
                 </table>
-                {editorSaveDeliveryButton}
-                <Button className={classes.buttonPositive} onClick={this.clickEditPrice}>Edit Price</Button>
+                <Button className={classes.buttonPositive} onClick={this.clickAddUser}>Add Product</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
             </div>
         );
