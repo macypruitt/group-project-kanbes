@@ -1,0 +1,30 @@
+.warehouse-container{
+    margin: auto;
+    text-align: center;
+  }
+
+.warehouse-table{
+    width: 80%;
+    margin: auto;
+    text-align: center;
+    border-spacing: 1;
+    border-collapse: collapse;
+}
+
+.warehouse-table td{
+  border: 1px solid black;
+}
+
+.warehouse-table > th{
+  padding: 10px;
+}
+
+.row-input{
+  width:100%;
+  box-sizing: border-box;
+  display: block;
+}
+
+h2{
+  text-align: center;
+}
