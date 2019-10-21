@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+
+const styles = (theme: Theme) =>
+  createStyles({
+    buttonPositive: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+});
 
 
 class DriverTableRow extends Component {
@@ -125,7 +136,7 @@ class DriverTableRow extends Component {
 
         return (
             
-                <tr id={this.props.key}>
+                <tr id={this.props.key} className='table-row'>
                     <td>{product_name}</td>
                     <td>{product_sub_type}</td>
                     <td>{standard_par}</td>
@@ -139,4 +150,4 @@ class DriverTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(DriverTableRow);
+export default connect(mapStoreToProps)(withStyles(styles)(DriverTableRow));

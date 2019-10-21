@@ -44,7 +44,7 @@ const ProtectedRoute = (props) => {
     ComponentToShow = LoginPage;
   }
 
-  console.log('------------', store.user.id, store.user.role);
+  
   // redirect a logged in user to correct page based on role if an authRedirect prop has been provided
   if (store.user.id && store.user.role === 'Driver' && driverRedirect != null) {
     return <Redirect exact from={otherProps.path} to={driverRedirect} />;

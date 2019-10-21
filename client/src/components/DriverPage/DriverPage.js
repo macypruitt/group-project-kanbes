@@ -14,10 +14,14 @@ class DriverPage extends Component {
 
     render() {
         let storeName = 'test';
+        let address;
+        console.log(this.props.store.stores, 'I need the address');
         ////setState using store name as header
         if (this.props.store.stores.length > 0) {
             storeName = this.props.store.stores[0].store_name
+            address = this.props.store.stores[0].address
             let id = this.props.store.stores[0].id
+          
             // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
         }
         ////this simulates the array data from the database query; it will be replaced with reducer data
@@ -44,8 +48,8 @@ class DriverPage extends Component {
         return (
             <KanbeTemplate>
                 <div className="driver-container">
-                    <h2>{storeName}</h2>
-                    <h3></h3>
+                    <h1>{storeName}</h1>
+                    <h5>{address}</h5>
                     <h3>{date}</h3>
                     {driverTableHolder}
                 </div>

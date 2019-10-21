@@ -4,7 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import MenuItem from '@material-ui/core/MenuItem';
+// import MenuItem from '@material-ui/core/MenuItem';
 import Collapse from '@material-ui/core/Collapse';
 import {
     createStyles,
@@ -72,23 +72,21 @@ class NavDriver extends Component {
 
         let storeNavData = storesArray.map((item, index) => {
             
-            
-
+            //Breaks down the store address on the navigation bar
             let address = item.address;
             address = address.split(",");
             address = address[0];
-            console.log(address, 'item address');
+            
             return (
                 
 
-                <MenuItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
+                <ListItem key={index} button  onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />
-                            
                         </Grid>
                     </Grid>
-                </MenuItem>
+                </ListItem>
 
             )
         })

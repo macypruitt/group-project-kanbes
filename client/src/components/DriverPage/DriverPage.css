@@ -12,9 +12,7 @@
     border-collapse: collapse;
 }
 
-.driver-table td{
-  border: 1px solid black;
-}
+
 
 .driver-table > th{
   padding: 10px;

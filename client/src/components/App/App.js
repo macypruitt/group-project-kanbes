@@ -30,6 +30,9 @@ import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
 class App extends Component {
+  componentDidMount () {
+    this.props.dispatch({type: 'FETCH_USER'})
+  }
   render() {
     return (
       
