@@ -37,7 +37,8 @@ function* fetchStoreInventory(action) {
 function* postOutgoingStore(action) {
   try {
     yield axios.post('api/store/inventory/outgoing_store', action.payload);
-    yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
+    // yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
+        yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.store_id });
   } catch (err) {
     console.log('POST outgoing_store error: ', err)
   }

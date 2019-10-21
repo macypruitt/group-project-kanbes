@@ -64,7 +64,7 @@ class DriverTableRow extends Component {
         let shrink = this.props.item.shrink_product_count;
         let notes = this.props.item.notes;
         let lastModified = this.props.item.last_modified;
-        let editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
+        let editOrSaveButton = <button onClick={this.clickEdit}>Edit Entry</button>;
         let today = new Date();
         let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         let time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -75,6 +75,7 @@ class DriverTableRow extends Component {
             shrink = '';
             notes = '';
             lastModified = '';
+            editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
         }
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
@@ -121,7 +122,7 @@ class DriverTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
             lastModified = date + time
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</button>
+            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save</button>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
@@ -138,6 +139,7 @@ class DriverTableRow extends Component {
                 placeholder={product_sub_type}
                 onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
             />
+            lastModified = date + time
         }
 
         return (
