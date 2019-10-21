@@ -50,29 +50,21 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
  * PUT price to price table
  */
 
-// router.put('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
-//     const store_name: string = req.body.store_name;
-//     const address: string = req.body.address;
-//     const contactName: string | null = req.body.contact_name;
-//     const contactEmail: string | null = req.body.contact_email;
-//     const contactPhone: string | null = req.body.contact_phone;
-//     const status: boolean = req.body.status;
-//     const storePhoneNumber: string | null = req.body.store_phone_number;
-//     const deliveryRouteOrder: number = req.body.delivery_route_order;
+router.put('/editPrice/:id', (req: Request, res: Response, next: express.NextFunction): void => {
+    const current_price_per_unit: number = req.body.current_price_per_unit
 
-//     const storeId: string = req.params.id;
-//     const queryText: string = `UPDATE "stores" SET "store_name" = $1, "address" = $2, "contact_name" = $3, 
-//                     "contact_email" = $4, "contact_phone" = $5, "status" = $6, "store_phone_number" = $7, "delivery_route_order" = $8
-//                     WHERE "id" = $9;`;
+    const rowId: string = req.params.id;
+    const queryText: string = `UPDATE "current_product_prices" SET "current_price_per_unit" = $1
+                                WHERE "id" = $2;`;
 
-//     pool.query(queryText, [store_name, address, contactName, contactEmail, contactPhone, status, storePhoneNumber, deliveryRouteOrder, storeId])
-//         .then(() => { res.sendStatus(201) })
-//         .catch((err) => {
-//             console.log(`Error updating store: ${err}`);
-//             res.sendStatus(500)
-//         }
-//         );
-// });
+    pool.query(queryText, [current_price_per_unit, rowId])
+        .then(() => { res.sendStatus(201) })
+        .catch((err) => {
+            console.log(`Error updating store: ${err}`);
+            res.sendStatus(500)
+        }
+        );
+});
 
 
 

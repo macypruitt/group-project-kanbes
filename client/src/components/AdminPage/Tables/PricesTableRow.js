@@ -69,6 +69,7 @@ class PricesTableRow extends Component {
             },
             [event.target.name]: event.target.value
         })
+        console.log(this.state.item)
     }
 
     clickSave = (event) => {
@@ -159,7 +160,7 @@ class PricesTableRow extends Component {
             <tr>
                 <td>{product_name}</td>
                 <td>{product_sub_type}</td>
-                <td>{current_price_per_unit}</td>
+                <td>${current_price_per_unit}</td>
                 <td>{editOrSaveButton}</td>
             </tr>
         );
