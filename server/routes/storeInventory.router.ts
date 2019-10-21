@@ -9,14 +9,16 @@ const router: express.Router = express.Router();
  */
 router.get('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
     
-    const queryText: string = `SELECT * FROM "outgoing_store"
-                            JOIN "user" ON "user"."id" = "outgoing_store"."user_id"
-                            JOIN "products" ON "products"."id" = "outgoing_store"."product_id"
-                            JOIN "stores" ON "stores"."id" = "outgoing_store"."store_id"
-                            JOIN "suppliers" ON "suppliers"."id" = "outgoing_store"."supplier_id"
-                            JOIN "current_product_prices" ON "outgoing_store"."current_price_per_unit_id" = "current_product_prices"."id"
-                            WHERE "stores"."id" = $1;`
-                            // AND "last_modified"=(SELECT MAX("last_modified") FROM "outgoing_store")`;
+    const queryText: string = `SELECT * FROM "outgoing_store" OS
+                            JOIN "user" ON "user"."id" = OS."user_id"
+                            JOIN "products" ON "products"."id" = OS."product_id"
+                            JOIN "stores" ON "stores"."id" = OS."store_id"
+                            JOIN "suppliers" ON "suppliers"."id" = OS."supplier_id"
+                            WHERE last_modified = (
+                            SELECT MAX(last_modified) 
+                            FROM outgoing_store 
+                            WHERE outgoing_store.product_id = OS.product_id
+                            AND outgoing_store.store_id = $1);`;
                            
 
     const storeId: string = req.params.id;
@@ -32,10 +34,10 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
         );
 });
 
-
 /**
- * POST route to add product inventory change to outgoing_store inventory from database
+ * POST route for specific store inventory
  */
+
 router.post('/outgoing_store', (req: Request, res: Response, next: express.NextFunction): void => {
 
     const store_id: string = req.body.store_id;
