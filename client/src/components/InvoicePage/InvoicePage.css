@@ -39,3 +39,8 @@
 .invoice-selector-box{
     width: 100%;
 }
+
+.dateUnfilled{
+    font-style: italic;
+    color:#b40000;
+}

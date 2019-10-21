@@ -9,22 +9,25 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { withStyles, createStyles, Theme } from "@material-ui/core/styles";
 
-import 'date-fns';
-import DateFnsUtils from '@date-io/date-fns';
+
+
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
   } from '@material-ui/pickers';
+  import MomentUtils from '@date-io/moment';
+import moment from 'moment';
 
 class InvoicePage extends Component {
     state = {
-        startDate: (Date.getDate),
-        endDate: (Date.getDate),
+        startDate: Date.getDate,
+        endDate: Date.getDate,
         store_name: null
     };
 
     /////Handler functions for selecting dates and store
     handleStartDateChange = (date) => {
+        
         this.setState({
             startDate: date
         }, ()=>{
@@ -87,6 +90,20 @@ class InvoicePage extends Component {
             })
         }
 
+        ////these variables will hold the dates to be rendered on the page
+        let startDateToRender =<span className="dateUnfilled">Start</span>;
+        let endDateToRender = <span className="dateUnfilled">End</span>;
+        let storeNameToRender;
+
+        if(this.state.startDate){
+            startDateToRender = this.state.startDate.format("MM/DD/YY");
+        }
+        if(this.state.endDate){
+            endDateToRender = this.state.endDate.format("MM/DD/YY");
+        }
+        if(this.state.store_name){
+            storeNameToRender = this.state.store_name;
+        }
        
 
         return (
@@ -100,7 +117,7 @@ class InvoicePage extends Component {
                             onChange={(event) => this.handleStoreChange(event, 'admin_level')}
                             value={this.state.store_name}
                             inputProps={{
-                                name: 'store_name',
+                                name: '',
                                 id: 'store_id',
                             }}
                         >
@@ -108,11 +125,11 @@ class InvoicePage extends Component {
                         </Select>
                     </FormControl>
                     <br />
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                    <MuiPickersUtilsProvider utils={MomentUtils}>
                         <KeyboardDatePicker
                             disableToolbar
                             variant="inline"
-                            format="MM/dd/yyyy"
+                            format="MM-DD-YYYY"
                             margin="normal"
                             id="date-picker-inline"
                             label="Select Start Date"
@@ -125,7 +142,7 @@ class InvoicePage extends Component {
                         <KeyboardDatePicker
                             disableToolbar
                             variant="inline"
-                            format="MM/dd/yyyy"
+                            format="MM-DD-YYYY"
                             margin="normal"
                             id="date-picker-inline"
                             label="Select End Date"
@@ -139,8 +156,8 @@ class InvoicePage extends Component {
                 </div>
                 {/* ////////////////////////////////////////////////// */}
                 
-                <h2>Invoice for {this.state.store_name}</h2>
-                <h4>Date</h4>
+                <h2>Invoice for {storeNameToRender}</h2>
+                <h4>Week of {startDateToRender} - {endDateToRender}</h4>
 
                 <InvoiceTable mockInvoiceData={mockInvoiceData}/>
                 
