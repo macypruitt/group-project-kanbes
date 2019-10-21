@@ -63,6 +63,12 @@ INSERT INTO "incoming_store" ("user_id",
 VALUES (2, 2, 2, '2019-10-04 22:36:00', 2, 1, null),
 (2, 1, 1, '2019-10-05 23:37:00', 2, 2, null);
 
+INSERT INTO "current_product_prices" (
+    "product_id",
+    "current_price_per_unit")
+VALUES (1, .30),
+(2, .32);
+
 INSERT INTO "outgoing_store" (
 "store_id",
 "product_id",
@@ -73,8 +79,13 @@ INSERT INTO "outgoing_store" (
 "shrink_product_count",
 "standard_par",
 "last_par",
+"current_price_per_unit_id",
+"sold_price_per_unit",
 "notes")
-VALUES (1, 1, 3, 1, '2019-10-06 23:37:00', 1, 1, 10, 7, 'Low on stock. Had to reduce par to 7.'),
-(1, 2, 3, 2, '2019-10-07 21:37:00', 1, 1, 7, 5, 'Low on stock. Had to reduce par to 5.'),
-(2, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6, ''),
-(2, 2, 3, 2, '2019-10-15 23:37:00', 1, 1, 8, 7, 'Low on stock. Had to reduce par to 7.');
+VALUES (1, 1, 3, 1, '2019-10-06 23:37:00', 1, 1, 10, 7, 1, .30,  'Low on stock. Had to reduce par to 7.'),
+(1, 2, 3, 2, '2019-10-07 21:37:00', 1, 1, 7, 5,2, .40,  'Low on stock. Had to reduce par to 5.'),
+(2, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6,1, .30, ''),
+(2, 2, 3, 2, '2019-10-15 23:37:00', 1, 1, 8, 7,2, .40, 'Low on stock. Had to reduce par to 7.');
+
+
+
