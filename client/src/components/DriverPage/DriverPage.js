@@ -7,32 +7,43 @@ import DriverTable from './DriverTable';
 import './DriverPage.css'
 
 class DriverPage extends Component {
+
+    
     componentDidMount(){
-    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })   
+    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
+    this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: parseInt(this.props.match.params.id) })  
     }
+
+    
 
     render() {
         let storeName;
         let address;
+        let matchStore;
 
         console.log(this.props.match.params.id, 'clicked id of store!')
         console.log(this.props.store, 'need to get to the store inventory')
-        // let storeInfo = this.props.store.storeInventory.filter((store, index) => {
-        //     if (this.props.match.params.id == store.store_id){
-        //         return true;
-        //     }
-        //     return false;
-        // });
-        //     console.log(storeInfo[0], 'this is the filtered store information to get name and address');
-        //     let storeName = storeInfo[0]
+        console.log(this.props.store.activeStores, 'I need the active store');
+       
 
-        ////setState using store name as header
-        if (this.props.store.stores.length > 0) {
-            storeName = this.props.store.stores[0].store_name
-            address = this.props.store.stores[0].address
-            let id = this.props.store.stores[0].id
-          
+        //  using store name as header
+        if (this.props.store.activeStores.length > 0 && this.props.match.params.id) {
+            for(let i = 0; i < this.props.store.activeStores.length; i++){
+                let activeStoreItem = this.props.store.activeStores[i];
+                if(activeStoreItem.id === parseInt(this.props.match.params.id)){
+                    storeName = activeStoreItem.store_name;
+                    address = activeStoreItem.address;
+                    matchStore = activeStoreItem;
+                }
+            }
+        } else if (this.props.store.activeStores.length > 0){
+            storeName = this.props.store.activeStores[0].store_name
+            address = this.props.store.activeStores[0].address
+            matchStore = this.props.store.activeStores[0];
         }
+        console.log(matchStore);
+
+
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
