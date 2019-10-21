@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+
 import ManagerPage from '../ManagerPage/ManagerPage'
 import AdminPage from '../AdminPage/AdminPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
@@ -28,10 +29,15 @@ import StorePage from '../StorePage/StorePage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
+
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> e70d8a3b3c9d7d5246be0322c9693dce3bc3d355
   render() {
     return (
       
@@ -85,11 +91,6 @@ class App extends Component {
               path="/produce"
               component={ProducePage}
             />
-            {/* <ProtectedRoute
-              exact
-              path="/driver/:id"
-              component={DriverPage}
-            /> */}
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
