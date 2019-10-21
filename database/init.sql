@@ -90,6 +90,13 @@ CREATE TABLE "incoming_store" (
 "notes" VARCHAR(400)
 );
 
+CREATE TABLE "current_product_prices"
+(
+"id" SERIAL PRIMARY KEY,
+"product_id" INT REFERENCES "products",
+"current_price_per_unit" NUMERIC(8,2) NOT NULL
+);
+
 CREATE TABLE "outgoing_store" (
 "id" SERIAL PRIMARY KEY,
 "store_id" INT REFERENCES "stores",
@@ -101,14 +108,16 @@ CREATE TABLE "outgoing_store" (
 "shrink_product_count" INT,
 "standard_par" INT NOT NULL,
 "last_par" INT NOT NULL,
+"current_price_per_unit_id" INT REFERENCES "current_product_prices" NOT NULL,
+"sold_price_per_unit" NUMERIC(8,2) NOT NULL,
 "notes" VARCHAR(400)
 );
-
 
 CREATE TABLE "store_inventory_junction" (
 "id" SERIAL PRIMARY KEY,
 "incoming_inventory_id" INT REFERENCES "incoming_store",
 "outgoing_inventory_id" INT REFERENCES "outgoing_store"
 );
+
 
 

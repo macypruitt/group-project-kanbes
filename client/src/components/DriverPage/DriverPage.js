@@ -7,10 +7,8 @@ import DriverTable from './DriverTable';
 import './DriverPage.css'
 
 class DriverPage extends Component {
-
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })
-        
+    componentDidMount(){
+    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })   
     }
 
     render() {
@@ -50,11 +48,9 @@ class DriverPage extends Component {
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
         }
 
-
         var today = new Date();
         var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
 
         return (
             <KanbeTemplate>

@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import StoreTable from './Tables/StoreTable';
 import UserTable from './Tables/UserTable';
 import SupplierTable from './Tables/SupplierTable';
+import PricesTable from './Tables/PricesTable';
 
 import './AdminPage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
@@ -22,6 +23,10 @@ class AdminPage extends Component {
                     <Grid item xs={12}>
                         <h3>Stores</h3>
                         <StoreTable />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <h3>Products and Prices</h3>
+                        <PricesTable />
                     </Grid>
                     <Grid item xs={12}>
                         <h3>Users</h3>

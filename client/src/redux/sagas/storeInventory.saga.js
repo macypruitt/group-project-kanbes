@@ -34,18 +34,20 @@ function* fetchStoreInventory(action) {
 //   }
 // }
 
-// function* postStore(action) {
-//   try {
-//     yield axios.post('api/all/stores', action.payload);
-//     yield put({ type: 'FETCH_STORES' });
-//   } catch (err) {
-//     console.log('POST store error: ', err)
-//   }
-// }
+function* postOutgoingStore(action) {
+  try {
+    yield axios.post('api/store/inventory/outgoing_store', action.payload);
+    // yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
+        yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.store_id });
+  } catch (err) {
+    console.log('POST outgoing_store error: ', err)
+  }
+}
 
 
 function* storeInventorySaga() {
   yield takeLatest('FETCH_STORE_INVENTORY', fetchStoreInventory);
+  yield takeLatest('ADD_OUTGOING_STORE', postOutgoingStore);
 }
 
 export default storeInventorySaga;

@@ -16,7 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-
+import ManagerPage from '../ManagerPage/ManagerPage'
 import AdminPage from '../AdminPage/AdminPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import InvoicePage from '../InvoicePage/InvoicePage';
@@ -25,7 +25,6 @@ import PurchasePage from '../PurchasePage/PurchasePage';
 import ProducePage from '../ProducePage/ProducePage';
 import SupplierPage from '../SupplierPage/SupplierPage';
 import StorePage from '../StorePage/StorePage';
-import ManagerPage from '../ManagerPage/ManagerPage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
@@ -33,6 +32,10 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
   render() {
     return (
       
@@ -119,6 +122,11 @@ class App extends Component {
               component={ManagerPage}
             />
            
+            <Route
+            exact
+            path="/manager"
+            component={ManagerPage}
+            />
             <Route
             exact 
             path="/modal"
