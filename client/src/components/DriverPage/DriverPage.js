@@ -7,33 +7,26 @@ import DriverTable from './DriverTable';
 import './DriverPage.css'
 
 class DriverPage extends Component {
+
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' })
+    }
+
     render() {
-
-
-        let storeName = '';
+        let storeName = 'test';
         ////setState using store name as header
-        if (this.props.store.storeInventory.length > 0) {
-            storeName = this.props.store.storeInventory[0].store_name
+        if (this.props.store.stores.length > 0) {
+            storeName = this.props.store.stores[0].store_name
+            let id = this.props.store.stores[0].id
+            // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
         }
-
-        console.log(this.props.store.storeInventory, 'this is store inventory');
-       
-
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
-
         ////dataForDriver = this.props.store...........
-        dataForDriver = this.props.store.storeInventory
-        // [
-        //     {
-        //         product_id: 1,
-        //         product_name: 'Apples',
-        //         product_sub_type: 'Big Red',
-        //         standard_par: 12,
-        //         last_par: 8,
-        //         store_id: 3
-        //     }
-        // ]
+        if (this.props.store.storeInventory.length > 0) {
+            dataForDriver = this.props.store.storeInventory
+            console.log(dataForDriver, 'what is this')
+        }
 
 
         ////driverTableHolder shows a table only if reducer is holding data
@@ -52,6 +45,7 @@ class DriverPage extends Component {
             <KanbeTemplate>
                 <div className="driver-container">
                     <h2>{storeName}</h2>
+                    <h3></h3>
                     <h3>{date}</h3>
                     {driverTableHolder}
                 </div>

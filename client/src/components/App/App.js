@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
-import UserPage from '../UserPage/UserPage';
+
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
@@ -29,10 +29,7 @@ import ManagerPage from '../ManagerPage/ManagerPage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 
-
 class App extends Component {
-
-
   render() {
     return (
       
