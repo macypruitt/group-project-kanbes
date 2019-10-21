@@ -51,6 +51,7 @@ class DriverTable extends Component {
                             <th>Last Par</th>
                             <th>Sold</th>
                             <th>Shrink</th>
+                            <th># Re-Stocked</th>
                             <th>Notes</th>
                             <th>Last Modified</th>
                             <th>Action</th>
