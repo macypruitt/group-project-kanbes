@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+
+
+const styles = (theme: Theme) =>
+  createStyles({
+    buttonPositive: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+});
 
 
 var today = new Date();
@@ -220,4 +231,4 @@ class DriverTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(DriverTableRow);
+export default connect(mapStoreToProps)(withStyles(styles)(DriverTableRow));

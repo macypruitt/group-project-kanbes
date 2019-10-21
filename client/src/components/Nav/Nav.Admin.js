@@ -60,25 +60,27 @@ class NavAdmin extends Component {
         this.props.history.push("/invoice");
     }
     
-    moveToInventoryPage = (event) => {
-        this.props.history.push("/inventory");
-    }
+    ///Below are the Navigation to pages based on Warehouse and Performance, these are for the Executive Director and Program Manager
 
-    moveToPurchasePage = (event) => {
-        this.props.history.push("/purchase");
-    }
+    // moveToInventoryPage = (event) => {
+    //     this.props.history.push("/inventory");
+    // }
 
-    moveToStorePage = (event) => {
-        this.props.history.push("/store");
-    }
+    // moveToPurchasePage = (event) => {
+    //     this.props.history.push("/purchase");
+    // }
 
-    moveToSupplierPage = (event) => {
-        this.props.history.push("/supplier");
-    }
+    // moveToStorePage = (event) => {
+    //     this.props.history.push("/store");
+    // }
 
-    moveToProducePage = (event) => {
-        this.props.history.push("/produce");
-    }
+    // moveToSupplierPage = (event) => {
+    //     this.props.history.push("/supplier");
+    // }
+
+    // moveToProducePage = (event) => {
+    //     this.props.history.push("/produce");
+    // }
       
     render() {
         
@@ -90,7 +92,9 @@ class NavAdmin extends Component {
                 aria-labelledby="nested-list-subheader"
                 className={this.props.classes.root}
             >
-                <ListItem button onClick={this.handleToggle}>
+                {/* This is the navigation for the Executive Director */}
+                
+                {/* <ListItem button onClick={this.handleToggle}>
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
@@ -118,14 +122,17 @@ class NavAdmin extends Component {
                             <ListItemText primary="Produce" />
                         </ListItem>
                         </List>
-                    </Collapse>
+                    </Collapse> */}
                 <ListItem button onClick={this.moveToAdminPage}>
                 <ListItemIcon>
                     <AssignmentIndIcon />
                 </ListItemIcon>
                 <ListItemText primary="Admin" />
                 </ListItem>
-                <ListItem button onClick={this.handleToggleWarehouse}>
+
+                {/* This is Navigation for warehouse management */}
+
+                {/* <ListItem button onClick={this.handleToggleWarehouse}>
                 <ListItemIcon>
                     <BarChartIcon />
                 </ListItemIcon>
@@ -147,14 +154,13 @@ class NavAdmin extends Component {
                             <ListItemText primary="Purchases" />
                         </ListItem>
                         </List>
-                    </Collapse>
+                    </Collapse> */}
                 <ListItem button onClick={this.moveToInvoicePage}>
                 <ListItemIcon>
                     <LayersIcon />
                 </ListItemIcon>
                 <ListItemText primary="Invoices" />
                 </ListItem>
-
             </List>
 
         )

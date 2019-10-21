@@ -3,9 +3,23 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 // import  Fab  from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-
+import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
+import './DriverTable.css';
+
+const styles = (theme: Theme) =>
+  createStyles({
+    button: {
+        display: 'center',
+        backgroundColor: '#a4bd83'
+    },
+    margin: {
+        margin: theme.spacing(1),
+    },
+});
+
+
 
 class DriverTable extends Component {
     state = {
@@ -62,15 +76,17 @@ class DriverTable extends Component {
                     {newRow}
                     </tbody>
                 </table>
+                <br />
                 <div>
-                    <Button className="add-button" onClick={this.clickAdd}>
+                    <Button size="medium" className={this.props.classes.button} onClick={this.clickAdd}>
                         <AddIcon />
+                        Add Produce
                     </Button>
                 </div>
-                <br />
+                
             </div>
         );
     }
 }
 
-export default connect(mapStoreToProps)(DriverTable);
+export default connect(mapStoreToProps)(withStyles(styles)(DriverTable));

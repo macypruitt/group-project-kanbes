@@ -3,7 +3,7 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import LoginPage from '../LoginPage/LoginPage';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 
@@ -44,27 +44,28 @@ const ProtectedRoute = (props) => {
     ComponentToShow = LoginPage;
   }
 
+  
   // redirect a logged in user to correct page based on role if an authRedirect prop has been provided
-   if (store.user.id && store.user.role === 'Driver' && driverRedirect != null) {
+  if (store.user.id && store.user.role === 'Driver' && driverRedirect != null) {
     return <Redirect exact from={otherProps.path} to={driverRedirect} />;
   }
-  
+
   if (store.user.id && store.user.role === 'Program Manager' && managerRedirect != null) {
     return <Redirect exact from={otherProps.path} to={managerRedirect} />;
-  } 
-  
+  }
+
   if (store.user.id && store.user.role === 'Executive Director' && directorRedirect != null) {
     return <Redirect exact from={otherProps.path} to={directorRedirect} />;
   }
 
   // We return a Route component that gets added to our list of routes
   return (
-      <Route
-        // all props like 'exact' and 'path' that were passed in
-        // are now passed along to the 'Route' Component
-        {...otherProps}
-        component={ComponentToShow}
-      />
+    <Route
+      // all props like 'exact' and 'path' that were passed in
+      // are now passed along to the 'Route' Component
+      {...otherProps}
+      component={ComponentToShow}
+    />
   )
 }
 

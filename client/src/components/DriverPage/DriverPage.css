@@ -1,20 +1,21 @@
+.invoice-container{
+  text-align: center;
+}
 
 .driver-container{
-    margin: auto;
-    text-align: center;
+  margin: auto;
+  text-align: center;
   }
 
 .driver-table{
-    width: 80%;
-    margin: auto;
-    text-align: center;
-    border-spacing: 1;
-    border-collapse: collapse;
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  border-spacing: 1;
+  border-collapse: collapse;
 }
 
-.driver-table td{
-  border: 1px solid black;
-}
+
 
 .driver-table > th{
   padding: 10px;
