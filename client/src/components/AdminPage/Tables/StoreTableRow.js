@@ -73,18 +73,16 @@ class StoreTableRow extends Component {
         })
     }
 
-
-
-    handleChangeDeliveryOrder(event, dataKey) {
+    handleChangeDeliveryOrder(event, id, dataKey) {
+        
         let storeArray = this.props.store.stores;
         const fieldValue = event.target.value;
         const placeholder = event.target.placeholder
         for (let i = 0; i < storeArray.length; i++) {
-            if (storeArray[i].delivery_route_order == placeholder) {
+            if (storeArray[i].id == id) {
                 storeArray[i].delivery_route_order = fieldValue
             }
         }
-
         this.setState({
             ...this.state,
             deliveryOrderArray: storeArray,
@@ -132,13 +130,12 @@ class StoreTableRow extends Component {
         })
     }
 
-
-
     render() {
 
         const { classes, theme } = this.props;
         ////row data is passed to this component through props from StoreTable.js
-        let name = this.props.item.name;
+        let id = this.props.item.id
+        let store_name = this.props.item.store_name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
         let status = this.props.item.status
@@ -154,16 +151,16 @@ class StoreTableRow extends Component {
         if (this.props.store.editDeliveryOrderStatus) {
             order = <Input className="row-input"
                 placeholder={order}
-                onChange={(event) => this.handleChangeDeliveryOrder(event, 'delivery_route_order')} />
+                onChange={(event) => this.handleChangeDeliveryOrder(event, id, 'delivery_route_order')} />
         }
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
 
-            name = <Input
+            store_name = <Input
                 className="row-input"
-                placeholder={name}
-                onChange={(event) => this.handleChangeInputText(event, 'name')}
+                placeholder={store_name}
+                onChange={(event) => this.handleChangeInputText(event, 'store_name')}
             />
             address = <Input className="row-input"
                 placeholder={address}
@@ -212,7 +209,7 @@ class StoreTableRow extends Component {
         return (
             <tr>
                 <td>{order}</td>
-                <td>{name}</td>
+                <td>{store_name}</td>
                 <td>{address}</td>
                 <td>{status}</td>
                 <td>{contactName}</td>

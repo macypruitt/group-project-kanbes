@@ -37,18 +37,24 @@ const styles = theme => ({
     },
 });
 
-class SupplierTableRow extends Component {
+
+class PricesTableRow extends Component {
+
+
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
-        item: {}
+        item: {},
+        status: '',
+        labelWidth: 0
     };
 
     clickEdit = (event) => {
         this.setState({
+            ...this.state,
             isEditable: !this.state.isEditable,
             item: this.props.item
-        }, ()=>{
+        }, () => {
             console.log(this.state)
         })
     }
@@ -59,9 +65,10 @@ class SupplierTableRow extends Component {
             ...this.state,
             item: {
                 ...this.state.item,
-                [dataKey]:fieldValue}
+                [dataKey]: fieldValue,
+            },
+            [event.target.name]: event.target.value
         })
-        console.log(this.state);
     }
 
     clickSave = (event) => {
@@ -70,7 +77,8 @@ class SupplierTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE PUT TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({type: 'UPDATE_SUPPLIER', 
+        this.props.dispatch({
+            type: 'UPDATE_PRICE',
             payload: {
                 ...this.state.item
             }
@@ -78,84 +86,92 @@ class SupplierTableRow extends Component {
     }
 
     clickAdd = (event) => {
-        this.props.clickAddSupplier();
+        this.props.clickAddStore();
         this.setState({
             isEditable: !this.state.isEditable,
             isAddable: !this.state.isAddable
         })
-        console.log(this.state)
+
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({type: 'ADD_SUPPLIER', 
+        this.props.dispatch({
+            type: 'ADD_PRODUCT',
             payload: {
                 ...this.state.item
             }
         })
     }
 
-    clickCancelEdit = event => {
+    clickCancelEdit = (event) => {
         this.setState({
             isEditable: false,
         })
     }
 
     render() {
+
         const { classes, theme } = this.props;
-        ////row data is passed to this component through props from SupplierTable.js
-        let supplier_name = this.props.item.supplier_name;
-        let contact_name = this.props.item.contact_name;
-        let contact_number = this.props.item.contact_number;
-        let address = this.props.item.address;
+        ////row data is passed to this component through props from StoreTable.js
+        let id = this.props.item.id
+        let product_name = this.props.item.product_name;
+        let product_sub_type = this.props.item.product_sub_type;
+        let current_price_per_unit = this.props.item.current_price_per_unit;
         let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
-        if(this.state.isEditable){
-            supplier_name = <Input 
-                    className="row-input" 
-                    placeholder={supplier_name}
-                    onChange={(event) => this.handleChangeInputText(event, 'supplier_name')}
-                     />
-            contact_name = <Input 
-                    className="row-input" 
-                    placeholder={contact_name}
-                    onChange={(event) => this.handleChangeInputText(event, 'contact_name')}
-                     />
-            contact_number = <Input 
-                    className="row-input" 
-                    placeholder={contact_number}
-                    onChange={(event) => this.handleChangeInputText(event, 'contact_number')}
-                     />
-            address = <Input className="row-input"
-                        placeholder={address} 
-                        onChange={(event) => this.handleChangeInputText(event, 'address')}/>
-            
-            editOrSaveButton = <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
-                            <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
-                            </div>
+
+        ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
+        if (this.state.isEditable) {
+
+            current_price_per_unit = <Input
+                className="row-input"
+                placeholder={current_price_per_unit}
+                onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
+            />
+            editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+            </div>
         }
-        
-        ////if Add Store button is clicked
-        if(this.state.isAddable){
+
+        ////if 'Add Store' button is clicked, Edit changes to Add
+        if (this.state.isAddable) {
+            product_name = <Input
+                className="row-input"
+                placeholder={product_name}
+                onChange={(event) => this.handleChangeInputText(event, 'product_name')}
+            />
+
+            product_sub_type = <Input
+                className="row-input"
+                placeholder={product_sub_type}
+                onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
+            />
+
+            current_price_per_unit = <Input
+                className="row-input"
+                placeholder={current_price_per_unit}
+                onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
+            />
+
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
 
+
         return (
             <tr>
-                <td>{supplier_name}</td>
-                <td>{contact_name}</td>
-                <td>{contact_number}</td>
-                <td>{address}</td>
+                <td>{product_name}</td>
+                <td>{product_sub_type}</td>
+                <td>{current_price_per_unit}</td>
                 <td>{editOrSaveButton}</td>
-                
             </tr>
         );
     }
 }
 
-
-SupplierTableRow.propTypes = {
+PricesTableRow.propTypes = {
     classes: PropTypes.object.isRequired,
     theme: PropTypes.object.isRequired
 };
 
 export default connect(mapStoreToProps)(
-    withStyles(styles, { withTheme: true })(SupplierTableRow)
+    withStyles(styles, { withTheme: true })(PricesTableRow)
 );
+

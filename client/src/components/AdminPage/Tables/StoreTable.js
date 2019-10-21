@@ -73,9 +73,9 @@ class StoreTable extends Component {
 
     clickSaveDeliveryOrder = (event) => {
         this.setState({
-            orderIsEditable: !this.state.orderIsEditable
+            orderIsEditable: false
         })
-
+        
         //check if delivery order array has duplicate values
         var values = this.props.store.deliveryOrderArray
         console.log(values)
@@ -90,6 +90,7 @@ class StoreTable extends Component {
             this.setState({ show: true })
 
         this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
 
     }
 
