@@ -114,7 +114,7 @@ class DriverTableRow extends Component {
         })
         console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
+        // this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
         this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
     }
 
@@ -162,7 +162,7 @@ class DriverTableRow extends Component {
         activeProducts = this.props.store.activeProducts;
         if (activeProducts.length > 0) {
             activeProducts = activeProducts.map((item, index) => {
-                return <MenuItem key={index} value={(item.product_name).toString()}>{item.product_name}</MenuItem>
+                return <MenuItem key={index} value={'apple'}>{item.product_name}</MenuItem>
             })
 
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
@@ -185,7 +185,7 @@ class DriverTableRow extends Component {
         if (this.props.item.last_modified) {
             lastModified = this.props.item.last_modified;
         }
-        let restocked = 0;
+        let restocked = this.props.item.product_count;
         let editOrSaveButton = <Button className={classes.buttonEdit} onClick={this.clickUpdate}>Edit Entry</Button>;
         let today = new Date();
         let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
