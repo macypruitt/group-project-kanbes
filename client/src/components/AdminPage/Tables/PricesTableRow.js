@@ -69,6 +69,7 @@ class PricesTableRow extends Component {
             },
             [event.target.name]: event.target.value
         })
+        console.log(this.state.item)
     }
 
     clickSave = (event) => {
@@ -86,7 +87,7 @@ class PricesTableRow extends Component {
     }
 
     clickAdd = (event) => {
-        this.props.clickAddStore();
+        this.props.clickAddProduct();
         this.setState({
             isEditable: !this.state.isEditable,
             isAddable: !this.state.isAddable
@@ -99,6 +100,8 @@ class PricesTableRow extends Component {
                 ...this.state.item
             }
         })
+
+
     }
 
     clickCancelEdit = (event) => {
@@ -115,6 +118,10 @@ class PricesTableRow extends Component {
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
         let current_price_per_unit = this.props.item.current_price_per_unit;
+        let status = this.props.item.status;
+        if (this.props.item.status === true | this.props.item.status === false) {
+            status = this.props.item.status.toString();
+        }
         let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
 
@@ -126,6 +133,21 @@ class PricesTableRow extends Component {
                 placeholder={current_price_per_unit}
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
+            status = <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="status">{status}</InputLabel>
+                <Select
+                    className="row-input"
+                    onChange={(event) => this.handleChangeInputText(event, 'status')}
+                    value={this.state.status}
+                    inputProps={{
+                        name: 'status',
+                        id: 'status',
+                    }}
+                >
+                    <MenuItem value={'true'}>True</MenuItem>
+                    <MenuItem value={'false'}>False</MenuItem>
+                </Select>
+            </FormControl>
             editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>
@@ -147,9 +169,25 @@ class PricesTableRow extends Component {
 
             current_price_per_unit = <Input
                 className="row-input"
-                placeholder={current_price_per_unit}
+                placeholder={0}
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
+
+            status = <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="status">{status}</InputLabel>
+                <Select
+                    className="row-input"
+                    onChange={(event) => this.handleChangeInputText(event, 'status')}
+                    value={this.state.status}
+                    inputProps={{
+                        name: 'status',
+                        id: 'status',
+                    }}
+                >
+                    <MenuItem value={'true'}>True</MenuItem>
+                    <MenuItem value={'false'}>False</MenuItem>
+                </Select>
+            </FormControl>
 
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
@@ -159,7 +197,8 @@ class PricesTableRow extends Component {
             <tr>
                 <td>{product_name}</td>
                 <td>{product_sub_type}</td>
-                <td>{current_price_per_unit}</td>
+                <td>${current_price_per_unit}</td>
+                <td>{status}</td>
                 <td>{editOrSaveButton}</td>
             </tr>
         );

@@ -2,22 +2,59 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import PropTypes from "prop-types";
 
 
-const styles = (theme: Theme) =>
-  createStyles({
+const styles = theme => ({
+    buttonEdit: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
+    },
     buttonPositive: {
         margin: 2,
         color: 'blue'
         //   backgroundColor: 'whitesmoke'
     },
+    buttonNew: {
+        margin: 2,
+        color: 'green'
+        //   backgroundColor: 'whitesmoke'
+    },
+    input: {
+        display: 'none',
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
+    },
 });
 
+
+var today = new Date();
+var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+var time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var currentDateTime = date + time
 
 class DriverTableRow extends Component {
     state = {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
+        isUpdatable: this.props.updatable || false,
+        currentTimeStamp: currentDateTime,
         item: {}
     };
 
@@ -25,7 +62,24 @@ class DriverTableRow extends Component {
         this.setState({
             ...this.state,
             isEditable: !this.state.isEditable,
-            item: this.props.item
+            item: {
+                ...this.props.item,
+                last_modified: this.state.currentTimeStamp
+            }
+        }, () => {
+            console.log(this.state)
+        })
+    }
+
+    clickUpdate = (event) => {
+        this.setState({
+            ...this.state,
+            isEditable: !this.state.isEditable,
+            isUpdatable: !this.state.isUpdatable,
+            item: {
+                ...this.props.item,
+                last_modified: this.state.currentTimeStamp
+            }
         }, () => {
             console.log(this.state)
         })
@@ -50,8 +104,16 @@ class DriverTableRow extends Component {
         console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
-        // this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
-        // this.props.history.push(`/driver/${id}`);
+    }
+
+    clickSaveUpdate = (event) => {
+        this.setState({
+            isEditable: false,
+            isUpdatable: false
+        })
+        console.log(this.state)
+        ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
+        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
     }
 
     clickAddEntry = (event) => {
@@ -64,9 +126,25 @@ class DriverTableRow extends Component {
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
     }
 
-    render() {
-        ////row data is passed to this component via props
+    clickCancelEdit = event => {
+        this.setState({
+            isEditable: false,
+            isAddable: false
+        })
+    }
 
+    clickCancelUpdate= event => {
+        this.setState({
+            isEditable: false,
+        isAddable: false,
+        isUpdatable:  false
+        })
+    }
+
+    render() {
+        const { classes, theme } = this.props;
+
+        ////row data is passed to this component via props
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
         let standard_par = this.props.item.standard_par;
@@ -74,20 +152,27 @@ class DriverTableRow extends Component {
         let sold = this.props.item.sold_product_count;
         let shrink = this.props.item.shrink_product_count;
         let notes = this.props.item.notes;
-        let lastModified = this.props.item.last_modified;
-        let editOrSaveButton = <button onClick={this.clickEdit}>Edit Entry</button>;
+        let lastModified = '';
+        if(this.props.item.last_modified) {
+            lastModified = this.props.item.last_modified;
+        }
+        // let restocked = this.props.item.
+        let editOrSaveButton = <Button className={classes.buttonEdit} onClick={this.clickUpdate}>Edit Entry</Button>;
         let today = new Date();
         let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         let time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        let currentDateTime = date + time
 
         if ((lastModified.split("T")[0]).split("-")[2] != today.getDate()) {
             console.log((lastModified.split("T")[0]).split("-")[2]);
             sold = '';
             shrink = '';
             notes = '';
-            lastModified = '';
-            editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
+            lastModified = 'No Entry Yet Today';
+            editOrSaveButton = <Button  className={classes.buttonNew} onClick={this.clickEdit}>New Entry</Button>;
         }
+
+
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
             // product_name = <input 
@@ -133,12 +218,20 @@ class DriverTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
             lastModified = date + time
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save</button>
+
+
+            editOrSaveButton = 
+            <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+            </div>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAddEntry}>Add Entry</button>
+            editOrSaveButton = '';
+            // <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAddEntry}>Add Entry</Button>
+            //     <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+            // </div>
             product_name = <input
                 className="row-input"
                 placeholder={product_name}
@@ -153,6 +246,33 @@ class DriverTableRow extends Component {
             lastModified = date + time
         }
 
+        if (this.state.isUpdatable) {
+            editOrSaveButton = 
+            <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveUpdate}>Save Update</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
+            </div>
+            sold = <input
+                type="tel"
+                pattern="[0-9]*"
+                className="row-input"
+                placeholder={this.props.item.sold_product_count}
+                onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
+            />
+            shrink = <input
+                type="tel"
+                pattern="[0-9]*"
+                className="row-input"
+                placeholder={this.props.item.shrink_product_count}
+                onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
+            />
+            notes = <input
+                type="text"
+                className="row-input"
+                placeholder={this.props.item.notes}
+                onChange={(event) => this.handleChangeInputText(event, 'notes')}
+            />
+        }
+
         return (
 
             <tr id={this.props.key}>
@@ -162,6 +282,7 @@ class DriverTableRow extends Component {
                 <td>{last_par}</td>
                 <td>{sold}</td>
                 <td>{shrink}</td>
+                <td>test</td>
                 <td>{notes}</td>
                 <td>{lastModified}</td>
                 <td>{editOrSaveButton}</td>
@@ -170,4 +291,12 @@ class DriverTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(DriverTableRow));
+
+DriverTableRow.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(DriverTableRow)
+);

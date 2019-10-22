@@ -4,9 +4,12 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 // import  Fab  from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+
 import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
 import './DriverTable.css';
+
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -15,9 +18,14 @@ const styles = (theme: Theme) =>
         backgroundColor: '#a4bd83',
         color: '#fafafa'
     },
-    margin: {
-        margin: theme.spacing(1),
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
     },
+    input: {
+        display: 'none',
+    }
 });
 
 
@@ -36,7 +44,15 @@ class DriverTable extends Component {
         })
     }
 
+    clickAddCancel = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: false
+        })
+    }
+
     render() {
+        const { classes, theme } = this.props;
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
         driverDataForRender = this.props.dataForDriver;
@@ -50,9 +66,16 @@ class DriverTable extends Component {
 
           ////adds a new row that is ready to be edited
           let newRow;
+          let addOrCancelButton = <div>
+          <Button size="medium" className={this.props.classes.button} onClick={this.clickAdd}>
+              <AddIcon />
+              Add Produce
+          </Button>
+      </div>
           if(this.state.isAdding){
               const emptyItem = {}
               newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddStore={this.clickAdd}/>
+              addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
           }
 
         return (
@@ -66,6 +89,7 @@ class DriverTable extends Component {
                             <th>Last Par</th>
                             <th>Sold</th>
                             <th>Shrink</th>
+                            <th># Restocked</th>
                             <th>Notes</th>
                             <th>Last Modified</th>
                             <th>Action</th>
@@ -77,16 +101,20 @@ class DriverTable extends Component {
                     </tbody>
                 </table>
                 <br />
-                <div>
-                    <Button size="medium" className={this.props.classes.button} onClick={this.clickAdd}>
-                        <AddIcon />
-                        Add Produce
-                    </Button>
-                </div>
+                {addOrCancelButton}
                 
             </div>
         );
     }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(DriverTable));
+
+
+DriverTable.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(DriverTable)
+);
