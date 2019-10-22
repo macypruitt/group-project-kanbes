@@ -33,10 +33,10 @@ const styles = (theme: Theme) =>
             paddingLeft: theme.spacing(4),
         },
         selected: {
-            backgroundColor: "turquoise !important",
-            color: "white",
+            backgroundColor: '00000',
+            color: "pink",
             fontWeight: 600
-          }
+        }
     });
 
 class NavDriver extends Component {
@@ -56,7 +56,7 @@ class NavDriver extends Component {
     }
 
     updatedSelected = (selectedIndex) => {
-        this.setState({selected: selectedIndex})
+        this.setState({ selected: selectedIndex })
     }
 
 
@@ -65,21 +65,23 @@ class NavDriver extends Component {
     }
 
 
+
     render() {
+    
         const storesArray = this.props.store.activeStores
-        
+
 
         let storeNavData = storesArray.map((item, index) => {
-            
+
             //Breaks down the store address on the navigation bar
             let address = item.address;
             address = address.split(",");
             address = address[0];
-            
-            return (
-                
 
-                <ListItem key={index} button  onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
+            return (
+
+
+                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} selected={true} className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />
@@ -91,25 +93,26 @@ class NavDriver extends Component {
         })
 
         return (
-            <List
-                component="nav"
-                aria-labelledby="nested-list-subheader"
-                className={this.props.classes.root}
-            >
-                <ListItem button onClick={this.handleToggle}>
-                    <ListItemIcon>
-                        <LocalShippingIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Delivery" />
-                    {this.state.expand ? <ExpandLess /> : <ExpandMore />}
-                </ListItem>
-                <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                        {storeNavData}
-                    </List>
-                </Collapse>
-            </List>
-
+            <div className={'nav-list'}>
+                <List
+                    component="nav"
+                    aria-labelledby="nested-list-subheader"
+                    className={this.props.classes.root}
+                >
+                    <ListItem button onClick={this.handleToggle}>
+                        <ListItemIcon>
+                            <LocalShippingIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Delivery" />
+                        {this.state.expand ? <ExpandLess /> : <ExpandMore />}
+                    </ListItem>
+                    <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
+                        <List component="div" disablePadding>
+                            {storeNavData}
+                        </List>
+                    </Collapse>
+                </List>
+            </div>
         )
     }
 }
