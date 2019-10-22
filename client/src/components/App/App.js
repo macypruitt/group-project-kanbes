@@ -33,9 +33,18 @@ import DriverViewModal from '../DriverViewModal/DriverViewModal';
 class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
+    // this.props.dispatch({type: 'FETCH_STORES'})
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> develop
   render() {
+    // let firstStore = 1;
+    // if(this.props.store.stores.length>0){
+    //   firstStore = this.props.store.stores[0].id
+    // }
     return (
       
       <Router>

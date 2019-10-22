@@ -13,16 +13,6 @@ function* fetchPrices() {
   }
 }
 
-// Saga to POST a Product to product table in the database
-function* addProduct(action) {
-  try {
-    yield axios.post('/api/allCurrentPrices/newProduct', action.payload);
-    yield put({type: 'FETCH_PRICES'});
-  } catch (error) {
-    console.log('Error with admin adding new product: ', error);
-  }
-}
-
 
 // Saga to update product price in current_product_prices table in database
 function* updatePrice(action) {
@@ -36,7 +26,6 @@ function* updatePrice(action) {
 
 function* pricesSaga() {
   yield takeLatest('FETCH_PRICES', fetchPrices);
-  yield takeLatest('ADD_PRODUCT', addProduct);
   yield takeLatest('UPDATE_PRICE', updatePrice);
 }
 
