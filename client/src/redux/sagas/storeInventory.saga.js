@@ -16,24 +16,6 @@ function* fetchStoreInventory(action) {
   }
 }
 
-// function* putStore(action) {
-//   try {
-//     yield axios.put(`api/all/stores/${action.payload.id}`, action.payload);
-//     yield put({ type: 'FETCH_STORES' });
-//   } catch (err) {
-//     console.log('PUT store error: ', err)
-//   }
-// }
-
-// function* putDeliveryOrders(action) {
-//   try {
-//     yield axios.put('api/all/stores/update/DeliveryRoutes', action.payload);
-//     yield put({ type: 'FETCH_STORES' });
-//   } catch (err) {
-//     console.log('PUT store error: ', err)
-//   }
-// }
-
 function* postOutgoingStore(action) {
   try {
     yield axios.post('api/store/inventory/outgoing_store', action.payload);
@@ -44,10 +26,21 @@ function* postOutgoingStore(action) {
   }
 }
 
+function* putOutgoingStore(action) {
+  try {
+    yield axios.put(`api/store/inventory/outgoing_store/${action.payload.id}`, action.payload);
+    // yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
+        yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.store_id });
+  } catch (err) {
+    console.log('PUT outgoing_store error: ', err)
+  }
+}
+
 
 function* storeInventorySaga() {
   yield takeLatest('FETCH_STORE_INVENTORY', fetchStoreInventory);
   yield takeLatest('ADD_OUTGOING_STORE', postOutgoingStore);
+  yield takeLatest('UPDATE_OUTGOING_STORE', putOutgoingStore);
 }
 
 export default storeInventorySaga;

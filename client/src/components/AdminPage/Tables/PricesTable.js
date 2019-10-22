@@ -31,25 +31,22 @@ class PricesTable extends Component {
 
     state = {
         isAdding: false,
-        priceIsEditable: false,
         show: false
     };
 
-    clickEditPrice = (event) => {
+    clickAddProduct = (event) => {
         this.setState({
             ...this.state,
             isAdding: !this.state.isAdding
         })
     }
 
-    // clickAddCancel = (event) => {
-    //     this.setState({
-    //         ...this.state,
-    //         isAdding: false,
-    //         priceIsEditable: false
-    //     })
-    //     this.props.dispatch({ type: 'UPDATE_PRICES_STATE', payload: this.props.store.editDeliveryOrderStatus })
-    // }
+    clickAddCancel = (event) => {
+        this.setState({
+            ...this.state,
+            isAdding: false
+        })
+    }
 
     
 
@@ -72,9 +69,11 @@ class PricesTable extends Component {
 
         ////adds a new row when 'Add Product' button is clicked
         let newRow;
+        let addOrCancelButton = <Button className={classes.buttonPositive} onClick={this.clickAddProduct}>Add Product</Button>
         if (this.state.isAdding) {
             const emptyItem = {}
-            newRow = <PricesTableRow clickEditPrice={this.clickEditPrice} editable={true} addable={true} item={emptyItem} />
+            newRow = <PricesTableRow clickAddProduct={this.clickAddProduct} editable={true} addable={true} item={emptyItem} />
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -84,14 +83,14 @@ class PricesTable extends Component {
                         <th>Product Name</th>
                         <th>Product Sub-Type</th>
                         <th>Price-Per-Unit</th>
+                        <th>Active Product?</th>
                         <th>Actions</th>
                     </tr>
                     {priceTableData}
 
                     {newRow}
                 </table>
-                <Button className={classes.buttonPositive} onClick={this.clickAddUser}>Add Product</Button>
-                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+                {addOrCancelButton}
             </div>
         );
     }
