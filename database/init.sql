@@ -90,8 +90,7 @@ CREATE TABLE "incoming_store" (
 "notes" VARCHAR(400)
 );
 
-CREATE TABLE "current_product_prices"
-(
+CREATE TABLE "current_product_prices"(
 "id" SERIAL PRIMARY KEY,
 "product_id" INT REFERENCES "products",
 "current_price_per_unit" NUMERIC(8,2) NOT NULL,
