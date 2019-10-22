@@ -49,7 +49,7 @@ class StoreTable extends Component {
             isAdding: false,
             orderIsEditable: false
         })
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
+        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: 'false' })
     }
 
     clickEditDeliveryOrder = (event) => {
@@ -112,14 +112,17 @@ class StoreTable extends Component {
 
         ////adds a new row when 'Add Store' button is clicked
         let newRow;
+        let addOrCancelButton = <Button className={classes.buttonPositive} onClick={this.clickAddStore}>Add Store</Button>
         if (this.state.isAdding) {
             const emptyItem = {}
             newRow = <StoreTableRow clickAddStore={this.clickAddStore} editable={true} addable={true} item={emptyItem} />
+            addOrCancelButton =  <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         let editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickEditDeliveryOrder}>Edit Delivery Order</Button>
         if (this.props.store.editDeliveryOrderStatus) {
             editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickSaveDeliveryOrder}>Save New Delivery Order</Button>
+            addOrCancelButton =  <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -141,8 +144,8 @@ class StoreTable extends Component {
                     {newRow}
                 </table>
                 {editorSaveDeliveryButton}
-                <Button className={classes.buttonPositive} onClick={this.clickAddStore}>Add Store</Button>
-                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+                {addOrCancelButton}
+                
                 <Swal
                     show={this.state.show}
                     title="ALERT!"
