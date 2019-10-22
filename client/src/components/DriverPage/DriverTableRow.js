@@ -2,14 +2,44 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Button } from '@material-ui/core';
+import PropTypes from "prop-types";
 
 
-const styles = (theme: Theme) =>
-  createStyles({
+const styles = theme => ({
+    buttonEdit: {
+        margin: 2,
+        color: 'blue'
+        //   backgroundColor: 'whitesmoke'
+    },
+    buttonNegative: {
+        margin: 2,
+        color: 'red'
+        //   backgroundColor: 'whitesmoke'
+    },
     buttonPositive: {
         margin: 2,
         color: 'blue'
         //   backgroundColor: 'whitesmoke'
+    },
+    buttonNew: {
+        margin: 2,
+        color: 'green'
+        //   backgroundColor: 'whitesmoke'
+    },
+    input: {
+        display: 'none',
+    },
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+    },
+    formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+    },
+    selectEmpty: {
+        marginTop: theme.spacing(2),
     },
 });
 
@@ -96,9 +126,25 @@ class DriverTableRow extends Component {
         ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
     }
 
-    render() {
-        ////row data is passed to this component via props
+    clickCancelEdit = event => {
+        this.setState({
+            isEditable: false,
+            isAddable: false
+        })
+    }
 
+    clickCancelUpdate= event => {
+        this.setState({
+            isEditable: false,
+        isAddable: false,
+        isUpdatable:  false
+        })
+    }
+
+    render() {
+        const { classes, theme } = this.props;
+
+        ////row data is passed to this component via props
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
         let standard_par = this.props.item.standard_par;
@@ -106,8 +152,12 @@ class DriverTableRow extends Component {
         let sold = this.props.item.sold_product_count;
         let shrink = this.props.item.shrink_product_count;
         let notes = this.props.item.notes;
-        let lastModified = this.props.item.last_modified;
-        let editOrSaveButton = <button onClick={this.clickUpdate}>Edit Entry</button>;
+        let lastModified = '';
+        if(this.props.item.last_modified) {
+            lastModified = this.props.item.last_modified;
+        }
+        // let restocked = this.props.item.
+        let editOrSaveButton = <Button className={classes.buttonEdit} onClick={this.clickUpdate}>Edit Entry</Button>;
         let today = new Date();
         let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         let time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -118,8 +168,8 @@ class DriverTableRow extends Component {
             sold = '';
             shrink = '';
             notes = '';
-            lastModified = '';
-            editOrSaveButton = <button onClick={this.clickEdit}>New Entry</button>;
+            lastModified = 'No Entry Yet Today';
+            editOrSaveButton = <Button  className={classes.buttonNew} onClick={this.clickEdit}>New Entry</Button>;
         }
 
 
@@ -170,12 +220,18 @@ class DriverTableRow extends Component {
             lastModified = date + time
 
 
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</button>
+            editOrSaveButton = 
+            <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+            </div>
         }
 
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
-            editOrSaveButton = <button data-id={this.props.item.id} onClick={this.clickAddEntry}>Add Entry</button>
+            editOrSaveButton = '';
+            // <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAddEntry}>Add Entry</Button>
+            //     <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+            // </div>
             product_name = <input
                 className="row-input"
                 placeholder={product_name}
@@ -191,7 +247,10 @@ class DriverTableRow extends Component {
         }
 
         if (this.state.isUpdatable) {
-            editOrSaveButton = <button onClick={this.clickSaveUpdate}>Save Update</button>
+            editOrSaveButton = 
+            <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveUpdate}>Save Update</Button>
+                <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
+            </div>
             sold = <input
                 type="tel"
                 pattern="[0-9]*"
@@ -223,6 +282,7 @@ class DriverTableRow extends Component {
                 <td>{last_par}</td>
                 <td>{sold}</td>
                 <td>{shrink}</td>
+                <td>test</td>
                 <td>{notes}</td>
                 <td>{lastModified}</td>
                 <td>{editOrSaveButton}</td>
@@ -231,4 +291,12 @@ class DriverTableRow extends Component {
     }
 }
 
-export default connect(mapStoreToProps)(withStyles(styles)(DriverTableRow));
+
+DriverTableRow.propTypes = {
+    classes: PropTypes.object.isRequired,
+    theme: PropTypes.object.isRequired
+};
+
+export default connect(mapStoreToProps)(
+    withStyles(styles, { withTheme: true })(DriverTableRow)
+);
