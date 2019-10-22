@@ -85,9 +85,14 @@ componentDidMount() {
 
         ////a new row is added when the 'Add User' button is clicked
         let newRow;
+        let addOrCancelButton = <div>
+        <Button className={classes.buttonPositive} onClick={this.clickAddUser}>Add User</Button>
+        
+        </div>
         if(this.state.isAdding){
             const emptyItem = {}
             newRow = <UserTableRow clickAddUser={this.clickAddUser} editable={true} addable={true} item={emptyItem} />
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -106,8 +111,7 @@ componentDidMount() {
                     {userTableData}
                     {newRow}
                 </table>
-                <Button className={classes.buttonPositive} onClick={this.clickAddUser}>Add User</Button>
-                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+                {addOrCancelButton}
             </div>
         );
     }

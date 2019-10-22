@@ -69,9 +69,11 @@ class PricesTable extends Component {
 
         ////adds a new row when 'Add Product' button is clicked
         let newRow;
+        let addOrCancelButton = <Button className={classes.buttonPositive} onClick={this.clickAddProduct}>Add Product</Button>
         if (this.state.isAdding) {
             const emptyItem = {}
             newRow = <PricesTableRow clickAddProduct={this.clickAddProduct} editable={true} addable={true} item={emptyItem} />
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -88,8 +90,7 @@ class PricesTable extends Component {
 
                     {newRow}
                 </table>
-                <Button className={classes.buttonPositive} onClick={this.clickAddProduct}>Add Product</Button>
-                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+                {addOrCancelButton}
             </div>
         );
     }

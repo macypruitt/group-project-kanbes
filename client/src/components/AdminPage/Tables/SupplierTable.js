@@ -61,9 +61,11 @@ class SupplierTable extends Component {
 
         ////a new row is added when 'Add Supplier' button is clicked
         let newRow;
+        let addOrCancelButton = <Button className={classes.buttonPositive} onClick={this.clickAddSupplier}>Add Supplier</Button>
         if(this.state.isAdding){
             const emptyItem = {}
             newRow = <SupplierTableRow clickAddSupplier={this.clickAddSupplier} editable={true} addable={true} item={emptyItem} />
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -80,8 +82,7 @@ class SupplierTable extends Component {
 
                     {newRow}
                 </table>
-                <Button className={classes.buttonPositive} onClick={this.clickAddSupplier}>Add Supplier</Button>
-                <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+        {addOrCancelButton}
             </div>
         );
     }
