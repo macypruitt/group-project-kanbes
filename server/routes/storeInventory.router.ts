@@ -8,17 +8,22 @@ const router: express.Router = express.Router();
  * GET route to get store inventory from database
  */
 router.get('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
+    console.log(req.params.id)
     
     const queryText: string = `SELECT * FROM "outgoing_store" OS
                             JOIN "user" ON "user"."id" = OS."user_id"
                             JOIN "products" ON "products"."id" = OS."product_id"
                             JOIN "stores" ON "stores"."id" = OS."store_id"
                             JOIN "suppliers" ON "suppliers"."id" = OS."supplier_id"
+                            
                             WHERE last_modified = (
                             SELECT MAX(last_modified) 
                             FROM outgoing_store 
                             WHERE outgoing_store.product_id = OS.product_id
                             AND outgoing_store.store_id = $1);`;
+
+                            // JOIN "store_inventory_junction" ON "store_inventory_junction"."outgoing_inventory_id" = OS."id"
+                            // JOIN "incoming_store" ON "incoming_store"."id" = "store_inventory_junction"."incoming_inventory_id"
                            
 
     const storeId: string = req.params.id;
