@@ -12,7 +12,8 @@ const styles = (theme: Theme) =>
   createStyles({
     button: {
         display: 'center',
-        backgroundColor: '#a4bd83'
+        backgroundColor: '#a4bd83',
+        color: '#fafafa'
     },
     margin: {
         margin: theme.spacing(1),
