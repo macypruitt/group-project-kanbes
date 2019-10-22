@@ -34,10 +34,7 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'})
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> e70d8a3b3c9d7d5246be0322c9693dce3bc3d355
+  
   render() {
     return (
       
