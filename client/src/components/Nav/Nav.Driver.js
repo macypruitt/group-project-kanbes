@@ -55,10 +55,6 @@ class NavDriver extends Component {
         this.setState({ expand: !this.state.expand })
     }
 
-    updatedSelected = (selectedIndex) => {
-        this.setState({ selected: selectedIndex })
-    }
-
 
     moveToDriverPage = (id) => {
         this.props.history.push(`/driver/${id}`);
@@ -81,7 +77,7 @@ class NavDriver extends Component {
             return (
 
 
-                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} selected={true} className={this.props.classes.nested}>
+                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />
