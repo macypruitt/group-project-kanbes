@@ -10,11 +10,13 @@ import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
 import './DriverTable.css';
 
-const styles = theme => ({
-    buttonPositive: {
-        margin: 2,
-        color: 'blue'
-        //   backgroundColor: 'whitesmoke'
+
+const styles = (theme: Theme) =>
+  createStyles({
+    button: {
+        display: 'center',
+        backgroundColor: '#a4bd83',
+        color: '#fafafa'
     },
     buttonNegative: {
         margin: 2,
