@@ -31,6 +31,7 @@ class App extends Component {
   componentDidMount () {
     this.props.dispatch({type: 'FETCH_USER'});
   }
+
   render() {
     
 
@@ -120,6 +121,12 @@ class App extends Component {
               exact
               path="/manager"
               component={InvoicePage}
+            />
+
+            <ProtectedRoute
+              exact
+              path="/director"
+              component={AdminPage}
             />
            
             <Route

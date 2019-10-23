@@ -1,6 +1,6 @@
 const activeStoresReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_STORES':
+      case 'SET_ACTIVE_STORES':
         return action.payload;
       default:
         return state;
