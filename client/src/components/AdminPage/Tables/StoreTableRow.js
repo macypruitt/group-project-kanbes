@@ -33,7 +33,7 @@ const styles = theme => ({
         minWidth: 120,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
     },
 });
 
@@ -166,9 +166,11 @@ class StoreTableRow extends Component {
                 placeholder={address}
                 onChange={(event) => this.handleChangeInputText(event, 'address')} />
             status = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="status">{status}</InputLabel>
+                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
                 <Select
-                    className="row-input"
+                    className={classes.selectEmpty}
+                    displayEmpty
+                    placeholder={status.toString()}
                     onChange={(event) => this.handleChangeInputText(event, 'status')}
                     value={this.state.status}
                     inputProps={{

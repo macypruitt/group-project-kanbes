@@ -45,7 +45,7 @@ class PricesTableRow extends Component {
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
         item: {},
-        status: '',
+        // status: '',
         labelWidth: 0
     };
 
@@ -134,9 +134,10 @@ class PricesTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
             status = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="status">{status}</InputLabel>
+                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
                 <Select
-                    className="row-input"
+                    className={classes.selectEmpty}
+                    placeholder={this.props.item.status.toString()}
                     onChange={(event) => this.handleChangeInputText(event, 'status')}
                     value={this.state.status}
                     inputProps={{
