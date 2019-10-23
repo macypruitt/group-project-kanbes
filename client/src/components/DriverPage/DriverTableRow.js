@@ -66,8 +66,17 @@ class DriverTableRow extends Component {
         isAddable: this.props.addable || false,
         isUpdatable: this.props.updatable || false,
         currentTimeStamp: currentDateTime,
-        item: {}
+        item: {},
+        product_name: '',
+        product_sub_type:'',
+        supplier:'',
+        values: {
+            name: '',
+            id: ''
+        }
     };
+
+
 
     clickEdit = (event) => {
         this.setState({
@@ -110,10 +119,23 @@ class DriverTableRow extends Component {
         })
     }
 
+    setValues = (value) => {
+        this.setState({
+            ...this.state,
+            values: {
+                name: value
+            }
+        },() => {
+            console.log(this.state)
+        })
+    }
+
     handleChangeProductName(event) {
+        this.setValues(event.target.value);
         console.log(event.target)
         this.setState({
             ...this.state,
+            product_name:event.target.value,
             item: {
                 ...this.state.item,
                 product_name: event.target.value.product_name,
@@ -121,8 +143,9 @@ class DriverTableRow extends Component {
                 current_price_per_unit: event.target.value.current_price_per_unit,
                 current_price_per_unit_id: event.target.value.id,
                 sold_price_per_unit: event.target.value.current_price_per_unit,
-                
+
             }
+            
         }, () => {
             console.log(this.state);
         })
@@ -130,14 +153,33 @@ class DriverTableRow extends Component {
     }
 
     handleChangeSupplierName(event) {
+        this.setValues(event.target.value);
         console.log(event.target)
         this.setState({
             ...this.state,
+            supplier: event.target.value,
             item: {
                 ...this.state.item,
                 supplier_id: event.target.value.id,
                 supplier_name: event.target.value.supplier_name
             }
+        }, () => {
+            console.log(this.state);
+        })
+
+    }
+
+    handleChangeProductSubType(event) {
+        this.setValues(event.target.value);
+        console.log(event.target)
+        this.setState({
+            ...this.state,
+            product_sub_type:event.target.value,
+            item: {
+                ...this.state.item,
+                product_sub_type: event.target.value.product_sub_type
+            }
+            
         }, () => {
             console.log(this.state);
         })
@@ -185,7 +227,7 @@ class DriverTableRow extends Component {
         console.log(this.props.item.store_id)
         this.setState({
             ...this.state,
-            
+
             item: {
                 ...this.state.item,
                 last_modified: this.state.currentTimeStamp,
@@ -212,7 +254,7 @@ class DriverTableRow extends Component {
             })
 
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
-                return <MenuItem key={index} value={(item.product_sub_type).toString()}>{item.product_sub_type}</MenuItem>
+                return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
             })
         }
 
@@ -310,12 +352,32 @@ class DriverTableRow extends Component {
         if (this.state.isAddable) {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveNewProduct}>Save New Product</Button>;
 
+        //     status = <FormControl className={classes.formControl}>
+        //     {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
+        //     <Select
+        //         className={classes.selectEmpty}
+        //         displayEmpty
+        //         placeholder={status.toString()}
+        //         onChange={(event) => this.handleChangeInputText(event, 'status')}
+        //         // value={this.state.status}
+        //         inputProps={{
+        //             name: 'status',
+        //             id: 'status',
+        //         }}
+        //     >
+        //         <MenuItem value={'true'}>True</MenuItem>
+        //         <MenuItem value={'false'}>False</MenuItem>
+        //     </Select>
+        // </FormControl>
+
+
             product_name = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="product_name">{product_name}</InputLabel>
+                {/* <InputLabel htmlFor="product_name">{product_name}</InputLabel> */}
                 <Select
                     className="row-input"
+                    // placeholder={product_name}
                     onChange={(event) => this.handleChangeProductName(event, 'product_name')}
-                    value={product_name}
+                    value={this.state.product_name}
                     inputProps={{
                         name: 'product_name',
                         id: 'product_name',
@@ -326,11 +388,11 @@ class DriverTableRow extends Component {
             </FormControl>
 
             product_sub_type = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="product_sub_type">{product_sub_type}</InputLabel>
+                {/* <InputLabel htmlFor="product_sub_type">{product_sub_type}</InputLabel> */}
                 <Select
                     className="row-input"
-                    onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
-                    value={product_sub_type}
+                    onChange={(event) => this.handleChangeProductSubType(event, 'product_sub_type')}
+                    value={this.state.product_sub_type}
                     inputProps={{
                         name: 'product_sub_type',
                         id: 'product_sub_type',
@@ -341,11 +403,11 @@ class DriverTableRow extends Component {
             </FormControl>
 
             supplier = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="supplier">{product_sub_type}</InputLabel>
+                {/* <InputLabel htmlFor="supplier">{product_sub_type}</InputLabel> */}
                 <Select
                     className="row-input"
                     onChange={(event) => this.handleChangeSupplierName(event, 'supplier')}
-                    value={supplier}
+                    value={this.state.supplier}
                     inputProps={{
                         name: 'supplier',
                         id: 'supplier',

@@ -33,7 +33,7 @@ const styles = theme => ({
         minWidth: 120,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
     },
 });
 
@@ -140,9 +140,10 @@ class UserTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'last_name')}
             />
                 role = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="role">{role}</InputLabel>
+                {/* <InputLabel htmlFor="role">{role}</InputLabel> */}
                 <Select
-                    className="row-input"
+                    className={classes.selectEmpty}
+                    placeholder={role}
                     onChange={(event) => this.handleChangeInputText(event, 'role')}
                     value={this.state.role}
                     inputProps={{
@@ -160,9 +161,9 @@ class UserTableRow extends Component {
                 placeholder={email}
                 onChange={(event) => this.handleChangeInputText(event, 'email')} />
             admin_level = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="admin_level">{admin_level}</InputLabel>
+                {/* <InputLabel htmlFor="admin_level">{admin_level}</InputLabel> */}
                 <Select
-                    className="row-input"
+                     className={classes.selectEmpty}
                     onChange={(event) => this.handleChangeInputText(event, 'admin_level')}
                     value={this.state.admin_level}
                     inputProps={{
