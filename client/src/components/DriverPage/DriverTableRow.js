@@ -107,68 +107,92 @@ class DriverTableRow extends Component {
 
     handleChangeInputText(event, dataKey) {
 
-        const fieldValue = event.target.value;
-        let lastPar = this.state.item.last_par;
-        if (dataKey === "sold_product_count" && event.target.value || dataKey === "shrink_product_count" && event.target.value) {
+        // const fieldValue = event.target.value;
+        // let lastPar = this.state.item.last_par;
+        // if (dataKey === "sold_product_count" && event.target.value || dataKey === "shrink_product_count" && event.target.value) {
 
-            lastPar -= parseFloat(event.target.value)
+        //     lastPar -= parseFloat(event.target.value)
 
+        //     this.setState({
+        //         ...this.state,
+        //         item: {
+        //             ...this.state.item,
+        //             [dataKey]: fieldValue,
+        //             last_par: lastPar
+        //         }
+        //     })
+        // } else if (dataKey === "sold_product_count" && !event.target.value || dataKey === "shrink_product_count" && !event.target.value) {
+
+        //     lastPar += parseFloat(this.state.item[dataKey])
+
+        //     this.setState({
+        //         ...this.state,
+        //         item: {
+        //             ...this.state.item,
+        //             [dataKey]: fieldValue,
+        //             last_par: lastPar
+        //         }
+        //     })
+        // }
+
+        // else if (dataKey === "product_count" && event.target.value) {
+        //     lastPar += parseFloat(event.target.value)
+
+        //     this.setState({
+        //         ...this.state,
+        //         item: {
+        //             ...this.state.item,
+        //             [dataKey]: fieldValue,
+        //             last_par: lastPar
+        //         }
+        //     })
+        // }
+
+        // else if (dataKey === "product_count" && !event.target.value) {
+        //     lastPar -= parseFloat(this.state.item[dataKey])
+
+        //     this.setState({
+        //         ...this.state,
+        //         item: {
+        //             ...this.state.item,
+        //             [dataKey]: fieldValue,
+        //             last_par: lastPar
+        //         }
+        //     })
+        // }
+
+        // else {
+
+        //     this.setState({
+        //         ...this.state,
+        //         item: {
+        //             ...this.state.item,
+        //             [dataKey]: fieldValue
+        //         }
+        //     })
+        // }
+        if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
             this.setState({
                 ...this.state,
                 item: {
                     ...this.state.item,
-                    [dataKey]: fieldValue,
-                    last_par: lastPar
+                    [dataKey]: parseInt(event.target.value)
                 }
-            })
-        } else if (dataKey === "sold_product_count" && !event.target.value || dataKey === "shrink_product_count" && !event.target.value) {
-
-            lastPar += parseFloat(this.state.item[dataKey])
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: fieldValue,
-                    last_par: lastPar
-                }
-            })
-        }
-
-        else if (dataKey === "product_count" && event.target.value) {
-            lastPar += parseFloat(event.target.value)
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: fieldValue,
-                    last_par: lastPar
-                }
-            })
-        }
-
-        else if (dataKey === "product_count" && !event.target.value) {
-            lastPar -= parseFloat(this.state.item[dataKey])
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: fieldValue,
-                    last_par: lastPar
-                }
-            })
-        }
-
-        else {
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: fieldValue
-                }
+            }, () => {
+                const newLastPar = this.state.item.last_par - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
+                console.log('last par', this.state.item.last_par)
+                console.log('sold',this.state.item.sold_product_count )
+                console.log('shrink', this.state.item.shrink_product_count)
+                console.log('product count', this.state.item.product_count)
+                this.setState({
+                    ...this.state,
+                    item: {
+                        ...this.state.item,
+                        last_par: newLastPar
+                    }
+                },()=>{
+                    console.log(this.state.item)
+                })
             })
         }
     }
@@ -402,24 +426,6 @@ class DriverTableRow extends Component {
         ////if 'Add Store' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveNewProduct}>Save New Product</Button>;
-
-            //     status = <FormControl className={classes.formControl}>
-            //     {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
-            //     <Select
-            //         className={classes.selectEmpty}
-            //         displayEmpty
-            //         placeholder={status.toString()}
-            //         onChange={(event) => this.handleChangeInputText(event, 'status')}
-            //         // value={this.state.status}
-            //         inputProps={{
-            //             name: 'status',
-            //             id: 'status',
-            //         }}
-            //     >
-            //         <MenuItem value={'true'}>True</MenuItem>
-            //         <MenuItem value={'false'}>False</MenuItem>
-            //     </Select>
-            // </FormControl>
 
 
             product_name = <FormControl className={classes.formControl}>
