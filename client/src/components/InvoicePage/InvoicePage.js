@@ -31,6 +31,11 @@ class InvoicePage extends Component {
         store_id: null
     };
 
+    componentDidMount() {
+        // Grabs all active stores
+        this.props.dispatch({type: 'FETCH_ACTIVE_STORES'});
+    }
+
     /////Handler functions for selecting dates and store
     handleStartDateChange = (date) => {
         
@@ -61,7 +66,7 @@ class InvoicePage extends Component {
         this.setState({
             store_id: event.target.value
         }, () => {
-            console.log(event.target.value)
+            console.log('STORE CHANGE:', event.target.value)
         })
     }
 
@@ -105,15 +110,15 @@ class InvoicePage extends Component {
         ]
 
         ////this generates the list on the drop down store selector
-        const storeData = mockInvoiceData;
-        ////const storeData = this.props.store.storesReducer
+        // const storeData = mockInvoiceData;
+        const storeData = this.props.store.activeStores;
 
         let storeSelectorList;
         if(storeData){
             storeSelectorList = storeData.map((item, index) => {
                 return(
                     <MenuItem key={index} value={item.store_id}>
-                        {item.name} - {item.address}
+                        {item.store_name} - {item.address}
                     </MenuItem>
                 )
             })

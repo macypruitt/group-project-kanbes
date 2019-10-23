@@ -18,7 +18,7 @@ function* fetchActiveStores() {
 
     const response = yield axios.get('api/all/stores/active');
 
-    yield put({ type: 'SET_STORES', payload: response.data });
+    yield put({ type: 'SET_ACTIVE_STORES', payload: response.data });
   } catch (error) {
     console.log('Stores get request failed', error);
   }

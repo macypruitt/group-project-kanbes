@@ -120,6 +120,12 @@ class App extends Component {
               path="/manager"
               component={ManagerPage}
             />
+
+            <ProtectedRoute
+              exact
+              path="/director"
+              component={AdminPage}
+            />
            
             <Route
             exact
