@@ -1,3 +1,12 @@
 .address{
     font-size: .3em;
 }
+
+.nav-list{
+
+}
+
+.active, .btn:hover {
+    background-color: #666;
+    color: '#a4bd83';
+  }
