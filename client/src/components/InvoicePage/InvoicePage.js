@@ -42,7 +42,7 @@ class InvoicePage extends Component {
         this.setState({
             startDate: date
         }, ()=>{
-            console.log(this.state)
+            console.log(this.state.startDate);
         })
     }
 
