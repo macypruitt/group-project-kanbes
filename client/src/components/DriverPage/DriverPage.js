@@ -4,17 +4,26 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import { withRouter } from 'react-router';
 import DriverTable from './DriverTable';
+import Grid from '@material-ui/core/Grid';
 import './DriverPage.css'
 
 class DriverPage extends Component {
 
-    
-    componentDidMount(){
-    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
-    this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: parseInt(this.props.match.params.id) })  
+
+    componentDidMount() {
+        {/* This code is getting the store inventory. If there is no params id
+            the FETCH_ACTIVE_STORE will grab the first store inventory*/}
+        let selectedStoreId = this.props.match.params.id;
+        let firstStore = true;
+        if (selectedStoreId != null) {
+            firstStore = false;
+            this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
+        }
+        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload: { firstStore } });
+
+
     }
 
-    
 
     render() {
         console.log(this.props.match.params.id)
@@ -22,23 +31,27 @@ class DriverPage extends Component {
         let address;
         let matchStore;
 
-        //  using store name as header
+        {/* This code is checking to see if there is a store and params id available, 
+            if both conditions are met, it will loop through active store array and 
+            match the id with the params id to give store name & address */}
         if (this.props.store.activeStores.length > 0 && this.props.match.params.id) {
-            for(let i = 0; i < this.props.store.activeStores.length; i++){
+            for (let i = 0; i < this.props.store.activeStores.length; i++) {
                 let activeStoreItem = this.props.store.activeStores[i];
-                if(activeStoreItem.id === parseInt(this.props.match.params.id)){
+                if (activeStoreItem.id === parseInt(this.props.match.params.id)) {
                     storeName = activeStoreItem.store_name;
                     address = activeStoreItem.address;
                     matchStore = activeStoreItem;
                 }
             }
-        } else if (this.props.store.activeStores.length > 0){
+            {/*if the above conditions aren't met it will check to see if active Store
+                has the stores and grab the first store information*/}
+        } else if (this.props.store.activeStores.length > 0) {
             storeName = this.props.store.activeStores[0].store_name
             address = this.props.store.activeStores[0].address
             matchStore = this.props.store.activeStores[0];
         }
 
-
+        
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
@@ -60,10 +73,22 @@ class DriverPage extends Component {
         return (
             <KanbeTemplate>
                 <div className="driver-container">
-                    <h1>{storeName}</h1>
-                    <h5>{address}</h5>
-                    <h3>{date}</h3>
-                    {driverTableHolder}
+                    <Grid container spacing={3}>
+                        <Grid item xs={12}>
+                            <h1>{storeName}</h1>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <p>{address}</p>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <p>Today's Date: {date}</p>
+                        </Grid>
+                        <Grid item xs={12}>
+                            {driverTableHolder}
+                        </Grid>
+                    </Grid>
+
+
                 </div>
             </KanbeTemplate>
         )
