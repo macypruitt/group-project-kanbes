@@ -35,11 +35,7 @@ class App extends Component {
     this.props.dispatch({type: 'FETCH_USER'})
     // this.props.dispatch({type: 'FETCH_STORES'})
   }
-<<<<<<< HEAD
   
-=======
-
->>>>>>> develop
   render() {
     // let firstStore = 1;
     // if(this.props.store.stores.length>0){
