@@ -170,9 +170,9 @@ class StoreTableRow extends Component {
                 <Select
                     className={classes.selectEmpty}
                     displayEmpty
-                    placeholder={status.toString()}
+                    // placeholder={status.toString()}
                     onChange={(event) => this.handleChangeInputText(event, 'status')}
-                    value={this.state.status}
+                    value={this.state.item.status}
                     inputProps={{
                         name: 'status',
                         id: 'status',
