@@ -10,6 +10,7 @@ import deliveryOrderArray from './deliveryOrderArray.reducer';
 import storeInventory from './storeInventory.reducer';
 import activeStores from './activeStores.reducer';
 import prices from './prices.reducer';
+import activeProducts from './activeProducts.reducer';
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
 // This is imported in index.js as rootSaga
@@ -27,7 +28,8 @@ const rootReducer = combineReducers({
   deliveryOrderArray,
   storeInventory,
   activeStores,
-  prices
+  prices,
+  activeProducts
 });
 
 export default rootReducer;
