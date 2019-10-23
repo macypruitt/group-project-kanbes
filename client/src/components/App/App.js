@@ -12,11 +12,7 @@ import {connect} from 'react-redux';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
-
-
 import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-
 import ManagerPage from '../ManagerPage/ManagerPage'
 import AdminPage from '../AdminPage/AdminPage';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
@@ -28,14 +24,19 @@ import SupplierPage from '../SupplierPage/SupplierPage';
 import StorePage from '../StorePage/StorePage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
+import mapStoreToProps from '../../redux/mapStoreToProps';
 
 
 class App extends Component {
   componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'})
+    this.props.dispatch({type: 'FETCH_USER'});
+    this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
   }
   render() {
+    
+
     return (
+     
       
       <Router>
         
@@ -99,11 +100,18 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/login"
-              driverRedirect="/driver/:id"
+              driverRedirect="/driver"
               managerRedirect="/manager"
               directorRedirect="/director"
               component={LoginPage}
             />
+            {/*This route is used for getting the first store in from activeStores on page load */}
+            <ProtectedRoute
+              exact
+              path="/driver"
+              component={DriverPage}
+            />
+            {/*This route is used for specific information on click of nav bar*/}
             <ProtectedRoute
               exact
               path="/driver/:id"
@@ -112,13 +120,13 @@ class App extends Component {
             <ProtectedRoute
               exact
               path="/manager"
-              component={ManagerPage}
+              component={InvoicePage}
             />
            
             <Route
             exact
-            path="/manager"
-            component={ManagerPage}
+            path="/director"
+            component={AdminPage}
             />
             <Route
             exact 
@@ -136,4 +144,4 @@ class App extends Component {
   )}
 }
 
-export default connect()(App);
+export default connect(mapStoreToProps)(App);

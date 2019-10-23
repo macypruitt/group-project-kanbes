@@ -11,8 +11,15 @@ class DriverPage extends Component {
 
 
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
-        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: parseInt(this.props.match.params.id) })
+        let selectedStoreId = this.props.match.params.id;
+        let firstStore = true;
+        if(selectedStoreId != null ){
+            firstStore = false;
+            this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
+        }
+        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload:{firstStore} });
+        
+        
     }
 
 
@@ -21,13 +28,9 @@ class DriverPage extends Component {
         let storeName;
         let address;
         let matchStore;
-
-        console.log(this.props.match.params.id, 'clicked id of store!')
-        console.log(this.props.store, 'need to get to the store inventory')
-        console.log(this.props.store.activeStores, 'I need the active store');
-
-
-        //  using store name as header
+        console.log(this.props.match.params.id, 'params id');
+        
+         
         if (this.props.store.activeStores.length > 0 && this.props.match.params.id) {
             for (let i = 0; i < this.props.store.activeStores.length; i++) {
                 let activeStoreItem = this.props.store.activeStores[i];
@@ -37,20 +40,23 @@ class DriverPage extends Component {
                     matchStore = activeStoreItem;
                 }
             }
-        } else if (this.props.store.activeStores.length > 0) {
+        } else if  (this.props.store.activeStores.length > 0) {
             storeName = this.props.store.activeStores[0].store_name
             address = this.props.store.activeStores[0].address
             matchStore = this.props.store.activeStores[0];
         }
-        console.log(matchStore);
 
+
+
+     
+        console.log(this.props.store.storeInventory, 'store inventory');
 
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
         if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
-            console.log(dataForDriver, 'what is this')
+            console.log(dataForDriver, 'what is dataForDrivers')
         }
 
 

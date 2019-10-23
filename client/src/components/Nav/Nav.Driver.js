@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { withRouter } from 'react-router';
-import pink from '@material-ui/core/colors/pink';
+
 import './Nav.Driver.css'
 
 
@@ -55,9 +55,12 @@ class NavDriver extends Component {
         this.setState({ expand: !this.state.expand })
     }
 
+    selectedItem
+
 
     moveToDriverPage = (id) => {
         this.props.history.push(`/driver/${id}`);
+        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
     }
 
 
