@@ -56,7 +56,8 @@ var currentDateTime = date + time
 
 class DriverTableRow extends Component {
     componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_PRODUCTS' })
+        this.props.dispatch({ type: 'FETCH_PRODUCTS' });
+        this.props.dispatch({ type: 'FETCH_SUPPLIERS' })
     }
 
     state = {
@@ -95,8 +96,7 @@ class DriverTableRow extends Component {
     }
 
     handleChangeInputText(event, dataKey) {
-        console.log(event.target.value);
-        console.log(dataKey)
+
         const fieldValue = event.target.value;
         this.setState({
             ...this.state,
@@ -104,8 +104,43 @@ class DriverTableRow extends Component {
                 ...this.state.item,
                 [dataKey]: fieldValue
             }
+        }, () => {
+            console.log(this.state);
         })
-        console.log(this.state);
+    }
+
+    handleChangeProductName(event) {
+        console.log(event.target)
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                product_name: event.target.value.product_name,
+                product_id: event.target.value.product_id,
+                current_price_per_unit: event.target.value.current_price_per_unit,
+                current_price_per_unit_id: event.target.value.id,
+                sold_price_per_unit: event.target.value.current_price_per_unit,
+                // store_id:,
+            }
+        }, () => {
+            console.log(this.state);
+        })
+
+    }
+
+    handleChangeSupplierName(event) {
+        console.log(event.target)
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                supplier_id: event.target.value.id,
+                supplier_name: event.target.value.supplier_name
+            }
+        }, () => {
+            console.log(this.state);
+        })
+
     }
 
     clickSaveEntry = (event) => {
@@ -129,15 +164,6 @@ class DriverTableRow extends Component {
         this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item })
     }
 
-    clickAddEntry = (event) => {
-        this.props.clickAddStore();
-        this.setState({
-            isEditable: !this.state.isEditable,
-            isAddable: !this.state.isAddable
-        })
-        console.log(this.state)
-        ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
-    }
 
     clickCancelEdit = event => {
         this.setState({
@@ -154,7 +180,25 @@ class DriverTableRow extends Component {
         })
     }
 
+    clickSaveNewProduct = event => {
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                last_modified: this.state.currentTimeStamp,
+                user_id: this.props.store.user.id
+            }
+        }, () => {
+            console.log('state at save new product', this.state)
+            //     ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
+            this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
+            this.props.clickAddProduct();
+        })
+
+    }
+
     render() {
+        console.log('current store', this.props.store.activeStores);
 
         let activeProducts = [];
         let activeProductSubTypes = [];
@@ -162,11 +206,19 @@ class DriverTableRow extends Component {
         activeProducts = this.props.store.activeProducts;
         if (activeProducts.length > 0) {
             activeProducts = activeProducts.map((item, index) => {
-                return <MenuItem key={index} value={'apple'}>{item.product_name}</MenuItem>
+                return <MenuItem key={index} value={item}>{item.product_name}</MenuItem>
             })
 
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 return <MenuItem key={index} value={(item.product_sub_type).toString()}>{item.product_sub_type}</MenuItem>
+            })
+        }
+
+        let suppliers = [];
+        suppliers = this.props.store.suppliers
+        if (suppliers.length > 0) {
+            suppliers = suppliers.map((item, index) => {
+                return <MenuItem key={index} value={item}>{item.supplier_name}</MenuItem>
             })
         }
 
@@ -176,6 +228,7 @@ class DriverTableRow extends Component {
         ////row data is passed to this component via props
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
+        let supplier = this.props.item.supplier_name
         let standard_par = this.props.item.standard_par;
         let last_par = this.props.item.last_par;
         let sold = this.props.item.sold_product_count;
@@ -204,17 +257,7 @@ class DriverTableRow extends Component {
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
-            // product_name = <input 
-            //         className="row-input" 
-            //         placeholder={product_name}
-            //         onChange={(event) => this.handleChangeInputText(event, 'product_name')}
-            //          />
-            // product_sub_type = <input 
 
-            //         className="row-input" 
-            //         placeholder={product_sub_type}
-            //         onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
-            //          />
             standard_par = <input
                 type="tel"
                 pattern="[0-9]*"
@@ -269,7 +312,7 @@ class DriverTableRow extends Component {
                 <InputLabel htmlFor="product_name">{product_name}</InputLabel>
                 <Select
                     className="row-input"
-                    onChange={(event) => this.handleChangeInputText(event, 'product_name')}
+                    onChange={(event) => this.handleChangeProductName(event, 'product_name')}
                     value={product_name}
                     inputProps={{
                         name: 'product_name',
@@ -292,6 +335,21 @@ class DriverTableRow extends Component {
                     }}
                 >
                     {activeProductSubTypes}
+                </Select>
+            </FormControl>
+
+            supplier = <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="supplier">{product_sub_type}</InputLabel>
+                <Select
+                    className="row-input"
+                    onChange={(event) => this.handleChangeSupplierName(event, 'supplier')}
+                    value={supplier}
+                    inputProps={{
+                        name: 'supplier',
+                        id: 'supplier',
+                    }}
+                >
+                    {suppliers}
                 </Select>
             </FormControl>
             lastModified = date + time
@@ -320,6 +378,7 @@ class DriverTableRow extends Component {
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
+                placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'restocked')}
             />
             notes = <input
@@ -335,6 +394,7 @@ class DriverTableRow extends Component {
             <tr id={this.props.key}>
                 <td>{product_name}</td>
                 <td>{product_sub_type}</td>
+                <td>{supplier}</td>
                 <td>{standard_par}</td>
                 <td>{last_par}</td>
                 <td>{sold}</td>
