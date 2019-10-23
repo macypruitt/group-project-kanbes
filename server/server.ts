@@ -9,6 +9,7 @@ import allStoresRouter from './routes/allStores.router';
 import storeInventoryRouter from './routes/storeInventory.router';
 import pricesRouter from './routes/allPrices.router';
 import warehouseInventoryRouter from './routes/warehouseInventory.router';
+import invoiceRouter from './routes/invoice.router';
 import currentProducts from './routes/allCurrentProducts.router';
 require('dotenv').config();
 
@@ -34,6 +35,7 @@ app.use('/api/all/stores', allStoresRouter);
 app.use('/api/store/inventory', storeInventoryRouter);
 app.use('/api/allCurrentPrices', pricesRouter);
 app.use('/api/warehouse/inventory', warehouseInventoryRouter);
+app.use('/api/invoice', invoiceRouter);
 app.use('/api/allCurrentProducts', currentProducts)
 
 // Serve static files
