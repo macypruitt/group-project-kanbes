@@ -108,15 +108,69 @@ class DriverTableRow extends Component {
     handleChangeInputText(event, dataKey) {
 
         const fieldValue = event.target.value;
-        this.setState({
-            ...this.state,
-            item: {
-                ...this.state.item,
-                [dataKey]: fieldValue
-            }
-        }, () => {
-            console.log(this.state);
-        })
+        let lastPar = this.state.item.last_par;
+        if (dataKey === "sold_product_count" && event.target.value || dataKey === "shrink_product_count" && event.target.value) {
+
+            lastPar -= parseFloat(event.target.value)
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: fieldValue,
+                    last_par: lastPar
+                }
+            })
+        } else if (dataKey === "sold_product_count" && !event.target.value || dataKey === "shrink_product_count" && !event.target.value) {
+
+            lastPar += parseFloat(this.state.item[dataKey])
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: fieldValue,
+                    last_par: lastPar
+                }
+            })
+        }
+
+        else if (dataKey === "restocked" && event.target.value) {
+            lastPar += parseFloat(event.target.value)
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: fieldValue,
+                    last_par: lastPar
+                }
+            })
+        }
+
+        else if (dataKey === "restocked" && !event.target.value) {
+            lastPar -= parseFloat(this.state.item[dataKey])
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: fieldValue,
+                    last_par: lastPar
+                }
+            })
+        }
+
+        else {
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: fieldValue
+                }
+            })
+        }
     }
 
     setValues = (value) => {
@@ -125,14 +179,11 @@ class DriverTableRow extends Component {
             values: {
                 name: value
             }
-        }, () => {
-            console.log(this.state)
         })
     }
 
     handleChangeProductName(event) {
         this.setValues(event.target.value);
-        console.log(event.target)
         this.setState({
             ...this.state,
             product_name: event.target.value,
@@ -145,9 +196,6 @@ class DriverTableRow extends Component {
                 sold_price_per_unit: event.target.value.current_price_per_unit,
 
             }
-
-        }, () => {
-            console.log(this.state);
         })
 
     }
@@ -163,10 +211,7 @@ class DriverTableRow extends Component {
                 supplier_id: event.target.value.id,
                 supplier_name: event.target.value.supplier_name
             }
-        }, () => {
-            console.log(this.state);
         })
-
     }
 
     handleChangeProductSubType(event) {
@@ -179,9 +224,6 @@ class DriverTableRow extends Component {
                 ...this.state.item,
                 product_sub_type: event.target.value.product_sub_type
             }
-
-        }, () => {
-            console.log(this.state);
         })
 
     }
@@ -190,7 +232,6 @@ class DriverTableRow extends Component {
         this.setState({
             isEditable: !this.state.isEditable
         })
-        console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         // this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
         this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
@@ -201,7 +242,6 @@ class DriverTableRow extends Component {
             isEditable: false,
             isUpdatable: false
         })
-        console.log(this.state)
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
         this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item })
@@ -224,7 +264,7 @@ class DriverTableRow extends Component {
     }
 
     clickSaveNewProduct = event => {
-        console.log(this.props.item.store_id)
+
         this.setState({
             ...this.state,
 
@@ -323,7 +363,7 @@ class DriverTableRow extends Component {
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
-                placeholder={last_par}
+                placeholder={this.state.item.last_par}
                 onChange={(event) => this.handleChangeInputText(event, 'last_par')}
             />
             sold = <input
@@ -342,6 +382,7 @@ class DriverTableRow extends Component {
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
+                placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'restocked')}
             />
             notes = <input

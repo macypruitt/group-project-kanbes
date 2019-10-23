@@ -145,7 +145,7 @@ class UserTableRow extends Component {
                     className={classes.selectEmpty}
                     placeholder={role}
                     onChange={(event) => this.handleChangeInputText(event, 'role')}
-                    value={this.state.role}
+                    value={this.state.item.role}
                     inputProps={{
                         name: 'role',
                         id: 'role',
@@ -165,7 +165,7 @@ class UserTableRow extends Component {
                 <Select
                      className={classes.selectEmpty}
                     onChange={(event) => this.handleChangeInputText(event, 'admin_level')}
-                    value={this.state.admin_level}
+                    value={this.state.item.admin_level}
                     inputProps={{
                         name: 'admin_level',
                         id: 'admin_level',
