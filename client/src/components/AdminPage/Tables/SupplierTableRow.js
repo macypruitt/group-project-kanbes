@@ -139,11 +139,11 @@ class SupplierTableRow extends Component {
 
         return (
             <tr>
-                <td>{supplier_name}</td>
-                <td>{contact_name}</td>
-                <td>{contact_number}</td>
-                <td>{address}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="five-col-width">{supplier_name}</td>
+                <td className="five-col-width">{contact_name}</td>
+                <td className="five-col-width">{contact_number}</td>
+                <td className="five-col-width">{address}</td>
+                <td className="five-col-width">{editOrSaveButton}</td>
                 
             </tr>
         );

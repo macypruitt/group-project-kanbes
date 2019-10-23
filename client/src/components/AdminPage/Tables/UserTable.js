@@ -5,6 +5,7 @@ import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import UserTableRow from './UserTableRow';
+import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -96,22 +97,68 @@ componentDidMount() {
         }
 
         return (
-            <div>
-                <table className="admin-table">
-                    <tr>
-                        <th>Username</th>
-                        {/* <th>Password</th> */}
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Role</th>
-                        <th>Email</th>
-                        <th>Admin level</th>
-                        <th>Actions</th>
-                    </tr>
-                    {userTableData}
-                    {newRow}
+            <div className="tableFixedHead">
+                {/* First table generates the table head */}
+                <div className="tableFixedHead-hd">
+                <table className="baseTable">
+                    <thead>
+                        <tr>
+                            <th className="seven-col-width">Username</th>
+                            <th className="seven-col-width">First Name</th>
+                            <th className="seven-col-width">Last Name</th>
+                            <th className="seven-col-width">Role</th>
+                            <th className="seven-col-width">Email</th>
+                            <th className="seven-col-width">Admin level</th>
+                            <th className="seven-col-width">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userTableData}
+                        {newRow}
+                    </tbody>
                 </table>
+                </div>
+                {/* Second table generates the table body */}
+                <div  className="tableFixedHead-scroll">
+                <table className="baseTable">
+                    <thead>
+                        <tr>
+                            <th className="seven-col-width">Username</th>
+                            <th className="seven-col-width">First Name</th>
+                            <th className="seven-col-width">Last Name</th>
+                            <th className="seven-col-width">Role</th>
+                            <th className="seven-col-width">Email</th>
+                            <th className="seven-col-width">Admin level</th>
+                            <th className="seven-col-width">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {userTableData}
+                        {newRow}
+                    </tbody>
+                </table>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
                 {addOrCancelButton}
+
+
+
+
+
+
+
+
             </div>
         );
     }
