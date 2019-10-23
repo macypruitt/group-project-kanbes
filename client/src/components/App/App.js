@@ -25,6 +25,7 @@ import StorePage from '../StorePage/StorePage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 import mapStoreToProps from '../../redux/mapStoreToProps';
+import PerformancePage from '../../components/PerformancePage/PerformancePage'
 
 
 class App extends Component {
@@ -126,6 +127,7 @@ class App extends Component {
             exact
             path="/director"
             component={AdminPage}
+            component={PerformancePage}
             />
             <Route
             exact 

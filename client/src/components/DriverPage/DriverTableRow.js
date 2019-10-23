@@ -135,7 +135,7 @@ class DriverTableRow extends Component {
             })
         }
 
-        else if (dataKey === "restocked" && event.target.value) {
+        else if (dataKey === "product_count" && event.target.value) {
             lastPar += parseFloat(event.target.value)
 
             this.setState({
@@ -148,7 +148,7 @@ class DriverTableRow extends Component {
             })
         }
 
-        else if (dataKey === "restocked" && !event.target.value) {
+        else if (dataKey === "product_count" && !event.target.value) {
             lastPar -= parseFloat(this.state.item[dataKey])
 
             this.setState({
@@ -383,7 +383,7 @@ class DriverTableRow extends Component {
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
-                onChange={(event) => this.handleChangeInputText(event, 'restocked')}
+                onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
             notes = <input
                 type="text"
@@ -494,7 +494,7 @@ class DriverTableRow extends Component {
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
-                onChange={(event) => this.handleChangeInputText(event, 'restocked')}
+                onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
             notes = <input
                 type="text"
