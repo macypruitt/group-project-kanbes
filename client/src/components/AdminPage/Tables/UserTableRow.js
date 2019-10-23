@@ -189,14 +189,14 @@ class UserTableRow extends Component {
 
         return (
             <tr>
-                <td>{username}</td>
+                <td className="seven-col-width">{username}</td>
                 {/* <td>{password}</td> */}
-                <td>{first_name}</td>
-                <td>{last_name}</td>
-                <td>{role}</td>
-                <td>{email}</td>
-                <td>{admin_level}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="seven-col-width">{first_name}</td>
+                <td className="seven-col-width">{last_name}</td>
+                <td className="seven-col-width">{role}</td>
+                <td className="seven-col-width">{email}</td>
+                <td className="seven-col-width">{admin_level}</td>
+                <td className="seven-col-width">{editOrSaveButton}</td>
 
             </tr>
         );

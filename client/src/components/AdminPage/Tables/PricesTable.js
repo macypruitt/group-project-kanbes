@@ -5,7 +5,7 @@ import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import PricesTableRow from './PricesTableRow';
-
+import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -76,20 +76,55 @@ class PricesTable extends Component {
             addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
+        let priceColumnWidth = columnWidthFinder(5);
+        console.log( "priceColumnWidth: ", priceColumnWidth);
+        
         return (
-            <div>
-                <table className="admin-table">
+            <div className="tableFixedHead">
+                {/* First table generates the table head */}
+                <div className="tableFixedHead-hd">
+                <table className="baseTable">
+                    <thead>
                     <tr>
-                        <th>Product Name</th>
-                        <th>Product Sub-Type</th>
-                        <th>Price-Per-Unit</th>
-                        <th>Active Product?</th>
-                        <th>Actions</th>
+                        <th className="product-col-width">Product Name</th>
+                        <th className="product-col-width">Product Sub-Type</th>
+                        <th className="product-col-width">Price-Per-Unit</th>
+                        <th className="product-col-width">Active Product?</th>
+                        <th className="product-col-width">Actions</th>
                     </tr>
-                    {priceTableData}
-
-                    {newRow}
+                    </thead>
+                    <tbody>
+                        {priceTableData}
+                        {newRow}
+                    </tbody>
                 </table>
+                </div>
+                {/* Second table generates the table body */}
+                <div  className="tableFixedHead-scroll">
+                <table className="baseTable">
+                    <thead>
+                    <tr>
+                        <th className="product-col-width">Product Name</th>
+                        <th className="product-col-width">Product Sub-Type</th>
+                        <th className="product-col-width">Price-Per-Unit</th>
+                        <th className="product-col-width">Active Product?</th>
+                        <th className="product-col-width">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        {priceTableData}
+                        {newRow}
+                    </tbody>
+                </table>
+                </div>
+
+
+
+
+
+
+
+
                 {addOrCancelButton}
             </div>
         );
