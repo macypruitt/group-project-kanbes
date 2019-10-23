@@ -13,12 +13,15 @@ function* fetchStores() {
   }
 }
 
-function* fetchActiveStores() {
+function* fetchActiveStores(action) {
   try {
 
     const response = yield axios.get('api/all/stores/active');
-
     yield put({ type: 'SET_ACTIVE_STORES', payload: response.data });
+    //allows driverpage to get inventory of the first store
+    if(action.payload.firstStore){
+      yield put({ type: 'FETCH_STORE_INVENTORY', payload: response.data[0].id })
+    }
   } catch (error) {
     console.log('Stores get request failed', error);
   }

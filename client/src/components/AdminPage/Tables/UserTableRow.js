@@ -33,7 +33,7 @@ const styles = theme => ({
         minWidth: 120,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
     },
 });
 
@@ -140,11 +140,12 @@ class UserTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'last_name')}
             />
                 role = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="role">{role}</InputLabel>
+                {/* <InputLabel htmlFor="role">{role}</InputLabel> */}
                 <Select
-                    className="row-input"
+                    className={classes.selectEmpty}
+                    placeholder={role}
                     onChange={(event) => this.handleChangeInputText(event, 'role')}
-                    value={this.state.role}
+                    value={this.state.item.role}
                     inputProps={{
                         name: 'role',
                         id: 'role',
@@ -160,11 +161,11 @@ class UserTableRow extends Component {
                 placeholder={email}
                 onChange={(event) => this.handleChangeInputText(event, 'email')} />
             admin_level = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="admin_level">{admin_level}</InputLabel>
+                {/* <InputLabel htmlFor="admin_level">{admin_level}</InputLabel> */}
                 <Select
-                    className="row-input"
+                     className={classes.selectEmpty}
                     onChange={(event) => this.handleChangeInputText(event, 'admin_level')}
-                    value={this.state.admin_level}
+                    value={this.state.item.admin_level}
                     inputProps={{
                         name: 'admin_level',
                         id: 'admin_level',
@@ -188,14 +189,14 @@ class UserTableRow extends Component {
 
         return (
             <tr>
-                <td>{username}</td>
+                <td className="seven-col-width">{username}</td>
                 {/* <td>{password}</td> */}
-                <td>{first_name}</td>
-                <td>{last_name}</td>
-                <td>{role}</td>
-                <td>{email}</td>
-                <td>{admin_level}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="seven-col-width">{first_name}</td>
+                <td className="seven-col-width">{last_name}</td>
+                <td className="seven-col-width">{role}</td>
+                <td className="seven-col-width">{email}</td>
+                <td className="seven-col-width">{admin_level}</td>
+                <td className="seven-col-width">{editOrSaveButton}</td>
 
             </tr>
         );
