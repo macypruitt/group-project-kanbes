@@ -68,8 +68,8 @@ class DriverTableRow extends Component {
         currentTimeStamp: currentDateTime,
         item: {},
         product_name: '',
-        product_sub_type:'',
-        supplier:'',
+        product_sub_type: '',
+        supplier: '',
         values: {
             name: '',
             id: ''
@@ -125,7 +125,7 @@ class DriverTableRow extends Component {
             values: {
                 name: value
             }
-        },() => {
+        }, () => {
             console.log(this.state)
         })
     }
@@ -135,7 +135,7 @@ class DriverTableRow extends Component {
         console.log(event.target)
         this.setState({
             ...this.state,
-            product_name:event.target.value,
+            product_name: event.target.value,
             item: {
                 ...this.state.item,
                 product_name: event.target.value.product_name,
@@ -145,7 +145,7 @@ class DriverTableRow extends Component {
                 sold_price_per_unit: event.target.value.current_price_per_unit,
 
             }
-            
+
         }, () => {
             console.log(this.state);
         })
@@ -174,12 +174,12 @@ class DriverTableRow extends Component {
         console.log(event.target)
         this.setState({
             ...this.state,
-            product_sub_type:event.target.value,
+            product_sub_type: event.target.value,
             item: {
                 ...this.state.item,
                 product_sub_type: event.target.value.product_sub_type
             }
-            
+
         }, () => {
             console.log(this.state);
         })
@@ -252,11 +252,21 @@ class DriverTableRow extends Component {
             activeProducts = activeProducts.map((item, index) => {
                 return <MenuItem key={index} value={item}>{item.product_name}</MenuItem>
             })
+        }
 
+        if (activeProducts.length > 0 && this.state.item.product_id) {
+
+            activeProductSubTypes = activeProductSubTypes.map((item, index) => {
+                if (item.product_id === this.state.item.product_id) {
+                    return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
+                }
+            })
+        } else {
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
             })
         }
+
 
         let suppliers = [];
         suppliers = this.props.store.suppliers
@@ -352,23 +362,23 @@ class DriverTableRow extends Component {
         if (this.state.isAddable) {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveNewProduct}>Save New Product</Button>;
 
-        //     status = <FormControl className={classes.formControl}>
-        //     {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
-        //     <Select
-        //         className={classes.selectEmpty}
-        //         displayEmpty
-        //         placeholder={status.toString()}
-        //         onChange={(event) => this.handleChangeInputText(event, 'status')}
-        //         // value={this.state.status}
-        //         inputProps={{
-        //             name: 'status',
-        //             id: 'status',
-        //         }}
-        //     >
-        //         <MenuItem value={'true'}>True</MenuItem>
-        //         <MenuItem value={'false'}>False</MenuItem>
-        //     </Select>
-        // </FormControl>
+            //     status = <FormControl className={classes.formControl}>
+            //     {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
+            //     <Select
+            //         className={classes.selectEmpty}
+            //         displayEmpty
+            //         placeholder={status.toString()}
+            //         onChange={(event) => this.handleChangeInputText(event, 'status')}
+            //         // value={this.state.status}
+            //         inputProps={{
+            //             name: 'status',
+            //             id: 'status',
+            //         }}
+            //     >
+            //         <MenuItem value={'true'}>True</MenuItem>
+            //         <MenuItem value={'false'}>False</MenuItem>
+            //     </Select>
+            // </FormControl>
 
 
             product_name = <FormControl className={classes.formControl}>
