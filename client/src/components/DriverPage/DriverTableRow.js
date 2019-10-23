@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { withRouter } from 'react-router';
 
 
 const styles = theme => ({
@@ -120,7 +121,7 @@ class DriverTableRow extends Component {
                 current_price_per_unit: event.target.value.current_price_per_unit,
                 current_price_per_unit_id: event.target.value.id,
                 sold_price_per_unit: event.target.value.current_price_per_unit,
-                // store_id:,
+                
             }
         }, () => {
             console.log(this.state);
@@ -181,12 +182,15 @@ class DriverTableRow extends Component {
     }
 
     clickSaveNewProduct = event => {
+        console.log(this.props.item.store_id)
         this.setState({
             ...this.state,
+            
             item: {
                 ...this.state.item,
                 last_modified: this.state.currentTimeStamp,
-                user_id: this.props.store.user.id
+                user_id: this.props.store.user.id,
+                store_id: this.props.match.params.id
             }
         }, () => {
             console.log('state at save new product', this.state)
@@ -198,8 +202,6 @@ class DriverTableRow extends Component {
     }
 
     render() {
-        console.log('current store', this.props.store.activeStores);
-
         let activeProducts = [];
         let activeProductSubTypes = [];
         activeProductSubTypes = this.props.store.activeProducts;
@@ -415,5 +417,5 @@ DriverTableRow.propTypes = {
 };
 
 export default connect(mapStoreToProps)(
-    withStyles(styles, { withTheme: true })(DriverTableRow)
+    withStyles(styles, { withTheme: true })(withRouter(DriverTableRow))
 );
