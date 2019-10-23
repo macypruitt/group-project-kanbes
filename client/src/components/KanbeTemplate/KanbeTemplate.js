@@ -24,7 +24,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-
+import LoginButton from '../LoginButton/LoginButton';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import NavAdmin from '../Nav/Nav.Admin';
 import NavDriver from '../Nav/Nav.Driver';
@@ -128,11 +128,10 @@ class KanbeTemplate extends Component {
   }
 
   render() {
-    const adminLevel = this.props.store.user.admin_level
+    const adminLevel = this.props.store.user.admin_level;
     const userName = this.props.store.user.first_name;
     let drawer;
-
-
+   
     if (adminLevel == 1) {
       drawer =
         <div>
@@ -150,6 +149,14 @@ class KanbeTemplate extends Component {
         </div>
     }
 
+
+    let button;
+    let user = this.props.store.user.id;
+    if(user == !null){
+      button = <LogOutButton />
+    }else{
+      button = <LoginButton />
+    }
 
     return (
       <div className={this.props.classes.root}>
@@ -203,8 +210,9 @@ class KanbeTemplate extends Component {
           
           {drawer}
           <Divider />
-          <LogOutButton />
+          {button}
           <Divider />
+          
         </Drawer>
 
         <main className={this.props.classes.content}>

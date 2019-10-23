@@ -5,10 +5,9 @@ import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import { withRouter } from 'react-router';
 import DriverTable from './DriverTable';
 import Grid from '@material-ui/core/Grid';
-import './DriverPage.css'
+import './DriverPage.css';
 
 class DriverPage extends Component {
-
 
     componentDidMount() {
         {/* This code is getting the store inventory. If there is no params id
@@ -20,10 +19,7 @@ class DriverPage extends Component {
             this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
         }
         this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload: { firstStore } });
-
-
     }
-
 
     render() {
         let storeName;
@@ -50,7 +46,7 @@ class DriverPage extends Component {
             matchStore = this.props.store.activeStores[0];
         }
 
-        
+
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
