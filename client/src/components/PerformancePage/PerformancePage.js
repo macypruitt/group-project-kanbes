@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { Grid } from '@material-ui/core';
 
-import './PerformancePage.css'
+// import './PerformancePage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
 class PerformancePage extends Component {
