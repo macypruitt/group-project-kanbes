@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import columnWidthFinder from './columnWidthFinder';
+
 
 const styles = theme => ({
     buttonPositive: {
@@ -36,6 +38,7 @@ const styles = theme => ({
         marginTop: theme.spacing(2),
     },
 });
+
 
 
 class StoreTableRow extends Component {
@@ -130,6 +133,8 @@ class StoreTableRow extends Component {
         })
     }
 
+  
+
     render() {
 
         const { classes, theme } = this.props;
@@ -205,18 +210,20 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
-
+        ////this function calculates column width
+        let width = columnWidthFinder(9);
+        
         return (
             <tr>
-                <td>{order}</td>
-                <td>{store_name}</td>
-                <td>{address}</td>
-                <td>{status}</td>
-                <td>{contactName}</td>
-                <td>{contactPhone}</td>
-                <td>{contactEmail}</td>
-                <td>{storePhone}</td>
-                <td>{editOrSaveButton}</td>
+                <td style={width}>{order}</td>
+                <td style={width}>{store_name}</td>
+                <td style={width}>{address}</td>
+                <td style={width}>{status}</td>
+                <td style={width}>{contactName}</td>
+                <td style={width}>{contactPhone}</td>
+                <td style={width}>{contactEmail}</td>
+                <td style={width}>{storePhone}</td>
+                <td style={width}>{editOrSaveButton}</td>
             </tr>
         );
     }

@@ -9,6 +9,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -30,13 +31,12 @@ const styles = theme => ({
     },
     formControl: {
         margin: theme.spacing(1),
-        minWidth: 120,
+        minWidth: 30
     },
     selectEmpty: {
         marginTop: theme.spacing(2),
     },
 });
-
 
 class PricesTableRow extends Component {
 
@@ -129,7 +129,7 @@ class PricesTableRow extends Component {
         if (this.state.isEditable) {
 
             current_price_per_unit = <Input
-                className="row-input"
+                className="product-select"
                 placeholder={current_price_per_unit}
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
@@ -192,14 +192,16 @@ class PricesTableRow extends Component {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
 
-
+        ////this function calculates column width
+        let pricesRowWidth = columnWidthFinder(5);
+        
         return (
             <tr>
-                <td>{product_name}</td>
-                <td>{product_sub_type}</td>
-                <td>${current_price_per_unit}</td>
-                <td>{status}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="product-col-width">{product_name}</td>
+                <td className="product-col-width">{product_sub_type}</td>
+                <td className="product-col-width">${current_price_per_unit}</td>
+                <td className="product-col-width">{status}</td>
+                <td className="product-col-width">{editOrSaveButton}</td>
             </tr>
         );
     }
