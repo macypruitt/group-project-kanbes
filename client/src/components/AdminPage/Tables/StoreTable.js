@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
 import Swal from 'sweetalert2-react';
-
+import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -23,7 +23,6 @@ const styles = theme => ({
         display: 'none',
     }
 });
-
 
 class StoreTable extends Component {
     componentDidMount() {
@@ -68,8 +67,6 @@ class StoreTable extends Component {
         });
         console.log(isDuplicate);
     }
-
-
 
     clickSaveDeliveryOrder = (event) => {
         this.setState({
@@ -126,23 +123,70 @@ class StoreTable extends Component {
         }
 
         return (
-            <div>
-                <table className="admin-table">
-                    <tr>
-                        <th>Delivery Order</th>
-                        <th>Store name</th>
-                        <th>Address</th>
-                        <th>Active?</th>
-                        <th>Store Contact Name</th>
-                        <th>Store Contact Phone</th>
-                        <th>Store Contact Email</th>
-                        <th>Store Phone</th>
-                        <th>Actions</th>
-                    </tr>
-                    {storeTableData}
+            <div className="tableFixedHead">
+                <div className="tableFixedHead-hd">
+                    <table className="baseTable">
+                        <thead>
+                            <tr>
+                                <th >Delivery Order</th>
+                                <th >Store name</th>
+                                <th >Address</th>
+                                <th >Active?</th>
+                                <th >Store Contact Name</th>
+                                <th >Store Contact Phone</th>
+                                <th >Store Contact Email</th>
+                                <th >Store Phone</th>
+                                <th >Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {storeTableData}
+                            {newRow}
+                        </tbody>
+                    </table>
+                </div>
 
-                    {newRow}
-                </table>
+                <div  className="tableFixedHead-scroll">
+                    <table className="baseTable">
+                        <thead>
+                            <tr>
+                                <th >Delivery Order</th>
+                                <th >Store name</th>
+                                <th >Address</th>
+                                <th >Active?</th>
+                                <th >Store Contact Name</th>
+                                <th >Store Contact Phone</th>
+                                <th >Store Contact Email</th>
+                                <th >Store Phone</th>
+                                <th >Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {storeTableData}
+                            {newRow}
+                        </tbody>
+                    </table>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 {editorSaveDeliveryButton}
                 {addOrCancelButton}
                 

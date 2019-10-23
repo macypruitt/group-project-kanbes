@@ -17,7 +17,6 @@ function* fetchActiveStores(action) {
   try {
 
     const response = yield axios.get('api/all/stores/active');
-
     yield put({ type: 'SET_ACTIVE_STORES', payload: response.data });
     //allows driverpage to get inventory of the first store
     if(action.payload.firstStore){
