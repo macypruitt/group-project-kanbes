@@ -31,13 +31,18 @@ class InvoicePage extends Component {
         store_id: null
     };
 
+    componentDidMount() {
+        // Grabs all active stores
+        this.props.dispatch({type: 'FETCH_ACTIVE_STORES'});
+    }
+
     /////Handler functions for selecting dates and store
     handleStartDateChange = (date) => {
         
         this.setState({
             startDate: date
         }, ()=>{
-            console.log(this.state)
+            console.log(this.state.startDate);
         })
     }
 
@@ -58,10 +63,11 @@ class InvoicePage extends Component {
     }
 
     handleStoreChange = (event) => {
+        console.log(event.target)
         this.setState({
             store_id: event.target.value
         }, () => {
-            console.log(event.target.value)
+            console.log('STORE CHANGE:', this.state.store_id)
         })
     }
 
@@ -105,15 +111,16 @@ class InvoicePage extends Component {
         ]
 
         ////this generates the list on the drop down store selector
-        const storeData = mockInvoiceData;
-        ////const storeData = this.props.store.storesReducer
+        // const storeData = mockInvoiceData;
+        const storeData = this.props.store.activeStores;
+        console.log(storeData)
 
         let storeSelectorList;
         if(storeData){
             storeSelectorList = storeData.map((item, index) => {
                 return(
-                    <MenuItem key={index} value={item.store_id}>
-                        {item.name} - {item.address}
+                    <MenuItem key={index} value={item.id}>
+                        {item.store_name} - {item.address}
                     </MenuItem>
                 )
             })
@@ -123,7 +130,7 @@ class InvoicePage extends Component {
         let tableDataToRender;
   
             tableDataToRender = storeData.filter((item, index) => {
-                return item.store_id == this.state.store_id;
+                return item.id == this.state.store_id;
             })
     
         ////these variables will hold the dates and store name to be rendered on the page

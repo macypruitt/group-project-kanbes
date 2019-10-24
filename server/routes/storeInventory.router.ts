@@ -82,7 +82,7 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
     const queryText: string = `UPDATE "outgoing_store" SET "user_id" = $1, "standard_par" = $2, "last_par" = $3, 
                     "sold_product_count" = $4, "shrink_product_count" = $5, "notes" = $6,  "last_modified" = $7
                     WHERE "id" = $8;`;
-
+console.log(orderId)
     pool.query(queryText, [user_id, standard_par, last_par, sold_product_count, shrink_product_count, notes, last_modified, orderId])
         .then(() => { res.sendStatus(201) })
         .catch((err) => {

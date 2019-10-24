@@ -5,7 +5,6 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import AddIcon from '@material-ui/icons/Add';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
-
 import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
 import './DriverTable.css';
@@ -34,7 +33,7 @@ class DriverTable extends Component {
         itemsToSubmit: []
     };
 
-    clickAdd = (event) => {
+    clickAddProduct = (event) => {
         ////'Add Product' button changes state, triggering render of new row
         this.setState({
             ...this.state,
@@ -56,25 +55,25 @@ class DriverTable extends Component {
         driverDataForRender = this.props.dataForDriver;
 
         ////if reducer holds data, map it into rows of the table
-        if(driverDataForRender.length > 0){
+        if (driverDataForRender.length > 0) {
             driverDataForRender = driverDataForRender.map((item, index) => {
                 return <DriverTableRow key={index} item={item} />
-            })  
+            })
         }
 
-          ////adds a new row that is ready to be edited
-          let newRow;
-          let addOrCancelButton = <div>
-          <Button size="medium" className={this.props.classes.button} onClick={this.clickAdd}>
-              <AddIcon />
-              Add Produce
+        ////adds a new row that is ready to be edited
+        let newRow;
+        let addOrCancelButton = <div>
+            <Button size="medium" className={this.props.classes.button} items={driverDataForRender} onClick={this.clickAddProduct}>
+                <AddIcon />
+                Add Produce
           </Button>
-      </div>
-          if(this.state.isAdding){
-              const emptyItem = {}
-              newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddStore={this.clickAdd}/>
-              addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
-          }
+        </div>
+        if (this.state.isAdding) {
+            const emptyItem = {}
+            newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddProduct={this.clickAddProduct} />
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+        }
 
         return (
             <div>
@@ -83,24 +82,25 @@ class DriverTable extends Component {
                         <tr>
                             <th>Product</th>
                             <th>Sub-type</th>
+                            <th>Supplier</th>
                             <th>Standard Par</th>
                             <th>Last Par</th>
                             <th>Sold</th>
                             <th>Shrink</th>
-                            <th># Restocked</th>
+                            <th># Stocked</th>
                             <th>Notes</th>
                             <th>Last Modified</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                    {driverDataForRender}
-                    {newRow}
+                        {driverDataForRender}
+                        {newRow}
                     </tbody>
                 </table>
                 <br />
                 {addOrCancelButton}
-                
+
             </div>
         );
     }

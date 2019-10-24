@@ -1,6 +1,6 @@
-const activeStoresReducer = (state = [], action) => {
+const invoiceReducer = (state = [], action) => {
     switch (action.type) {
-      case 'SET_ACTIVE_STORES':
+      case 'SET_INVOICE':
         return action.payload;
       default:
         return state;
@@ -9,4 +9,4 @@ const activeStoresReducer = (state = [], action) => {
   
   // stores will be on the redux state at:
   // state.stores
-  export default activeStoresReducer;
+  export default invoiceReducer;

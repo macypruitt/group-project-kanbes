@@ -9,6 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import columnWidthFinder from './columnWidthFinder';
+
 
 const styles = theme => ({
     buttonPositive: {
@@ -33,9 +35,10 @@ const styles = theme => ({
         minWidth: 120,
     },
     selectEmpty: {
-        marginTop: theme.spacing(2),
+        marginTop: theme.spacing(0),
     },
 });
+
 
 
 class StoreTableRow extends Component {
@@ -130,6 +133,8 @@ class StoreTableRow extends Component {
         })
     }
 
+  
+
     render() {
 
         const { classes, theme } = this.props;
@@ -166,11 +171,13 @@ class StoreTableRow extends Component {
                 placeholder={address}
                 onChange={(event) => this.handleChangeInputText(event, 'address')} />
             status = <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="status">{status}</InputLabel>
+                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
                 <Select
-                    className="row-input"
+                    className={classes.selectEmpty}
+                    displayEmpty
+                    // placeholder={status.toString()}
                     onChange={(event) => this.handleChangeInputText(event, 'status')}
-                    value={this.state.status}
+                    value={this.state.item.status}
                     inputProps={{
                         name: 'status',
                         id: 'status',
@@ -205,18 +212,20 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
-
+        ////this function calculates column width
+        let width = columnWidthFinder(9);
+        
         return (
             <tr>
-                <td>{order}</td>
-                <td>{store_name}</td>
-                <td>{address}</td>
-                <td>{status}</td>
-                <td>{contactName}</td>
-                <td>{contactPhone}</td>
-                <td>{contactEmail}</td>
-                <td>{storePhone}</td>
-                <td>{editOrSaveButton}</td>
+                <td style={width}>{order}</td>
+                <td style={width}>{store_name}</td>
+                <td style={width}>{address}</td>
+                <td style={width}>{status}</td>
+                <td style={width}>{contactName}</td>
+                <td style={width}>{contactPhone}</td>
+                <td style={width}>{contactEmail}</td>
+                <td style={width}>{storePhone}</td>
+                <td style={width}>{editOrSaveButton}</td>
             </tr>
         );
     }

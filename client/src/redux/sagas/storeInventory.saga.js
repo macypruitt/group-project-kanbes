@@ -34,7 +34,7 @@ function* postIncomingStore(action) {
 
 function* putOutgoingStore(action) {
   try {
-    yield axios.put(`api/store/inventory/outgoing_store/${action.payload.id}`, action.payload);
+    yield axios.put(`api/store/inventory/outgoing_store/${action.payload.outgoing_inventory_id}`, action.payload);
     // yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
         yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.store_id });
   } catch (err) {
@@ -44,7 +44,7 @@ function* putOutgoingStore(action) {
 
 function* putIncomingStore(action) {
   try {
-    yield axios.put(`/api/warehouse/inventory/incoming_store/${action.payload.id}`, action.payload);
+    yield axios.put(`/api/warehouse/inventory/incoming_store/${action.payload.incoming_inventory_id}`, action.payload);
     // yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.id });
         yield put({ type: 'FETCH_STORE_INVENTORY', payload: action.payload.store_id });
   } catch (err) {

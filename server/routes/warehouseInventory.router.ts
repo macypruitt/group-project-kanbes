@@ -12,7 +12,7 @@ router.post('/incoming_store', (req: Request, res: Response, next: express.NextF
   const product_id: string = req.body.product_id;
   const store_id: string = req.body.store_id;
   const last_modified: string | null = req.body.last_modified;
-  const restocked: number = req.body.restocked;
+  const restocked: number = req.body.product_count;
   const supplier_id: string = req.body.supplier_id;
   const notes: string = req.body.notes;
   const sold_product_count: string = req.body.sold_product_count;
@@ -79,7 +79,7 @@ router.put('/incoming_store/:id', (req: Request, res: Response, next: express.Ne
   const product_id: string = req.body.product_id;
   const store_id: string = req.body.store_id;
   const kanbe_sell_date: string | null = req.body.last_modified;
-  const product_count: string = req.body.restocked;
+  const product_count: string = req.body.product_count;
   const supplier_id: string = req.body.supplier_id;
   const notes: string = req.body.notes;
 
