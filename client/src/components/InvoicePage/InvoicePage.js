@@ -189,6 +189,7 @@ class InvoicePage extends Component {
                             <FormControl >
                                 <InputLabel className="store-selector" htmlFor="store_name">{'Select Store'}</InputLabel>
                                 <Select
+                                    label="Select Store"
                                     className="selector"
                                     onChange={(event) => this.handleStoreChange(event, 'store_name')}
                                     value={this.state.store_id}
