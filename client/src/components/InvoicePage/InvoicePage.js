@@ -10,7 +10,8 @@ import {
     MenuItem,
     InputLabel,
     FormControl,
-    Grid
+    Grid,
+    Paper
 }
     from '@material-ui/core'
 import { withStyles, createStyles, Theme } from "@material-ui/core/styles";
@@ -95,13 +96,13 @@ class InvoicePage extends Component {
         this.setState({
             ...this.state,
             invoiceNum: invoiceNumber
-        },() =>{
+        }, () => {
             console.log(this.state)
         })
     }
 
     postInvoice = (event) => {
-        this.props.dispatch({ type: 'POST_INVOICE', payload: this.state});
+        this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
     }
 
     render() {
@@ -147,7 +148,7 @@ class InvoicePage extends Component {
         let invoiceNumToRender = <span className="dateUnfilled">Inv #</span>
         var today = new Date();
         var date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
-        
+
         ////if values have been entered, they will render on the page
         if (this.state.startDate) {
             startDateToRender = this.state.startDate.format("MM/DD/YYYY");
@@ -255,26 +256,32 @@ class InvoicePage extends Component {
                             </MuiPickersUtilsProvider>
                         </Grid>
                         <Grid container spacing={2} justify="center">
-                            <Grid item xs={6}>
-                                <Button onClick={this.postInvoice}>Save Invoice</Button>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <Button>Format Page for Print</Button>
+                            <Grid item xs={12}>
+                                <Button onClick={this.postInvoice}>Save Invoice Parameters</Button>
                             </Grid>
                         </Grid>
                     </Grid>
                     {/* ////////////////////////////////////////////////// */}
-                    <br />
-                    <InvoiceHeader
-                        startDateToRender={startDateToRender}
-                        endDateToRender={endDateToRender}
-                        invoiceDateToRender={invoiceDateToRender}
-                        invoiceNumToRender={invoiceNumToRender} />
 
-                    <h2>BILL TO: {storeNameToRender}</h2>
+                    <hr id="hr"></hr>
+                    <Paper className="invoiceContainer">
+                        <Grid container>
+                            <br />
+                            <InvoiceHeader
+                                startDateToRender={startDateToRender}
+                                endDateToRender={endDateToRender}
+                                invoiceDateToRender={invoiceDateToRender}
+                                invoiceNumToRender={invoiceNumToRender} />
+                            <Grid item xs={12}>
+                                <h2>BILL TO: {storeNameToRender}</h2>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <InvoiceTable tableDataToRender={invoiceData} />
+                            </Grid>
+                        </Grid>
+                    </Paper>
 
 
-                    <InvoiceTable tableDataToRender={invoiceData} />
                 </div>
             </KanbeTemplate >
         );

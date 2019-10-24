@@ -78,3 +78,13 @@
     width: 300px;
     display: inline;
 }
+
+.invoiceContainer{
+    background: rgb(230, 227, 227);
+    margin-top: 20px;
+    padding:10px
+}
+
+#hr{
+    border: 1px solid whitesmoke
+}
