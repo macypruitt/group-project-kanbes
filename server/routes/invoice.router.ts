@@ -47,15 +47,15 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
 /**
  * POST date range to invoices table in database
  */
-router.post('/', (req: Request, res: Response, next: express.NextFunction): void => {
-  const invoice_date: string = req.body.invoice_date;
-  const start_date: string = req.body.start_date;
-  const end_date: string | null = req.body.end_date;
+router.post('/addInvoice', (req: Request, res: Response, next: express.NextFunction): void => {
+  const invoice_date: string = req.body.invoiceDate;
+  const start_date: string = req.body.startDate;
+  const end_date: string | null = req.body.endDate;
   const store_id: string | null = req.body.store_id;
   const invoice_number: string | null = req.body.invoiceNum;
 
   const queryText: string = `INSERT INTO "invoices" ("invoice_date","start_date", "end_date", "store_id", "invoice_number")
-                              VALUES ($1, $2, $3, $4, $5,);`;
+                              VALUES ($1, $2, $3, $4, $5);`;
 
   pool.query(queryText, [invoice_date, start_date, end_date, store_id, invoice_number])
       .then(() => res.sendStatus(201))

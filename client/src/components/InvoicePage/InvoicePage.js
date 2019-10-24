@@ -256,7 +256,7 @@ class InvoicePage extends Component {
                         </Grid>
                         <Grid container spacing={2} justify="center">
                             <Grid item xs={6}>
-                                <Button onclick={this.postInvoice}>Save Invoice</Button>
+                                <Button onClick={this.postInvoice}>Save Invoice</Button>
                             </Grid>
                             <Grid item xs={6}>
                                 <Button>Format Page for Print</Button>

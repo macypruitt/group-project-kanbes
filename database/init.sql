@@ -45,7 +45,7 @@ CREATE TABLE "invoices" (
     "start_date" TIMESTAMP NOT NULL,
     "end_date" TIMESTAMP NOT NULL,
     "store_id" INT REFERENCES "stores",
-    "invoice_number" INT NOT NULL
+    "invoice_number" VARCHAR(80) NOT NULL
 );
 
 CREATE TABLE "incoming_warehouse" (

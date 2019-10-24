@@ -12,12 +12,24 @@ function* fetchInvoice(action) {
   }
 }
 
+// worker Saga: will be fired on "FETCH_INVOICES" actions
+// function* fetchInvoiceParameters(action) {
+//   try {
+//     const response = yield axios.get(`api/invoice/${action.payload}`);
+   
+//     yield put({ type: 'SET_INVOICE', payload: response.data });
+//   } catch (error) {
+//     console.log('Prices get request failed', error);
+//   }
+// }
+
 // will be fired on "POST_INVOICES" actions
 function* postInvoice(action) {
+  console.log('in post Invoice')
   try {
-    const response = yield axios.post(`api/invoice`);
+    const response = yield axios.post(`api/invoice/addInvoice`, action.payload);
    
-    yield put({ type: 'SET_INVOICE', payload: response.data });
+    // yield put({ type: 'SET_INVOICE', payload: response.data });
   } catch (error) {
     console.log('Prices get request failed', error);
   }
@@ -26,7 +38,8 @@ function* postInvoice(action) {
 
 function* invoiceSaga() {
   yield takeLatest('FETCH_INVOICE', fetchInvoice);
-  yield takeLatest('POST_INVOICES', postInvoice)
+  yield takeLatest('POST_INVOICE', postInvoice);
+  // yield takeLatest('FETCH_INVOICE_PARAMETERS', fetchInvoiceParameters)
 }
 
 export default invoiceSaga;
