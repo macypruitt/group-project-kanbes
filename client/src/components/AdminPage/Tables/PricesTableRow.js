@@ -10,6 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import columnWidthFinder from './columnWidthFinder';
+import { Done, Clear } from "@material-ui/icons";
 
 const styles = theme => ({
     buttonPositive: {
@@ -111,17 +112,21 @@ class PricesTableRow extends Component {
     }
 
     render() {
-
+        ////styling for drop down check menu
+        const iconStylesCheck = {
+            color: "green"
+          };
+          const iconStylesX = {
+            color: "red"
+          };
         const { classes, theme } = this.props;
+
         ////row data is passed to this component through props from StoreTable.js
         let id = this.props.item.id
         let product_name = this.props.item.product_name;
         let product_sub_type = this.props.item.product_sub_type;
         let current_price_per_unit = this.props.item.current_price_per_unit;
-        let status = this.props.item.status;
-        if (this.props.item.status === true | this.props.item.status === false) {
-            status = this.props.item.status.toString();
-        }
+        let status = this.props.item.status ? <Done style={iconStylesCheck} /> : <Clear style={iconStylesX} />
         let editOrSaveButton = <Button className={classes.buttonPositive} onClick={this.clickEdit}>Edit</Button>
 
 
@@ -133,22 +138,43 @@ class PricesTableRow extends Component {
                 placeholder={current_price_per_unit}
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
-            status = <FormControl className={classes.formControl}>
-                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
-                <Select
-                    className={classes.selectEmpty}
-                    // placeholder={(this.props.item.status).toString()}
-                    onChange={(event) => this.handleChangeInputText(event, 'status')}
-                    value={this.state.item.status}
-                    inputProps={{
-                        name: 'status',
-                        id: 'status',
-                    }}
-                >
-                    <MenuItem value={'true'}>True</MenuItem>
-                    <MenuItem value={'false'}>False</MenuItem>
-                </Select>
-            </FormControl>
+            status = <FormControl>
+            <div>
+            <Select
+                className="iconDropdown"
+                onChange={event => this.handleChangeInputText(event, "status")}
+                value={this.state.status}
+                inputProps={{
+                name: "status",
+                id: "status-select"
+                }}
+            >
+                <MenuItem value={true}>
+                <Done style={iconStylesCheck} />
+                </MenuItem>
+                <MenuItem value={false}>
+                <Clear style={iconStylesX} />
+                </MenuItem>
+            </Select>
+            </div>
+        </FormControl>
+            
+            //<FormControl className={classes.formControl}>
+                
+            //     <Select
+            //         className={classes.selectEmpty}
+            //         // placeholder={(this.props.item.status).toString()}
+            //         onChange={(event) => this.handleChangeInputText(event, 'status')}
+            //         value={this.state.item.status}
+            //         inputProps={{
+            //             name: 'status',
+            //             id: 'status',
+            //         }}
+            //     >
+            //         <MenuItem value={'true'}>True</MenuItem>
+            //         <MenuItem value={'false'}>False</MenuItem>
+            //     </Select>
+            // </FormControl>
             editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>

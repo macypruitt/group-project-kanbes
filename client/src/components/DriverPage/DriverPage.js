@@ -9,7 +9,6 @@ import './DriverPage.css'
 
 class DriverPage extends Component {
 
-
     componentDidMount() {
         {/* This code is getting the store inventory. If there is no params id
             the FETCH_ACTIVE_STORE will grab the first store inventory*/}
@@ -20,10 +19,7 @@ class DriverPage extends Component {
             this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
         }
         this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload: { firstStore } });
-
-
     }
-
 
     render() {
         console.log(this.props.match.params.id)
@@ -51,14 +47,12 @@ class DriverPage extends Component {
             matchStore = this.props.store.activeStores[0];
         }
 
-        
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
         if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
         }
-
 
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder;
@@ -87,8 +81,6 @@ class DriverPage extends Component {
                             {driverTableHolder}
                         </Grid>
                     </Grid>
-
-
                 </div>
             </KanbeTemplate>
         )

@@ -131,7 +131,7 @@ class StoreTable extends Component {
                                 <th >Delivery Order</th>
                                 <th >Store name</th>
                                 <th >Address</th>
-                                <th >Active?</th>
+                                <th >Status</th>
                                 <th >Store Contact Name</th>
                                 <th >Store Contact Phone</th>
                                 <th >Store Contact Email</th>
