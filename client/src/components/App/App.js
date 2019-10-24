@@ -40,7 +40,6 @@ class App extends Component {
      
       
       <Router>
-        
         <div>
           {/* <Nav /> */}
           <Switch>
