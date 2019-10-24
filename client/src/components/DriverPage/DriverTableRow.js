@@ -195,6 +195,16 @@ class DriverTableRow extends Component {
                 })
             })
         }
+        else {
+
+            this.setState({
+                ...this.state,
+                item: {
+                    ...this.state.item,
+                    [dataKey]: event.target.value
+                }
+            })
+        }
     }
 
     setValues = (value) => {
