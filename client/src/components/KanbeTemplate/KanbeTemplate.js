@@ -30,7 +30,7 @@ import NavAdmin from '../Nav/Nav.Admin';
 import NavDriver from '../Nav/Nav.Driver';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { connect } from 'react-redux';
-
+import './KanbeTemplate.css';
 
 //Styling for appbar and drawer in Material UI
 const drawerWidth = 240;
@@ -161,13 +161,14 @@ class KanbeTemplate extends Component {
     return (
       <div className={this.props.classes.root}>
         <CssBaseline />
-        <AppBar
+        <AppBar 
           position="absolute"
           className={clsx(this.props.classes.appBar, {
             [this.props.classes.appBarShift]: this.state.open,
           })}
+          className="hide-appbar"
         >
-          <Toolbar className={this.props.classes.toolbar}>
+          <Toolbar className={this.props.classes.toolbar} >
             <IconButton
               aria-label="open drawer"
               onClick={this.handleDrawerOpen}
@@ -186,6 +187,7 @@ class KanbeTemplate extends Component {
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           className={this.props.classes.drawer}
+          className="hide-drawer"
           variant="persistent"
           anchor="left"
           open={this.state.open}
@@ -217,7 +219,7 @@ class KanbeTemplate extends Component {
 
         <main className={this.props.classes.content}>
           <div className={this.props.classes.appBarSpacer} />
-          <Container maxWidth="lg" className={this.props.classes.container}>
+          <Container maxWidth="lg" className={this.props.classes.container} className='kanbe-container'>
             {this.props.children}
           </Container>
         </main>

@@ -163,7 +163,7 @@ class InvoicePage extends Component {
                 
                 </div>
                 {/* ////////////////////////////////////////////////// */}
-                <div className="invoice-selector-box">
+                <div className="invoice-selector-box .no-print">
                     {/* Select Store drop-down */}
                     <FormControl >
                         <InputLabel className="store-selector" htmlFor="store_name">{'Select Store'}</InputLabel>

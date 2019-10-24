@@ -45,8 +45,7 @@
 }
 
 .invoice-header{
-    margin: 20px;
-    display: inline-block;
+  
     width:100%;
 }
 .invoice-header-table{
@@ -75,6 +74,23 @@
 }
 
 .invoice-logo{
-    width: 300px;
+
     display: inline;
+    padding-right: 25%;
 }
+
+@media print {
+    .no-print {
+      display: none;
+    }
+    .img-print {
+        padding-right: 15%;
+    }
+    .header-print{
+        font-size: 10px;
+    }
+    .invoice-info{
+        color:black;
+    }
+} 
+  
