@@ -18,9 +18,9 @@ VALUES ('Food Mart', '8025 Hickman Mills Drive, KCMO 64132', 'update', 'update',
 ('Good Stop', '2604 E 27th St., KCMO 64127', 'update', 'update', 'update', true, 'update', 12),
 ('Guru World', '4205 East 24th St., KCMO, USA', 'update', 'update', 'update', true, 'update', 13);
 
-INSERT INTO "invoices" ("start_date", "end_date", "store_id")
-VALUES ('2019-10-01 17:36:00', '2019-10-08 12:18:00', 1),
-('2019-09-01 17:36:00', '2019-09-08 12:18:00', 2);
+INSERT INTO "invoices" ("invoice_date","start_date", "end_date", "store_id", "invoice_number")
+VALUES ('2019-10-11 17:36:00','2019-10-01 17:36:00', '2019-10-08 12:18:00', 1, 1101120198),
+('2019-10-12 17:36:00','2019-09-01 17:36:00', '2019-09-08 12:18:00', 2, 2101220193);
 
 INSERT INTO "products" ("product_name", "product_sub_type")
 VALUES ('apple', 'granny smith'),

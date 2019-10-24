@@ -41,9 +41,11 @@ CREATE TABLE "products" (
 
 CREATE TABLE "invoices" (
     "id" SERIAL PRIMARY KEY,
+    "invoice_date" TIMESTAMPT NOT NULL,
     "start_date" TIMESTAMP NOT NULL,
     "end_date" TIMESTAMP NOT NULL,
-    "store_id" INT REFERENCES "stores"
+    "store_id" INT REFERENCES "stores",
+    "invoice_number" INT NOT NULL
 );
 
 CREATE TABLE "incoming_warehouse" (

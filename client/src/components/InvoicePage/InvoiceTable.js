@@ -6,7 +6,7 @@ class InvoiceTable extends Component {
    
 
     render() {
-        
+        console.log(this.props.tableDataToRender)
         let totalCounter = 0;
 
         const tableData = this.props.tableDataToRender
@@ -15,8 +15,7 @@ class InvoiceTable extends Component {
         if(this.props.tableDataToRender.length > 0){
             tableToRender = tableData.map((item, index) => {
                 const rowTotal = Number.parseFloat(
-                                    item.sold_product_count 
-                                    * item.unit_sale_price).toFixed(2);
+                                    item["Total Sales"]).toFixed(2);
                 totalCounter += parseFloat(rowTotal);
                 
 
@@ -25,7 +24,7 @@ class InvoiceTable extends Component {
                         <td>{item.sold_product_count}</td>
                         <td>{item.product_name}</td>
                         <td className="money-column">
-                            {item.unit_sale_price}
+                            {item.sold_price_per_unit}
                         </td>
                         <td className="money-column">
                             {rowTotal}
