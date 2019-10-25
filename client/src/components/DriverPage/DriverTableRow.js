@@ -317,28 +317,51 @@ class DriverTableRow extends Component {
     }
 
     render() {
+
+        ////activeProducts and activeProductSubTypes will display all available options of products
         let activeProducts = [];
         let activeProductSubTypes = [];
-        activeProductSubTypes = this.props.store.activeProducts;
+        
+        ////their values come from the reducer
         activeProducts = this.props.store.activeProducts;
+        activeProductSubTypes = this.props.store.activeProducts;
+
+        ////creating a new array with only the names of products
+        let nameOfActiveProducts = activeProducts.map((item, index) => {
+            return item.product_name
+        })
+
+        ////removing duplicate product types
+        const productsNoDuplicates = [...new Set(nameOfActiveProducts)];
+
+        ////creating drop-down for product
         if (activeProducts.length > 0) {
-            activeProducts = activeProducts.map((item, index) => {
-                return <MenuItem key={index} value={item}>{item.product_name}</MenuItem>
+            activeProducts = productsNoDuplicates.map((item, index) => {
+                return <MenuItem key={index} value={item}>{item}</MenuItem>
             })
         }
 
+        ////creating drop-down for sub-type
         if (activeProducts.length > 0 && this.state.item.product_id) {
-
+            ////if there is already a entry
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 if (item.product_id === this.state.item.product_id) {
                     return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
                 }
             })
         } else {
+            ////for a new row
+            activeProductSubTypes = activeProductSubTypes.filter((item, index) => {
+                ////filtering sub-type according to product
+                return  item.product_name == this.state.product_name;
+            })
+            ////generating drop-down for filtered sub-types
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
             })
         }
+
+     
 
 
         let suppliers = [];
