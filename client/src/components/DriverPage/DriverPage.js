@@ -47,14 +47,16 @@ class DriverPage extends Component {
             matchStore = this.props.store.activeStores[0];
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> develop
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
         if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
         }
-
 
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder;
@@ -83,8 +85,6 @@ class DriverPage extends Component {
                             {driverTableHolder}
                         </Grid>
                     </Grid>
-
-
                 </div>
             </KanbeTemplate>
         )

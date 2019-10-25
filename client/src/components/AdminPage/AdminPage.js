@@ -7,6 +7,8 @@ import UserTable from './Tables/UserTable';
 import SupplierTable from './Tables/SupplierTable';
 import PricesTable from './Tables/PricesTable';
 
+
+
 import './AdminPage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
@@ -15,7 +17,8 @@ class AdminPage extends Component {
     render() {
 
         return (
-            <KanbeTemplate>   
+            <KanbeTemplate>  
+                
                 <Grid container spacing={3} className="admin-container">
                     <Grid item xs={12}>
                         <h2>Admin Page</h2>
