@@ -56,26 +56,38 @@ var time = "T" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSe
 var currentDateTime = date + time
 
 class DriverTableRow extends Component {
-    componentDidMount() {
-        this.props.dispatch({ type: 'FETCH_PRODUCTS' });
-        this.props.dispatch({ type: 'FETCH_SUPPLIERS' })
+
+    constructor(props) {
+        super(props);
+
+        console.log(props);
+
+        this.state = {
+            ...this.props,
+            previousRestock: props.item.product_count,
+            isEditable: props.editable || false,
+            isAddable: props.addable || false,
+            isUpdatable: props.updatable || false,
+            currentTimeStamp: currentDateTime,
+            product_name: '',
+            product_sub_type: '',
+            supplier: '',
+            values: {
+                name: '',
+                id: ''
+            },
+            defaultStateItem: {},
+            savedLastPar: ''
+        }
     }
 
-    state = {
-        isEditable: this.props.editable || false,
-        isAddable: this.props.addable || false,
-        isUpdatable: this.props.updatable || false,
-        currentTimeStamp: currentDateTime,
-        item: {},
-        product_name: '',
-        product_sub_type: '',
-        supplier: '',
-        values: {
-            name: '',
-            id: ''
-        }
-    };
+    componentDidMount() {
+        this.props.dispatch({ type: 'FETCH_PRODUCTS' });
+        this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
+        this.calcLastPar();
+    }
 
+    // baseLastPar = parseInt(this.state.item.last_par);
 
 
     clickEdit = (event) => {
@@ -83,10 +95,12 @@ class DriverTableRow extends Component {
             ...this.state,
             isEditable: !this.state.isEditable,
             item: {
-                ...this.props.item,
+                ...this.state.item,
                 last_modified: this.state.currentTimeStamp
-            }
+            },
+            savedLastPar: this.state.last_par
         }, () => {
+
             console.log(this.state)
         })
     }
@@ -97,7 +111,7 @@ class DriverTableRow extends Component {
             isEditable: !this.state.isEditable,
             isUpdatable: !this.state.isUpdatable,
             item: {
-                ...this.props.item,
+                ...this.state.item,
                 last_modified: this.state.currentTimeStamp
             }
         }, () => {
@@ -106,93 +120,23 @@ class DriverTableRow extends Component {
     }
 
     handleChangeInputText(event, dataKey) {
-
-        // const fieldValue = event.target.value;
-        // let lastPar = this.state.item.last_par;
-        // if (dataKey === "sold_product_count" && event.target.value || dataKey === "shrink_product_count" && event.target.value) {
-
-        //     lastPar -= parseFloat(event.target.value)
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
-        // } else if (dataKey === "sold_product_count" && !event.target.value || dataKey === "shrink_product_count" && !event.target.value) {
-
-        //     lastPar += parseFloat(this.state.item[dataKey])
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
-        // }
-
-        // else if (dataKey === "product_count" && event.target.value) {
-        //     lastPar += parseFloat(event.target.value)
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
-        // }
-
-        // else if (dataKey === "product_count" && !event.target.value) {
-        //     lastPar -= parseFloat(this.state.item[dataKey])
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
-        // }
-
-        // else {
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue
-        //         }
-        //     })
-        // }
         if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
+            let newValue;
+
+            if (event.target.value === '') {
+                newValue = 0;
+            } else {
+                newValue = parseInt(event.target.value)
+            }
+
             this.setState({
                 ...this.state,
                 item: {
                     ...this.state.item,
-                    [dataKey]: parseInt(event.target.value)
+                    [dataKey]: parseInt(newValue)
                 }
             }, () => {
-                const newLastPar = this.state.item.last_par - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
-                console.log('last par', this.state.item.last_par)
-                console.log('sold',this.state.item.sold_product_count )
-                console.log('shrink', this.state.item.shrink_product_count)
-                console.log('product count', this.state.item.product_count)
-                this.setState({
-                    ...this.state,
-                    item: {
-                        ...this.state.item,
-                        last_par: newLastPar
-                    }
-                },()=>{
-                    console.log(this.state.item)
-                })
+                this.calcLastPar();
             })
         }
         else {
@@ -205,6 +149,27 @@ class DriverTableRow extends Component {
                 }
             })
         }
+    }
+
+    calcLastPar() {
+        console.log('last par', this.state.item.last_par)
+        console.log('sold',this.state.item.sold_product_count )
+        console.log('shrink', this.state.item.shrink_product_count)
+        console.log('product count', this.state.item.product_count)
+        console.log('this.state.previousRestock: ', this.state.previousRestock);
+        
+        const newLastPar = this.state.previousRestock - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
+        console.log(newLastPar);        
+
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                last_par: newLastPar
+            }
+        },()=>{
+            console.log('HERE: ', this.state)
+        })
     }
 
     setValues = (value) => {
@@ -492,21 +457,21 @@ class DriverTableRow extends Component {
                     <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
                 </div>
             sold = <input
-                type="tel"
+                type="number"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.sold_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
             shrink = <input
-                type="tel"
+            type="number"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.shrink_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
             />
             restocked = <input
-                type="tel"
+                type="number"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
