@@ -153,9 +153,9 @@ class KanbeTemplate extends Component {
     let button;
     let user = this.props.store.user.id;
     if(user == !null){
-      button = <LogOutButton />
-    }else{
       button = <LoginButton />
+    }else{
+      button = <LogOutButton />
     }
 
     return (
@@ -179,7 +179,7 @@ class KanbeTemplate extends Component {
               <MenuIcon />
             </IconButton>
             <Typography component="h1" variant="h6" noWrap className={this.props.classes.title}>
-              Kanbe's Market
+              KanTrack
             </Typography>
           </Toolbar>
         </AppBar>

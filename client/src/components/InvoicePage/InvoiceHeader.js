@@ -35,8 +35,8 @@ class InvoiceHeader extends Component {
                     </Grid>
                     <Grid item className="dark-bg img-print" xs={3}>
                         <Typography className="dark-bg invoice-info" align='left' variant='body2'>Invoice No: {this.props.invoiceNumToRender}</Typography>
-                        <Typography className="dark-bg invoice-info" align='left' variant='body2'>Invoice Date: {this.props.invoiceDateToRender}</Typography>
-                        <Typography className="dark-bg invoice-info" align='left' variant='body2'>Billing Period: {this.props.startDateToRender} - {this.props.endDateToRender}</Typography>
+                        <Typography className="dark-bg invoice-info" align='left' variant='body2'><span className="print-date">Invoice Date:</span> {this.props.invoiceDateToRender}</Typography>
+                    <Typography className="dark-bg invoice-info" align='left' variant='body2'><span className="print-date date-span">Billing Period:</span> {this.props.startDateToRender} - {this.props.endDateToRender}</Typography>
                     </Grid>
                     {/* <tbody>
                        <tr>

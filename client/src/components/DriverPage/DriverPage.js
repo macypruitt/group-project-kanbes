@@ -22,7 +22,6 @@ class DriverPage extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.id)
         let storeName;
         let address;
         let matchStore;
@@ -46,11 +45,7 @@ class DriverPage extends Component {
             address = this.props.store.activeStores[0].address
             matchStore = this.props.store.activeStores[0];
         }
-
-<<<<<<< HEAD
-
-=======
->>>>>>> develop
+        
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........

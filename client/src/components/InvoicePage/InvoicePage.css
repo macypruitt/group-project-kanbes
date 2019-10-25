@@ -78,21 +78,6 @@
     padding-right: 25%;
 }
 
-@media print {
-    .no-print {
-      display: none;
-    }
-    .img-print {
-        padding-right: 15%;
-    }
-    .header-print{
-        font-size: 10px;
-    }
-    .invoice-info{
-        color:black;
-    }
-} 
-  
 
 .invoiceContainer{
     background: rgb(230, 227, 227);
@@ -100,6 +85,33 @@
     padding:10px
 }
 
-#hr{
+.hr{
     border: 1px solid whitesmoke
 }
+
+.date-span{
+    display: block;
+}
+
+
+@media print {
+    .no-print {
+      display: none;
+    }
+    
+    .header-print{
+        font-size: 10px;
+    }
+    .invoice-info{
+        color:black;
+    }
+    .invoiceContainer{
+        background-color: transparent;
+        margin-top: 0;
+        box-shadow: none !important;
+    }
+    .print-date{
+        display: block;
+    }
+} 
+  
