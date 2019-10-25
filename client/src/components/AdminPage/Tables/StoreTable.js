@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
 import Swal from 'sweetalert2-react';
-import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -103,7 +102,6 @@ class StoreTable extends Component {
                     key={index}
                     item={item}
                 />
-
             )
         })
 
