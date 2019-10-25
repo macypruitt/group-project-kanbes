@@ -89,7 +89,7 @@ class PricesTable extends Component {
                         <th className="product-col-width">Product Name</th>
                         <th className="product-col-width">Product Sub-Type</th>
                         <th className="product-col-width">Price-Per-Unit</th>
-                        <th className="product-col-width">Active Product?</th>
+                        <th className="product-col-width">On shelf</th>
                         <th className="product-col-width">Actions</th>
                     </tr>
                     </thead>

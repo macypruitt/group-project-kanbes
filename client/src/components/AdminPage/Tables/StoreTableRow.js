@@ -10,7 +10,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import columnWidthFinder from './columnWidthFinder';
-
+import FormFields from '../../FormFields/FormFields';
+import { Done, Clear } from "@material-ui/icons";
 
 const styles = theme => ({
     buttonPositive: {
@@ -136,17 +137,21 @@ class StoreTableRow extends Component {
   
 
     render() {
-
+        ////styling for drop down check menu
+        const iconStylesCheck = {
+            color: "green"
+          };
+          const iconStylesX = {
+            color: "red"
+          };
         const { classes, theme } = this.props;
+
         ////row data is passed to this component through props from StoreTable.js
         let id = this.props.item.id
         let store_name = this.props.item.store_name;
         let address = this.props.item.address;
         let order = this.props.item.delivery_route_order;
-        let status = this.props.item.status
-        if (this.props.item.status === true | this.props.item.status === false) {
-            status = this.props.item.status.toString();
-        }
+        let status = this.props.item.status ? <Done style={iconStylesCheck} /> : <Clear style={iconStylesX} />
         let contactEmail = this.props.item.contact_email;
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
@@ -167,38 +172,70 @@ class StoreTableRow extends Component {
                 placeholder={store_name}
                 onChange={(event) => this.handleChangeInputText(event, 'store_name')}
             />
+
             address = <Input className="row-input"
                 placeholder={address}
-                onChange={(event) => this.handleChangeInputText(event, 'address')} />
-            status = <FormControl className={classes.formControl}>
-                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
-                <Select
-                    className={classes.selectEmpty}
-                    displayEmpty
-                    // placeholder={status.toString()}
-                    onChange={(event) => this.handleChangeInputText(event, 'status')}
-                    value={this.state.item.status}
-                    inputProps={{
-                        name: 'status',
-                        id: 'status',
-                    }}
-                >
-                    <MenuItem value={'true'}>True</MenuItem>
-                    <MenuItem value={'false'}>False</MenuItem>
-                </Select>
-            </FormControl>
+                onChange={(event) => this.handleChangeInputText(event, 'address')} 
+            />
+
+            status = <FormControl>
+                        <div>
+                            <Select
+                                className="iconDropdown"
+                                onChange={event => this.handleChangeInputText(event, "status")}
+                                value={this.state.status}
+                                inputProps={{
+                                name: "status",
+                                id: "status-select"
+                                }}
+                            >
+                            <MenuItem value={true}>
+                                <Done style={iconStylesCheck} />
+                            </MenuItem>
+                                <MenuItem value={false}>
+                                <Clear style={iconStylesX} />
+                            </MenuItem>
+                        </Select>
+                        </div>
+                    </FormControl>
+            //<FormControl className={classes.formControl}>
+            //             <Select
+            //                 className={classes.selectEmpty}
+            //                 displayEmpty
+            //                 // placeholder={status.toString()}
+            //                 onChange={(event) => this.handleChangeInputText(event, 'status')}
+            //                 value={this.state.item.status}
+            //                 inputProps={{
+            //                     name: 'status',
+            //                     id: 'status',
+            //                 }}
+            //             >
+            //                 <MenuItem value={'true'}>True</MenuItem>
+            //                 <MenuItem value={'false'}>False</MenuItem>
+            //             </Select>
+            //         </FormControl>
+            
+
             contactEmail = <Input className="row-input"
                 placeholder={contactEmail}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_email')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_email')} 
+            />
+
             contactName = <Input className="row-input"
                 placeholder={contactName}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_name')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_name')} 
+            />
+
             contactPhone = <Input className="row-input"
                 placeholder={contactPhone}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_phone')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_phone')} 
+            />
+
             storePhone = <Input className="row-input"
                 placeholder={storePhone}
-                onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} />
+                onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} 
+            />
+
             editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>
