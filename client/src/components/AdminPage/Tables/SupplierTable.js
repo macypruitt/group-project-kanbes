@@ -89,7 +89,7 @@ class SupplierTable extends Component {
                 </div>
                 {/* Second table generates the table body */}
                 <div className="tableFixedHead-scroll">
-                <table className="baseTable">
+                <table className="baseTable rows">
                     <thead>
                         <tr>
                             <th className="five-col-width">Name</th>
