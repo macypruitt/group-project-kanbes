@@ -119,7 +119,7 @@ componentDidMount() {
                 </div>
                 {/* Second table generates the table body */}
                 <div  className="tableFixedHead-scroll">
-                <table className="baseTable">
+                <table className="baseTable rows">
                     <thead>
                         <tr>
                             <th className="seven-col-width">Username</th>

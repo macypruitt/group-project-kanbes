@@ -7,8 +7,6 @@ import UserTable from './Tables/UserTable';
 import SupplierTable from './Tables/SupplierTable';
 import PricesTable from './Tables/PricesTable';
 
-
-
 import './AdminPage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 

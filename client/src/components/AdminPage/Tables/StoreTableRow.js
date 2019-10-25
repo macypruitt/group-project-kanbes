@@ -228,15 +228,15 @@ class StoreTableRow extends Component {
 
         return (
             <tr>
-                <td>{order}</td>
-                <td>{store_name}</td>
-                <td>{address}</td>
-                <td>{status}</td>
-                <td>{contactName}</td>
-                <td>{contactPhone}</td>
-                <td>{contactEmail}</td>
-                <td>{storePhone}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="store-col-width">{order}</td>
+                <td className="store-col-width">{store_name}</td>
+                <td className="store-col-width">{address}</td>
+                <td className="store-col-width">{status}</td>
+                <td className="store-col-width">{contactName}</td>
+                <td className="store-col-width">{contactPhone}</td>
+                <td className="store-col-width">{contactEmail}</td>
+                <td className="store-col-width">{storePhone}</td>
+                <td className="store-col-width">{editOrSaveButton}</td>
             </tr>
         );
     }
