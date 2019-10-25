@@ -41,7 +41,7 @@ CREATE TABLE "products" (
 
 CREATE TABLE "invoices" (
     "id" SERIAL PRIMARY KEY,
-    "invoice_date" TIMESTAMPT NOT NULL,
+    "invoice_date" TIMESTAMP NOT NULL,
     "start_date" TIMESTAMP NOT NULL,
     "end_date" TIMESTAMP NOT NULL,
     "store_id" INT REFERENCES "stores",
