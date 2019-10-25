@@ -26,6 +26,7 @@ import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import PerformancePage from '../../components/PerformancePage/PerformancePage';
+import DirectorPage from '../DirectorPage/DirectorPage';
 import './App.css';
 
 
@@ -88,6 +89,11 @@ class App extends Component {
               exact
               path="/produce"
               component={ProducePage}
+            />
+            <Route
+              exact
+              path="/director"
+              component={DirectorPage}
             />
 
             {/* For protected routes, the view could show one of several things on the same route.

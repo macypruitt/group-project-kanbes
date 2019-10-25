@@ -178,7 +178,7 @@ class KanbeTemplate extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography component="h1" variant="h6" noWrap className={this.props.classes.title}>
+            <Typography align="left" className="kantrack" variant="h6" noWrap className={this.props.classes.title}>
               KanTrack
             </Typography>
           </Toolbar>

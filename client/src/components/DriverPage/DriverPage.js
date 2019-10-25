@@ -4,7 +4,7 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import { withRouter } from 'react-router';
 import DriverTable from './DriverTable';
-import Grid from '@material-ui/core/Grid';
+import { Grid, Button } from '@material-ui/core';
 import './DriverPage.css';
 
 class DriverPage extends Component {
@@ -54,11 +54,14 @@ class DriverPage extends Component {
         }
 
         ////driverTableHolder shows a table only if reducer is holding data
-        let driverTableHolder;
+        let driverTableHolder; 
         if (dataForDriver.length > 0) {
             driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
+        } else {
+            driverTableHolder = <DriverTable />
         }
 
+        console.log('paraaaaaam',this.props.match.params.id);
         var today = new Date();
         var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -78,6 +81,8 @@ class DriverPage extends Component {
                         </Grid>
                         <Grid item xs={12}>
                             {driverTableHolder}
+                        </Grid>
+                        <Grid>
                         </Grid>
                     </Grid>
                 </div>
