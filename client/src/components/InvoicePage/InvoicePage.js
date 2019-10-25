@@ -20,7 +20,6 @@ import Input from '@material-ui/core/Input';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import generatePassword from 'password-generator';
 
-
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -65,8 +64,9 @@ class InvoicePage extends Component {
         this.setState({
             ...this.state,
             invoiceDate: date
-        }, () => {
-            this.setInvoiceNumber(this.state.invoiceDate.format("MMDDYYYY"))
+        }
+        , () => {
+            this.setInvoiceNumber()
         })
     }
 
@@ -76,7 +76,7 @@ class InvoicePage extends Component {
             store_id: event.target.value
         }, () => {
             this.props.dispatch({ type: 'FETCH_INVOICE', payload: this.state.store_id });
-            this.setInvoiceNumber(this.state.store_id)
+            this.setInvoiceNumber()
         })
     }
 
@@ -88,11 +88,14 @@ class InvoicePage extends Component {
     }
 
     setInvoiceNumber = (input) => {
-        console.log('in set invoice number')
         let randomCharacter = generatePassword(1, false)
         let invoiceNumber = this.state.invoiceNum
-        invoiceNumber += input + randomCharacter
+        if(this.state.invoiceDate){
+        invoiceNumber = this.state.invoiceDate.format("MMDDYYYY") + this.state.store_id + randomCharacter
+        } else{
+            invoiceNumber = this.state.store_id
 
+        }
         this.setState({
             ...this.state,
             invoiceNum: invoiceNumber
@@ -183,11 +186,12 @@ class InvoicePage extends Component {
                         <Grid className="invoice-selector-box" container spacing={2}>
                             {/* Select Store drop-down */}
                             <Grid item xs={3}>
-                                <FormControl >
+                                <FormControl className="pushdown" >
                                     <InputLabel className="store-selector no-print" htmlFor="store_name">{'Select Store'}</InputLabel>
                                     <Select
                                         label="Select Store"
                                         className="selector"
+                                        margin="normal"
                                         onChange={(event) => this.handleStoreChange(event, 'store_name')}
                                         value={this.state.store_id}
                                         inputProps={{

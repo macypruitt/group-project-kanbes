@@ -92,6 +92,9 @@
 .date-span{
     display: block;
 }
+ .invoice-selector-box{
+     margin-top: 25%;
+ }
 
 
 @media print {
