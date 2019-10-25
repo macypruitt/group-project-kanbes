@@ -5,7 +5,7 @@ import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import { withRouter } from 'react-router';
 import DriverTable from './DriverTable';
 import Grid from '@material-ui/core/Grid';
-import './DriverPage.css'
+import './DriverPage.css';
 
 class DriverPage extends Component {
 
@@ -22,7 +22,6 @@ class DriverPage extends Component {
     }
 
     render() {
-        console.log(this.props.match.params.id)
         let storeName;
         let address;
         let matchStore;
@@ -46,7 +45,7 @@ class DriverPage extends Component {
             address = this.props.store.activeStores[0].address
             matchStore = this.props.store.activeStores[0];
         }
-
+        
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
         ////dataForDriver = this.props.store...........
