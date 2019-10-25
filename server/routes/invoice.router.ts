@@ -7,7 +7,7 @@ const router: express.Router = express.Router();
 /**
  * GET data to populate invoice
  */
-router.get('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
+router.get('/invoiceData/:id', (req: Request, res: Response, next: express.NextFunction): void => {
 
 
     // const startDateTime:string = '';
@@ -33,7 +33,7 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
 
     pool.query(queryText, [storeId])
         .then((result) => {
-            console.log(result.rows);
+         
             res.send(result.rows)
         })
         .catch((err) => {

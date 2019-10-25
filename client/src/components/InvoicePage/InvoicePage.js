@@ -43,6 +43,7 @@ class InvoicePage extends Component {
     componentDidMount() {
         // Grabs all active stores
         this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
+        this.props.dispatch({ type: 'FETCH_INVOICE_PARAMETERS' });
     }
 
     /////Handler functions for selecting dates and store
@@ -88,7 +89,6 @@ class InvoicePage extends Component {
     }
 
     setInvoiceNumber = (input) => {
-        console.log('in set invoice number')
         let randomCharacter = generatePassword(1, false)
         let invoiceNumber = this.state.invoiceNum
         invoiceNumber += input + randomCharacter
@@ -96,8 +96,6 @@ class InvoicePage extends Component {
         this.setState({
             ...this.state,
             invoiceNum: invoiceNumber
-        }, () => {
-            console.log(this.state)
         })
     }
 
@@ -106,16 +104,32 @@ class InvoicePage extends Component {
     }
 
     render() {
+console.log('invoiceData', this.props.store.invoice)
+
         let invoiceData = [];
         let tableDataToRender;
-
+        let updatedInvoiceData = [];
         if (this.props.store.invoice.length > 0) {
-            invoiceData = this.props.store.invoice
+            invoiceData = this.props.store.invoice;
+            
+            invoiceData.reduce(function (res, value) {
+                if (!res[value.product_id]) {
+                    res[value.product_id] = { product_id: value.product_id, product_name: value.product_name,sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0};
+                    updatedInvoiceData.push(res[value.product_id])
+                }
+                res[value.product_id]["Total Sales"] = parseFloat(res[value.product_id]["Total Sales"]) + parseFloat(value["Total Sales"]);
+                res[value.product_id]["Total Product Count"] = parseInt(res[value.product_id]["Total Product Count"]) + parseInt(value.sold_product_count);
+                console.log(res)
+                return res;
+            }, {});
+
+            console.log(updatedInvoiceData)
         }
 
 
+
         //     invoiceData = invoiceData.filter(function (el) {
-        //   return el.last_modified <= parseFloat(param.labormax) 
+        //   return el.last_modified <= this.state.
 
 
         ////this generates the list on the drop down store selector
@@ -277,7 +291,7 @@ class InvoicePage extends Component {
                                 <h2>BILL TO: {storeNameToRender}</h2>
                             </Grid>
                             <Grid item xs={12}>
-                                <InvoiceTable tableDataToRender={invoiceData} />
+                                <InvoiceTable tableDataToRender={updatedInvoiceData} />
                             </Grid>
                         </Grid>
                     </Paper>

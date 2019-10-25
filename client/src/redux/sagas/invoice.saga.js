@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 // worker Saga: will be fired on "FETCH_INVOICES" actions
 function* fetchInvoice(action) {
   try {
-    const response = yield axios.get(`api/invoice/${action.payload}`);
+    const response = yield axios.get(`api/invoice/invoiceData/${action.payload}`);
    
     yield put({ type: 'SET_INVOICE', payload: response.data });
   } catch (error) {
@@ -15,11 +15,11 @@ function* fetchInvoice(action) {
 //worker Saga: will be fired on "FETCH_INVOICES" actions
 function* fetchInvoiceParameters(action) {
   try {
-    const response = yield axios.get(`api/invoice/${action.payload}`);
+    const response = yield axios.get(`api/invoice/invoiceParameters`);
    
     yield put({ type: 'SET_INVOICE_PARAMETERS', payload: response.data });
   } catch (error) {
-    console.log('Prices get request failed', error);
+    console.log('Invoice Parameters get request failed', error);
   }
 }
 
