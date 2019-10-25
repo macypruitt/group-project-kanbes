@@ -104,32 +104,37 @@ class InvoicePage extends Component {
     }
 
     render() {
-console.log('invoiceData', this.props.store.invoice)
+        console.log('invoiceData', this.props.store.invoice)
 
         let invoiceData = [];
         let tableDataToRender;
         let updatedInvoiceData = [];
-        if (this.props.store.invoice.length > 0) {
+        //filter invoice results by billing date pickers
+
+        if (this.state.startDate && this.state.endDate && this.props.store.invoice.length > 0) {
+            let startDate = this.state.startDate;
+            let endDate = this.state.endDate;
             invoiceData = this.props.store.invoice;
-            
+            invoiceData = invoiceData.filter(function (el) {
+               
+                return Date.parse(el.last_modified) >= Date.parse(startDate.format("MM/DD/YYYY"))
+                    && Date.parse(el.last_modified) <= Date.parse(endDate.format("MM/DD/YYYY"))
+            })
+
+            console.log(invoiceData)
+        }
+    
+
             invoiceData.reduce(function (res, value) {
                 if (!res[value.product_id]) {
-                    res[value.product_id] = { product_id: value.product_id, product_name: value.product_name,sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0};
+                    res[value.product_id] = { product_id: value.product_id, product_name: value.product_name, sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0 };
                     updatedInvoiceData.push(res[value.product_id])
                 }
                 res[value.product_id]["Total Sales"] = parseFloat(res[value.product_id]["Total Sales"]) + parseFloat(value["Total Sales"]);
                 res[value.product_id]["Total Product Count"] = parseInt(res[value.product_id]["Total Product Count"]) + parseInt(value.sold_product_count);
-                console.log(res)
+
                 return res;
             }, {});
-
-            console.log(updatedInvoiceData)
-        }
-
-
-
-        //     invoiceData = invoiceData.filter(function (el) {
-        //   return el.last_modified <= this.state.
 
 
         ////this generates the list on the drop down store selector
