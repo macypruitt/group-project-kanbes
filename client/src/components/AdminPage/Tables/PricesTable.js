@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import PricesTableRow from './PricesTableRow';
-import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -22,7 +21,6 @@ const styles = theme => ({
         display: 'none',
     }
 });
-
 
 class PricesTable extends Component {
     componentDidMount() {
@@ -47,9 +45,6 @@ class PricesTable extends Component {
             isAdding: false
         })
     }
-
-    
-
 
     render() {
 
@@ -76,9 +71,6 @@ class PricesTable extends Component {
             addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
-        let priceColumnWidth = columnWidthFinder(5);
-        console.log( "priceColumnWidth: ", priceColumnWidth);
-        
         return (
             <div className="tableFixedHead">
                 {/* First table generates the table head */}
@@ -118,19 +110,11 @@ class PricesTable extends Component {
                 </table>
                 </div>
 
-
-
-
-
-
-
-
                 {addOrCancelButton}
             </div>
         );
     }
 }
-
 
 PricesTable.propTypes = {
     classes: PropTypes.object.isRequired,
