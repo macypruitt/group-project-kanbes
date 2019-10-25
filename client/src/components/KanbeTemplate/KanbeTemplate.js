@@ -149,7 +149,7 @@ class KanbeTemplate extends Component {
         </div>
     }
 
-
+    //Will show logout button when a user is logged in, redirects to login page when pushed
     let button;
     let user = this.props.store.user.id;
     if(user == !null){
