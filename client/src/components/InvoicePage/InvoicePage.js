@@ -202,7 +202,7 @@ class InvoicePage extends Component {
 
                     </div>
                     {/* ////////////////////////////////////////////////// */}
-                    <Grid className="invoice-selector-box" container spacing={2}>
+                    <Grid className="invoice-selector-box" container direction="row" alignItems="center" spacing={4}>
                         {/* Select Store drop-down */}
                         <Grid item xs={3}>
                             <FormControl >
