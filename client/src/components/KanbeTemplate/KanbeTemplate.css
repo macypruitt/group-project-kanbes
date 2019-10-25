@@ -1,0 +1,13 @@
+@media print {
+    .hide-appbar {
+        display: none !important;
+    }
+
+    html {
+        font-size: 11px;
+    }
+
+    .kanbe-container{
+        padding-top: 0%;
+    }
+}

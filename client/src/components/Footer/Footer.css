@@ -2,3 +2,9 @@ footer {
     margin-top: 80px;
     text-align: center;
 }
+
+@media print {
+    footer {
+      display: none;
+    }
+}
