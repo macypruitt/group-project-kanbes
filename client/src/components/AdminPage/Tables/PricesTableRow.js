@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import columnWidthFinder from './columnWidthFinder';
 import { Done, Clear } from "@material-ui/icons";
 
 const styles = theme => ({
@@ -219,9 +218,6 @@ class PricesTableRow extends Component {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
 
-        ////this function calculates column width
-        let pricesRowWidth = columnWidthFinder(5);
-        
         return (
             <tr>
                 <td className="product-col-width">{product_name}</td>

@@ -7,8 +7,6 @@ import UserTable from './Tables/UserTable';
 import SupplierTable from './Tables/SupplierTable';
 import PricesTable from './Tables/PricesTable';
 
-
-
 import './AdminPage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
@@ -20,6 +18,7 @@ class AdminPage extends Component {
             <KanbeTemplate>
 
                 <Grid container spacing={3} className="admin-container">
+
                     <Grid item xs={12}>
                         <h2>Admin Page</h2>
                     </Grid>
@@ -27,10 +26,12 @@ class AdminPage extends Component {
                         <h3>Products and Prices</h3>
                         <PricesTable />
                     </Grid>
+
                     <Grid item xs={12}>
                         <h3>Stores</h3>
                         <StoreTable />
                     </Grid>
+
                     <Grid item xs={12}>
                         <h3>Suppliers</h3>
                         <SupplierTable />

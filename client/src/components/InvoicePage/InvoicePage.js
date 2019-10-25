@@ -20,7 +20,6 @@ import Input from '@material-ui/core/Input';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import generatePassword from 'password-generator';
 
-
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -66,9 +65,10 @@ class InvoicePage extends Component {
         this.setState({
             ...this.state,
             invoiceDate: date
-        }, () => {
-            this.setInvoiceNumber(this.state.invoiceDate.format("MMDDYYYY"))
-        })
+        }
+            , () => {
+                this.setInvoiceNumber()
+            })
     }
 
     handleStoreChange = (event) => {
@@ -77,7 +77,7 @@ class InvoicePage extends Component {
             store_id: event.target.value
         }, () => {
             this.props.dispatch({ type: 'FETCH_INVOICE', payload: this.state.store_id });
-            this.setInvoiceNumber(this.state.store_id)
+            this.setInvoiceNumber()
         })
     }
 
@@ -91,8 +91,12 @@ class InvoicePage extends Component {
     setInvoiceNumber = (input) => {
         let randomCharacter = generatePassword(1, false)
         let invoiceNumber = this.state.invoiceNum
-        invoiceNumber += input + randomCharacter
+        if (this.state.invoiceDate) {
+            invoiceNumber = this.state.invoiceDate.format("MMDDYYYY") + this.state.store_id + randomCharacter
+        } else {
+            invoiceNumber = this.state.store_id
 
+        }
         this.setState({
             ...this.state,
             invoiceNum: invoiceNumber
@@ -109,32 +113,32 @@ class InvoicePage extends Component {
         let invoiceData = [];
         let tableDataToRender;
         let updatedInvoiceData = [];
-        //filter invoice results by billing date pickers
 
+        //filter invoice results by billing date pickers
         if (this.state.startDate && this.state.endDate && this.props.store.invoice.length > 0) {
             let startDate = this.state.startDate;
             let endDate = this.state.endDate;
             invoiceData = this.props.store.invoice;
             invoiceData = invoiceData.filter(function (el) {
-               
+
                 return Date.parse(el.last_modified) >= Date.parse(startDate.format("MM/DD/YYYY"))
                     && Date.parse(el.last_modified) <= Date.parse(endDate.format("MM/DD/YYYY"))
             })
 
             console.log(invoiceData)
         }
-    
 
-            invoiceData.reduce(function (res, value) {
-                if (!res[value.product_id]) {
-                    res[value.product_id] = { product_id: value.product_id, product_name: value.product_name, sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0 };
-                    updatedInvoiceData.push(res[value.product_id])
-                }
-                res[value.product_id]["Total Sales"] = parseFloat(res[value.product_id]["Total Sales"]) + parseFloat(value["Total Sales"]);
-                res[value.product_id]["Total Product Count"] = parseInt(res[value.product_id]["Total Product Count"]) + parseInt(value.sold_product_count);
+        //group array by product
+        invoiceData.reduce(function (res, value) {
+            if (!res[value.product_id]) {
+                res[value.product_id] = { product_id: value.product_id, product_name: value.product_name, sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0 };
+                updatedInvoiceData.push(res[value.product_id])
+            }
+            res[value.product_id]["Total Sales"] = parseFloat(res[value.product_id]["Total Sales"]) + parseFloat(value["Total Sales"]);
+            res[value.product_id]["Total Product Count"] = parseInt(res[value.product_id]["Total Product Count"]) + parseInt(value.sold_product_count);
 
-                return res;
-            }, {});
+            return res;
+        }, {});
 
 
         ////this generates the list on the drop down store selector
@@ -197,93 +201,95 @@ class InvoicePage extends Component {
         return (
             <KanbeTemplate>
                 <div className="invoice-container">
+                    <div className="no-print">
+                        {/* ////////////////////////////////////////////////// */}
+                        <Grid className="invoice-selector-box" container spacing={2}>
+                            {/* Select Store drop-down */}
+                            <Grid item xs={3}>
+                                <FormControl className="pushdown" >
+                                    <InputLabel className="store-selector no-print" htmlFor="store_name">{'Select Store'}</InputLabel>
+                                    <Select
+                                        label="Select Store"
+                                        className="selector"
+                                        margin="normal"
+                                        onChange={(event) => this.handleStoreChange(event, 'store_name')}
+                                        value={this.state.store_id}
+                                        inputProps={{
+                                            name: '',
+                                            id: 'store_id',
+                                        }}
+                                    >
+                                        {storeSelectorList}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* Select invoice date drop-down */}
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM-DD-YYYY"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Select Invoice Date"
+                                        value={this.state.invoiceDate}
+                                        onChange={this.handleInvoiceDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* Select Billing Start date drop-down */}
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM-DD-YYYY"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Select Billing Start"
+                                        value={this.state.startDate}
+                                        onChange={this.handleStartDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={MomentUtils}>
+                                    {/* Select Billing End date drop-down */}
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM-DD-YYYY"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Select Billing End"
+                                        value={this.state.endDate}
+                                        onChange={this.handleEndDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
 
-                    <div>
+                            {/* ////////////////////////////////////////////////// */}
 
-                    </div>
-                    {/* ////////////////////////////////////////////////// */}
-                    <Grid className="invoice-selector-box" container direction="row" alignItems="center" spacing={4}>
-                        {/* Select Store drop-down */}
-                        <Grid item xs={3}>
-                            <FormControl >
-                                <InputLabel className="store-selector" htmlFor="store_name">{'Select Store'}</InputLabel>
-                                <Select
-                                    label="Select Store"
-                                    className="selector"
-                                    onChange={(event) => this.handleStoreChange(event, 'store_name')}
-                                    value={this.state.store_id}
-                                    inputProps={{
-                                        name: '',
-                                        id: 'store_id',
-                                    }}
-                                >
-                                    {storeSelectorList}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
-                                {/* Select invoice date drop-down */}
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM-DD-YYYY"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Select Invoice Date"
-                                    value={this.state.invoiceDate}
-                                    onChange={this.handleInvoiceDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
-                                {/* Select Billing Start date drop-down */}
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM-DD-YYYY"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Select Billing Start"
-                                    value={this.state.startDate}
-                                    onChange={this.handleStartDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <MuiPickersUtilsProvider utils={MomentUtils}>
-                                {/* Select Billing End date drop-down */}
-                                <KeyboardDatePicker
-                                    disableToolbar
-                                    variant="inline"
-                                    format="MM-DD-YYYY"
-                                    margin="normal"
-                                    id="date-picker-inline"
-                                    label="Select Billing End"
-                                    value={this.state.endDate}
-                                    onChange={this.handleEndDateChange}
-                                    KeyboardButtonProps={{
-                                        'aria-label': 'change date',
-                                    }}
-                                />
-                            </MuiPickersUtilsProvider>
-                        </Grid>
-                        <Grid container spacing={2} justify="center">
-                            <Grid item xs={12}>
-                                <Button onClick={this.postInvoice}>Save Invoice Parameters</Button>
+                            <Grid container spacing={2} justify="center">
+                                <Grid item xs={12}>
+                                    <Button onClick={this.postInvoice}>Save Invoice Parameters</Button>
+                                </Grid>
                             </Grid>
                         </Grid>
-                    </Grid>
+                    </div>
                     {/* ////////////////////////////////////////////////// */}
 
-                    <hr id="hr"></hr>
+                    <hr className="hr no-print"></hr>
                     <Paper className="invoiceContainer">
                         <Grid container>
                             <br />

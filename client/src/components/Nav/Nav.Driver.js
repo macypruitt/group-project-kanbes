@@ -80,7 +80,7 @@ class NavDriver extends Component {
             return (
 
 
-                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
+                <ListItem key={index} button selected={true} onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />

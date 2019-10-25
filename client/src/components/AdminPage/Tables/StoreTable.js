@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
 import Swal from 'sweetalert2-react';
-import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -103,7 +102,6 @@ class StoreTable extends Component {
                     key={index}
                     item={item}
                 />
-
             )
         })
 
@@ -147,18 +145,18 @@ class StoreTable extends Component {
                 </div>
 
                 <div  className="tableFixedHead-scroll">
-                    <table className="baseTable">
+                    <table className="baseTable rows">
                         <thead>
                             <tr>
-                                <th >Delivery Order</th>
-                                <th >Store name</th>
-                                <th >Address</th>
-                                <th >Active?</th>
-                                <th >Store Contact Name</th>
-                                <th >Store Contact Phone</th>
-                                <th >Store Contact Email</th>
-                                <th >Store Phone</th>
-                                <th >Actions</th>
+                                <th  className="store-col-width">Delivery Order</th>
+                                <th  className="store-col-width">Store name</th>
+                                <th  className="store-col-width">Address</th>
+                                <th  className="store-col-width">Active?</th>
+                                <th  className="store-col-width">Store Contact Name</th>
+                                <th  className="store-col-width">Store Contact Phone</th>
+                                <th  className="store-col-width">Store Contact Email</th>
+                                <th  className="store-col-width">Store Phone</th>
+                                <th  className="store-col-width">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
