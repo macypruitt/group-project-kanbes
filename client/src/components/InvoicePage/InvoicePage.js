@@ -132,14 +132,8 @@ class InvoicePage extends Component {
         invoiceData.reduce(function (res, value) {
             if (!res[value.product_id+value.sold_price_per_unit]) {
                 res[value.product_id+value.sold_price_per_unit] = { product_id: value.product_id, product_name: value.product_name, sold_price_per_unit: value.sold_price_per_unit, "Total Sales": 0, "Total Product Count": 0 };
-                // res[value.sold_price_per_unit] = {sold_price_per_unit: value.sold_price_per_unit}
-                // updatedInvoiceData.push(res[value.sold_price_per_unit])
                 updatedInvoiceData.push(res[value.product_id+value.sold_price_per_unit])
             }
-            // if (!res[value.sold_price_per_unit]) {
-            //     res[value.sold_price_per_unit] = {sold_price_per_unit: value.sold_price_per_unit}
-            //     updatedInvoiceData.push(res[value.sold_price_per_unit])
-            // }
             res[value.product_id+value.sold_price_per_unit]["Total Sales"] = parseFloat(res[value.product_id+value.sold_price_per_unit]["Total Sales"]) + parseFloat(value["Total Sales"]);
             res[value.product_id+value.sold_price_per_unit]["Total Product Count"] = parseInt(res[value.product_id+value.sold_price_per_unit]["Total Product Count"]) + parseInt(value.sold_product_count);
            
