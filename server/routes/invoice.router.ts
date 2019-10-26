@@ -49,7 +49,7 @@ router.get('/invoiceData/:id', (req: Request, res: Response, next: express.NextF
  */
 router.get('/invoiceParameters', (req: Request, res: Response, next: express.NextFunction): void => {
 
-  const queryText: string = `SELECT * from "invoices";`;
+  const queryText: string = `SELECT * from "invoices" ORDER BY "invoice_date" DESC;`;
 
   pool.query(queryText)
       .then((result) => {
