@@ -5,7 +5,6 @@ import { Button } from '@material-ui/core';
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import UserTableRow from './UserTableRow';
-import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -120,7 +119,7 @@ componentDidMount() {
                 </div>
                 {/* Second table generates the table body */}
                 <div  className="tableFixedHead-scroll">
-                <table className="baseTable">
+                <table className="baseTable rows">
                     <thead>
                         <tr>
                             <th className="seven-col-width">Username</th>

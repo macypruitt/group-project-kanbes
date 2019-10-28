@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import PropTypes from "prop-types";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,6 +10,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withRouter } from 'react-router';
+import { Edit, Done, Clear } from "@material-ui/icons";
 
 
 const styles = theme => ({
@@ -305,28 +306,51 @@ class DriverTableRow extends Component {
     }
 
     render() {
+
+        ////activeProducts and activeProductSubTypes will display all available options of products
         let activeProducts = [];
         let activeProductSubTypes = [];
-        activeProductSubTypes = this.props.store.activeProducts;
+        
+        ////their values come from the reducer
         activeProducts = this.props.store.activeProducts;
+        activeProductSubTypes = this.props.store.activeProducts;
+
+        ////creating a new array with only the names of products
+        let nameOfActiveProducts = activeProducts.map((item, index) => {
+            return item.product_name
+        })
+
+        ////removing duplicate product types
+        const productsNoDuplicates = [...new Set(nameOfActiveProducts)];
+
+        ////creating drop-down for product
         if (activeProducts.length > 0) {
-            activeProducts = activeProducts.map((item, index) => {
-                return <MenuItem key={index} value={item}>{item.product_name}</MenuItem>
+            activeProducts = productsNoDuplicates.map((item, index) => {
+                return <MenuItem key={index} value={item}>{item}</MenuItem>
             })
         }
 
+        ////creating drop-down for sub-type
         if (activeProducts.length > 0 && this.state.item.product_id) {
-
+            ////if there is already a entry
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 if (item.product_id === this.state.item.product_id) {
                     return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
                 }
             })
         } else {
+            ////for a new row
+            activeProductSubTypes = activeProductSubTypes.filter((item, index) => {
+                ////filtering sub-type according to product
+                return  item.product_name == this.state.product_name;
+            })
+            ////generating drop-down for filtered sub-types
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
             })
         }
+
+     
 
 
         let suppliers = [];
@@ -366,57 +390,58 @@ class DriverTableRow extends Component {
             restocked = '';
             notes = '';
             lastModified = 'No Entry Yet Today';
-            editOrSaveButton = <Button className={classes.buttonNew} onClick={this.clickEdit}>New Entry</Button>;
+            editOrSaveButton = <Button className={classes.buttonNew} onClick={this.clickEdit}><Edit /></Button>;
         }
 
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
 
-            standard_par = <input
+            standard_par = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={standard_par}
                 onChange={(event) => this.handleChangeInputText(event, 'standard_par')}
             />
-            last_par = <input
+
+            last_par = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.state.item.last_par}
                 onChange={(event) => this.handleChangeInputText(event, 'last_par')}
             />
-            sold = <input
+            sold = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
-            shrink = <input
+            shrink = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
             />
-            restocked = <input
+            restocked = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
-            notes = <input
+            notes = <Input
                 type="text"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
-            lastModified = date + time
+            lastModified = date + time;
 
 
             editOrSaveButton =
-                <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</Button>
-                    <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+                <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}><Done /></Button>
+                    <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}><Clear /></Button>
                 </div>
         }
 
@@ -471,6 +496,8 @@ class DriverTableRow extends Component {
                 </Select>
             </FormControl>
             lastModified = date + time
+
+            
         }
 
         if (this.state.isUpdatable) {
@@ -478,28 +505,28 @@ class DriverTableRow extends Component {
                 <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveUpdate}>Save Update</Button>
                     <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
                 </div>
-            sold = <input
-                type="number"
+            sold = <Input
+                type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.sold_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
-            shrink = <input
-                type="number"
+            shrink = <Input
+                type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.shrink_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
             />
-            restocked = <input
-                type="number"
+            restocked = <Input
+                type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
-            notes = <input
+            notes = <Input
                 type="text"
                 className="row-input"
                 placeholder={this.props.item.notes}
@@ -507,6 +534,13 @@ class DriverTableRow extends Component {
             />
         }
 
+        ////formatting date displayed
+        if(lastModified !== 'No Entry Yet Today'){
+        lastModified = lastModified.split("T")[0];   
+        lastModified = lastModified.split("-");  
+        lastModified = `${lastModified[1]}-${lastModified[2]}-${lastModified[0]}`
+        }
+        
         return (
 
             <tr id={this.props.key}>

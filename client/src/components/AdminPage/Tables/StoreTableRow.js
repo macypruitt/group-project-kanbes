@@ -9,7 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import columnWidthFinder from './columnWidthFinder';
 import FormFields from '../../FormFields/FormFields';
 import { Done, Clear } from "@material-ui/icons";
 
@@ -40,10 +39,7 @@ const styles = theme => ({
     },
 });
 
-
-
 class StoreTableRow extends Component {
-
 
     state = {
         isEditable: this.props.editable || false,
@@ -134,8 +130,6 @@ class StoreTableRow extends Component {
         })
     }
 
-  
-
     render() {
         ////styling for drop down check menu
         const iconStylesCheck = {
@@ -198,23 +192,6 @@ class StoreTableRow extends Component {
                         </Select>
                         </div>
                     </FormControl>
-            //<FormControl className={classes.formControl}>
-            //             <Select
-            //                 className={classes.selectEmpty}
-            //                 displayEmpty
-            //                 // placeholder={status.toString()}
-            //                 onChange={(event) => this.handleChangeInputText(event, 'status')}
-            //                 value={this.state.item.status}
-            //                 inputProps={{
-            //                     name: 'status',
-            //                     id: 'status',
-            //                 }}
-            //             >
-            //                 <MenuItem value={'true'}>True</MenuItem>
-            //                 <MenuItem value={'false'}>False</MenuItem>
-            //             </Select>
-            //         </FormControl>
-            
 
             contactEmail = <Input className="row-input"
                 placeholder={contactEmail}
@@ -249,20 +226,17 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
-        ////this function calculates column width
-        let width = columnWidthFinder(9);
-        
         return (
             <tr>
-                <td style={width}>{order}</td>
-                <td style={width}>{store_name}</td>
-                <td style={width}>{address}</td>
-                <td style={width}>{status}</td>
-                <td style={width}>{contactName}</td>
-                <td style={width}>{contactPhone}</td>
-                <td style={width}>{contactEmail}</td>
-                <td style={width}>{storePhone}</td>
-                <td style={width}>{editOrSaveButton}</td>
+                <td className="store-col-width">{order}</td>
+                <td className="store-col-width">{store_name}</td>
+                <td className="store-col-width">{address}</td>
+                <td className="store-col-width">{status}</td>
+                <td className="store-col-width">{contactName}</td>
+                <td className="store-col-width">{contactPhone}</td>
+                <td className="store-col-width">{contactEmail}</td>
+                <td className="store-col-width">{storePhone}</td>
+                <td className="store-col-width">{editOrSaveButton}</td>
             </tr>
         );
     }

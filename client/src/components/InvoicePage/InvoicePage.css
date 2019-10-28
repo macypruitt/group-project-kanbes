@@ -45,8 +45,7 @@
 }
 
 .invoice-header{
-    margin: 20px;
-    display: inline-block;
+  
     width:100%;
 }
 .invoice-header-table{
@@ -75,9 +74,10 @@
 }
 
 .invoice-logo{
-    width: 300px;
     display: inline;
+    padding-right: 25%;
 }
+
 
 .invoiceContainer{
     background: rgb(230, 227, 227);
@@ -85,6 +85,54 @@
     padding:10px
 }
 
-#hr{
+.hr{
     border: 1px solid whitesmoke
 }
+
+.date-span{
+    display: block;
+}
+ .invoice-selector-box{
+     margin-top: 25%;
+     padding:15px
+ }
+
+ .historicalInvoiceSelector{
+     padding:10px;
+     margin:10px
+ }
+
+ .MuiGrid-root.invoice-selector-box.MuiGrid-container.MuiGrid-spacing-xs-2{
+     margin-top: 10px
+ }
+
+ .MuiGrid-root.storeSelector.MuiGrid-item.MuiGrid-grid-xs-3{
+     margin-top:8px
+ }
+
+ #decisionButtons{
+     margin-top:20px
+ }
+
+
+@media print {
+    .no-print {
+      display: none;
+    }
+    
+    .header-print{
+        font-size: 10px;
+    }
+    .invoice-info{
+        color:black;
+    }
+    .invoiceContainer{
+        background-color: transparent;
+        margin-top: 0;
+        box-shadow: none !important;
+    }
+    .print-date{
+        display: block;
+    }
+} 
+  
