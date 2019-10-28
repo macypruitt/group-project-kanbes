@@ -10,6 +10,7 @@ Table Fixed Head
 
 }
 
+
 .tableFixedHead-hd,
 .tableFixedHead-scroll {
 	width: 100%;
@@ -43,7 +44,7 @@ Base Table
 }
 
 .baseTable td,
-.baseTable th {
+.baseTable  {
 	padding: 8px 10px;
     border: 1px solid #60788f;
     text-align: center;
@@ -78,4 +79,8 @@ Base Table
 
 .store-col-width{
 	width: 11.111%
+}
+
+.tableFixedHead-hd > thead {
+	border: 1px solid #60788f;
 }
