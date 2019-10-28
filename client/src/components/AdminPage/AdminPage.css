@@ -84,3 +84,13 @@ Base Table
 .tableFixedHead-hd > thead {
 	border: 1px solid #60788f;
 }
+
+.tableFixedHead-scroll {
+	border-bottom: 2px solid #60788f;
+	border-top:none;
+}
+
+.lowerTable, tbody{
+	border-top: none;
+}
+
