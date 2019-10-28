@@ -136,11 +136,10 @@ class App extends Component {
               component={AdminPage}
             />
            
-            <Route
-            exact
-            path="/director"
-            component={AdminPage}
-            component={PerformancePage}
+           <ProtectedRoute
+              exact
+              path="/performancePage"
+              component={PerformancePage}
             />
             <Route
             exact 
