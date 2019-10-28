@@ -157,29 +157,12 @@ class PricesTableRow extends Component {
             </Select>
             </div>
         </FormControl>
-            
-            //<FormControl className={classes.formControl}>
-                
-            //     <Select
-            //         className={classes.selectEmpty}
-            //         // placeholder={(this.props.item.status).toString()}
-            //         onChange={(event) => this.handleChangeInputText(event, 'status')}
-            //         value={this.state.item.status}
-            //         inputProps={{
-            //             name: 'status',
-            //             id: 'status',
-            //         }}
-            //     >
-            //         <MenuItem value={'true'}>True</MenuItem>
-            //         <MenuItem value={'false'}>False</MenuItem>
-            //     </Select>
-            // </FormControl>
             editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>
         }
 
-        ////if 'Add Store' button is clicked, Edit changes to Add
+        ////if 'Add Product' button is clicked, Edit changes to Add
         if (this.state.isAddable) {
             product_name = <Input
                 className="row-input"
@@ -193,11 +176,14 @@ class PricesTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'product_sub_type')}
             />
 
-            current_price_per_unit = <Input
+            current_price_per_unit = 
+            <FormControl>
+            <Input
                 className="row-input"
                 placeholder={0}
                 onChange={(event) => this.handleChangeInputText(event, 'current_price_per_unit')}
             />
+            </FormControl>
 
             status = <FormControl className={classes.formControl}>
                 {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
