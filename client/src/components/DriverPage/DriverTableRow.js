@@ -79,6 +79,7 @@ class DriverTableRow extends Component {
             defaultStateItem: {},
             savedLastPar: ''
         }
+        console.log(this.state);
     }
 
     componentDidMount() {
@@ -91,17 +92,19 @@ class DriverTableRow extends Component {
 
 
     clickEdit = (event) => {
+        
         this.setState({
             ...this.state,
             isEditable: !this.state.isEditable,
             item: {
                 ...this.state.item,
-                last_modified: this.state.currentTimeStamp
+                last_modified: this.state.currentTimeStamp,
+                last_par: this.props.item.last_par,
             },
-            savedLastPar: this.state.last_par
+            savedLastPar: this.state.item.last_par
         }, () => {
 
-            console.log(this.state)
+            console.log('STATE WHEN NEW ENTRY IS CLICKED: ', this.state)
         })
     }
 
@@ -115,11 +118,13 @@ class DriverTableRow extends Component {
                 last_modified: this.state.currentTimeStamp
             }
         }, () => {
-            console.log(this.state)
+            console.log('STATE WHEN clickUpdate is clicked:', this.state)
         })
     }
 
     handleChangeInputText(event, dataKey) {
+        console.log(dataKey);
+        
         if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
             let newValue;
 
@@ -156,11 +161,13 @@ class DriverTableRow extends Component {
         console.log('sold',this.state.item.sold_product_count )
         console.log('shrink', this.state.item.shrink_product_count)
         console.log('product count', this.state.item.product_count)
-        console.log('this.state.previousRestock: ', this.state.previousRestock);
+        console.log('this.state.previousRestock: ', this.props.item.product_count);
         
-        const newLastPar = this.state.previousRestock - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
-        console.log(newLastPar);        
-
+        const newLastPar = this.props.item.product_count - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
+        console.log('newLastPar: ', newLastPar);        
+// if(parseFloat(newLastPar) <0 ){
+//     newLastPar = 0
+// }
         this.setState({
             ...this.state,
             item: {
@@ -168,7 +175,7 @@ class DriverTableRow extends Component {
                 last_par: newLastPar
             }
         },()=>{
-            console.log('HERE: ', this.state)
+            console.log('CALCLASTPAR STATE: ', this.state)
         })
     }
 
@@ -250,7 +257,15 @@ class DriverTableRow extends Component {
     clickCancelEdit = event => {
         this.setState({
             isEditable: false,
-            isAddable: false
+            isAddable: false,
+            item: {
+                ...this.props.item
+                // ...this.state.item,
+                // last_par: this.props.item.last_par
+            }
+            
+        }, () => {
+            console.log('STATE WHEN CANCEL EDIT IS CLICKED: ', this.state);
         })
     }
 
@@ -258,7 +273,14 @@ class DriverTableRow extends Component {
         this.setState({
             isEditable: false,
             isAddable: false,
-            isUpdatable: false
+            isUpdatable: false,
+            item: {
+                ...this.props.item
+                // ...this.state.item,
+                // last_par: this.props.item.last_par
+            }
+        }, () => {
+            console.log('STATE WHEN CANCEL UPDATE IS CLICKED: ', this.state)
         })
     }
 
@@ -464,7 +486,7 @@ class DriverTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
             shrink = <input
-            type="number"
+                type="number"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.shrink_product_count}
