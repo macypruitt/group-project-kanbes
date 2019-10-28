@@ -19,6 +19,7 @@
     "react-bar-chart": "^0.1.2",
     "react-bootstrap-sweetalert": "^4.4.1",
     "react-dom": "^16.8.6",
+    "react-google-charts": "^3.0.15",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "^3.0.1",

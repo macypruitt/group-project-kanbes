@@ -149,6 +149,11 @@ class InvoicePage extends Component {
 
     postInvoice = (event) => {
         this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
+        this.setState({
+            ...this.state,
+            newInvoiceHidden: true,
+            historicalInvoiceHidden: true
+        })
     }
 
     handleNewInvoiceClick = (event) => {

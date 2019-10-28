@@ -14,6 +14,7 @@ import {
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import './PerformancePage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
+import GlobalSalesChart from './globalSalesChar/globalSalesChart';
 
 const styles = theme => ({
     buttonEdit: {
@@ -212,7 +213,8 @@ class PerformancePage extends Component {
                         <h2>Kanbe's Performance Metrics</h2>
                     </Grid> */}
                     <Grid item xs={12}>
-                        <h3>Filter by...</h3>
+                        <h3>FILTER BY...</h3>
+                        <hr></hr>
                         <Grid container spacing={3} direction="row" alignItems="center">
                             <Grid item xs={4}>
                                 <FormControl className={classes.formControl}>
@@ -281,6 +283,8 @@ class PerformancePage extends Component {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
+                    <h3>AGGREGATES</h3>
+                    <hr></hr>
                         <h4>Kanbe's has sold...</h4>
                         <Grid container direction="row" spacing={3}>
                             <Grid item xs={4}>
@@ -299,6 +303,11 @@ class PerformancePage extends Component {
                                 </Paper>
                             </Grid>
                         </Grid>
+                    </Grid>
+                    <Grid item xs={12}>
+                    <h3>METRICS OVER TIME</h3>
+                    <hr></hr>
+                    <GlobalSalesChart globalSales={globalSalesArray}/>
                     </Grid>
                 </Grid >
             </KanbeTemplate>
