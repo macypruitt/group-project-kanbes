@@ -16,18 +16,19 @@ class InvoiceTable extends Component {
             tableToRender = tableData.map((item, index) => {
                 const rowTotal = Number.parseFloat(
                                     item["Total Sales"]).toFixed(2);
+                                    
                 totalCounter += parseFloat(rowTotal);
                 
 
                 return(
                     <tr key={index}>
-                        <td>{item.sold_product_count}</td>
+                        <td>{item["Total Product Count"]}</td>
                         <td>{item.product_name}</td>
                         <td className="money-column">
-                            {item.sold_price_per_unit}
+                            ${item.sold_price_per_unit}
                         </td>
                         <td className="money-column">
-                            {rowTotal}
+                            ${rowTotal}
                             
                         </td>
                     </tr>
@@ -57,11 +58,11 @@ class InvoiceTable extends Component {
                 </table>
                 
                 <div className="totals-box">
-                    Total Sales: {totalCounter}
+                    Total Sales: ${totalCounter}
                     <br/>
-                    Store: {storeKeepsThirtyPercent}
+                    Store: ${storeKeepsThirtyPercent}
                     <br/>
-                    Kanbe's Due: {kanbesDueSeventyPercent}
+                    Kanbe's Due: ${kanbesDueSeventyPercent}
                 </div>
 
                 

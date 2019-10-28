@@ -20,6 +20,7 @@ router.post('/incoming_store', (req: Request, res: Response, next: express.NextF
   const standard_par: string = req.body.standard_par;
   const last_par: string = req.body.last_par;
   const sold_price_per_unit: number = req.body.sold_price_per_unit;
+  const current_price_per_unit: number = req.body.current_price_per_unit;
   const current_price_per_unit_id: string = req.body.current_price_per_unit_id;
   let outgoing_store_id: number;
   let incoming_store_id: number;
@@ -36,7 +37,7 @@ router.post('/incoming_store', (req: Request, res: Response, next: express.NextF
       queryText = `INSERT INTO "outgoing_store" ( "store_id", "product_id", "user_id", "supplier_id", "last_modified", "sold_product_count", "shrink_product_count", "standard_par", "last_par","current_price_per_unit_id", "sold_price_per_unit", "notes")
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING "id";`;
 
-      pool.query(queryText, [store_id, product_id, user_id, supplier_id, last_modified, sold_product_count, shrink_product_count, standard_par, last_par, current_price_per_unit_id, sold_price_per_unit, notes])
+      pool.query(queryText, [store_id, product_id, user_id, supplier_id, last_modified, sold_product_count, shrink_product_count, standard_par, last_par, current_price_per_unit_id, current_price_per_unit, notes])
         .then((response2) => {
           outgoing_store_id = response2.rows[0].id;
 

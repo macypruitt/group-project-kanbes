@@ -4,7 +4,7 @@ import { put, takeLatest } from 'redux-saga/effects';
 // worker Saga: will be fired on "FETCH_INVOICES" actions
 function* fetchInvoice(action) {
   try {
-    const response = yield axios.get(`api/invoice/${action.payload}`);
+    const response = yield axios.get(`api/invoice/invoiceData/${action.payload}`);
    
     yield put({ type: 'SET_INVOICE', payload: response.data });
   } catch (error) {
@@ -12,16 +12,16 @@ function* fetchInvoice(action) {
   }
 }
 
-// worker Saga: will be fired on "FETCH_INVOICES" actions
-// function* fetchInvoiceParameters(action) {
-//   try {
-//     const response = yield axios.get(`api/invoice/${action.payload}`);
+//worker Saga: will be fired on "FETCH_INVOICES" actions
+function* fetchInvoiceParameters(action) {
+  try {
+    const response = yield axios.get(`api/invoice/invoiceParameters`);
    
-//     yield put({ type: 'SET_INVOICE', payload: response.data });
-//   } catch (error) {
-//     console.log('Prices get request failed', error);
-//   }
-// }
+    yield put({ type: 'SET_INVOICE_PARAMETERS', payload: response.data });
+  } catch (error) {
+    console.log('Invoice Parameters get request failed', error);
+  }
+}
 
 // will be fired on "POST_INVOICES" actions
 function* postInvoice(action) {
@@ -39,7 +39,7 @@ function* postInvoice(action) {
 function* invoiceSaga() {
   yield takeLatest('FETCH_INVOICE', fetchInvoice);
   yield takeLatest('POST_INVOICE', postInvoice);
-  // yield takeLatest('FETCH_INVOICE_PARAMETERS', fetchInvoiceParameters)
+  yield takeLatest('FETCH_INVOICE_PARAMETERS', fetchInvoiceParameters)
 }
 
 export default invoiceSaga;

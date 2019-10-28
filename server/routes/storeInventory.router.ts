@@ -16,6 +16,7 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
                             JOIN "suppliers" ON "suppliers"."id" = OS."supplier_id"
                             JOIN "store_inventory_junction" ON "store_inventory_junction"."outgoing_inventory_id" = OS."id"
                             JOIN "incoming_store" ON "incoming_store"."id" = "store_inventory_junction"."incoming_inventory_id"
+                            JOIN "current_product_prices" ON "current_product_prices"."id" = OS."current_price_per_unit_id"
                             WHERE last_modified = (
                             SELECT MAX(last_modified) 
                             FROM outgoing_store 

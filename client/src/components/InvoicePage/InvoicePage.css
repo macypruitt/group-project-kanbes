@@ -94,6 +94,24 @@
 }
  .invoice-selector-box{
      margin-top: 25%;
+     padding:15px
+ }
+
+ .historicalInvoiceSelector{
+     padding:10px;
+     margin:10px
+ }
+
+ .MuiGrid-root.invoice-selector-box.MuiGrid-container.MuiGrid-spacing-xs-2{
+     margin-top: 10px
+ }
+
+ .MuiGrid-root.storeSelector.MuiGrid-item.MuiGrid-grid-xs-3{
+     margin-top:8px
+ }
+
+ #decisionButtons{
+     margin-top:20px
  }
 
 

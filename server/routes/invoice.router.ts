@@ -5,10 +5,9 @@ import pool from '../modules/pool';
 const router: express.Router = express.Router();
 
 /**
- * GET route to calculate invoice 
+ * GET data to populate invoice
  */
-
-router.get('/:id', (req: Request, res: Response, next: express.NextFunction): void => {
+router.get('/invoiceData/:id', (req: Request, res: Response, next: express.NextFunction): void => {
 
 
     // const startDateTime:string = '';
@@ -34,7 +33,7 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
 
     pool.query(queryText, [storeId])
         .then((result) => {
-            console.log(result.rows);
+         
             res.send(result.rows)
         })
         .catch((err) => {
@@ -44,6 +43,29 @@ router.get('/:id', (req: Request, res: Response, next: express.NextFunction): vo
         );
 
 });
+
+/**
+ * GET historical invoice parameters
+ */
+router.get('/invoiceParameters', (req: Request, res: Response, next: express.NextFunction): void => {
+
+  const queryText: string = `SELECT * from "invoices" ORDER BY "invoice_date" DESC;`;
+
+  pool.query(queryText)
+      .then((result) => {
+          console.log(result.rows);
+          res.send(result.rows)
+      })
+      .catch((err) => {
+          console.log(`Error in GET for invoice: ${err}`);
+          res.sendStatus(500)
+      }
+      );
+
+});
+
+
+
 /**
  * POST date range to invoices table in database
  */
