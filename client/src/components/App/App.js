@@ -109,7 +109,7 @@ class App extends Component {
               path="/login"
               driverRedirect="/driver"
               managerRedirect="/manager"
-              directorRedirect="/director"
+              directorRedirect="/admin"
               component={LoginPage}
             />
             {/*This route is used for getting the first store in from activeStores on page load */}
