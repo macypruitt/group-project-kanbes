@@ -174,7 +174,7 @@ class InvoicePage extends Component {
             historicalInvoiceDate: item.target.value.invoice_date,
             historicalStartDate: item.target.value.start_date,
             historicalEndDate: item.target.value.end_date
-        },()=>{
+        }, () => {
             console.log(this.state)
         })
     }
@@ -308,22 +308,23 @@ class InvoicePage extends Component {
 
         if (!this.state.historicalInvoiceHidden) {
             historicalInvoiceSelector =
-                <FormControl className={classes.formControl}>
-                    <FormHelperText>Select historical invoice</FormHelperText>
-                    <Select
-                        // value={values.age}
-                        onChange={this.handleChangeInvoiceParameters}
-                        name="age"
-                        displayEmpty
-                    // className={classes.selectEmpty}
-                    >
-                        <MenuItem value="" disabled>
-                            Invoice # - Invoice Date - Billing Start Date - Billing End Date
+                <Paper className='historicalInvoiceSelector'>
+                    <FormControl >
+                        <FormHelperText>Select historical invoice</FormHelperText>
+                        <Select
+                            // value={values.age}
+                            onChange={this.handleChangeInvoiceParameters}
+                            name="age"
+                            displayEmpty
+                        // className={classes.selectEmpty}
+                        >
+                            <MenuItem value="" disabled>
+                                Invoice # - Invoice Date - Billing Start Date - Billing End Date
                         </MenuItem>
-                        {historicalInvoiceSelectorList}
-                    </Select>
-
-                </FormControl>
+                            {historicalInvoiceSelectorList}
+                        </Select>
+                    </FormControl>
+                </Paper>
         }
 
         if (!this.state.newInvoiceHidden) {
@@ -331,27 +332,8 @@ class InvoicePage extends Component {
                 <div className="no-print">
                     <Paper>
                         <Grid className="invoice-selector-box" alignItems="center" direction="row" container spacing={2}>
-
                             {/* Select Store drop-down */}
-                            <Grid item xs={3} className="storeSelector">
-                                <FormControl className="pushdown" >
-                                    <InputLabel className="store-selector no-print" htmlFor="store_name">{'Select Store'}</InputLabel>
-                                    <Select
-                                        label="Select Store"
-                                        className="selector"
-                                        margin="normal"
-                                        onChange={(event) => this.handleStoreChange(event, 'store_name')}
-                                        value={this.state.store_id}
-                                        inputProps={{
-                                            name: '',
-                                            id: 'store_id',
-                                        }}
-                                    >
-                                        {storeSelectorList}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={4}>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
                                     {/* Select invoice date drop-down */}
                                     <KeyboardDatePicker
@@ -369,7 +351,7 @@ class InvoicePage extends Component {
                                     />
                                 </MuiPickersUtilsProvider>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={4}>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
                                     {/* Select Billing Start date drop-down */}
                                     <KeyboardDatePicker
@@ -387,7 +369,7 @@ class InvoicePage extends Component {
                                     />
                                 </MuiPickersUtilsProvider>
                             </Grid>
-                            <Grid item xs={3}>
+                            <Grid item xs={4}>
                                 <MuiPickersUtilsProvider utils={MomentUtils}>
                                     {/* Select Billing End date drop-down */}
                                     <KeyboardDatePicker
@@ -404,7 +386,6 @@ class InvoicePage extends Component {
                                         }}
                                     />
                                 </MuiPickersUtilsProvider>
-
                             </Grid>
 
                             {/* ////////////////////////////////////////////////// */}
@@ -426,10 +407,28 @@ class InvoicePage extends Component {
                 <div className="invoice-container">
                     <div className="no-print" id="decisionButtons">
                         <Grid container spacing={3}>
-                            <Grid item xs={6}>
+                            <Grid item xs={4} className="storeSelector">
+                                <FormControl className="pushdown" >
+                                    <InputLabel className="store-selector no-print" htmlFor="store_name">{'Select Store'}</InputLabel>
+                                    <Select
+                                        label="Select Store"
+                                        className="selector"
+                                        margin="normal"
+                                        onChange={(event) => this.handleStoreChange(event, 'store_name')}
+                                        value={this.state.store_id}
+                                        inputProps={{
+                                            name: '',
+                                            id: 'store_id',
+                                        }}
+                                    >
+                                        {storeSelectorList}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={4}>
                                 <Button variant="contained" className={classes.buttonPositive} onClick={(event) => this.handleNewInvoiceClick()}>New Invoice</Button>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={4}>
                                 <Button variant="contained" className={classes.buttonPositive} onClick={(event) => this.handleHistoricalInvoiceClick()}>Historical Invoice</Button>
                             </Grid>
                         </Grid>
@@ -439,7 +438,7 @@ class InvoicePage extends Component {
                     {historicalInvoiceSelector}
                     {/* ////////////////////////////////////////////////// */}
 
-                    <hr className="hr no-print"></hr>
+                    {/* <hr className="hr no-print"></hr> */}
                     <Paper className="invoiceContainer">
                         <Grid container>
                             <br />

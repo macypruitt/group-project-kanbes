@@ -97,6 +97,11 @@
      padding:15px
  }
 
+ .historicalInvoiceSelector{
+     padding:10px;
+     margin:10px
+ }
+
  .MuiGrid-root.invoice-selector-box.MuiGrid-container.MuiGrid-spacing-xs-2{
      margin-top: 10px
  }
