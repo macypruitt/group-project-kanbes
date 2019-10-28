@@ -162,7 +162,7 @@ class KanbeTemplate extends Component {
       <div className={this.props.classes.root}>
         <CssBaseline />
         <AppBar 
-          position="absolute"
+          position="fixed"
           className={clsx(this.props.classes.appBar, {
             [this.props.classes.appBarShift]: this.state.open,
           })}
@@ -178,7 +178,7 @@ class KanbeTemplate extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography component="h1" variant="h6" noWrap className={this.props.classes.title}>
+            <Typography align='left' component="h1" variant="h6" noWrap className={this.props.classes.title}>
               KanTrack
             </Typography>
           </Toolbar>
