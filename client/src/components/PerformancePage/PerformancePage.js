@@ -98,7 +98,6 @@ class PerformancePage extends Component {
     }
 
     handleChangeSupplierName(event) {
-        console.log(event.target)
         if (event.target.value == 'All') {
             this.setState({
                 ...this.state,
@@ -113,7 +112,6 @@ class PerformancePage extends Component {
     }
 
     render() {
-        console.log(this.props.store.globalSales)
         const { classes, theme } = this.props;
 
         ////activeProducts and activeProductSubTypes will display all available options of products
@@ -305,7 +303,9 @@ class PerformancePage extends Component {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                    <h3>METRICS OVER TIME</h3>
+                    <h3>BY STORE</h3>
+                    <hr></hr>
+                    <h3>OVER TIME</h3>
                     <hr></hr>
                     <GlobalSalesChart globalSales={globalSalesArray}/>
                     </Grid>

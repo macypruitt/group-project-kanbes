@@ -22,15 +22,15 @@ import { Chart } from "react-google-charts";
 //     }
 // )}
 
-const options={
+const options = {
     chart: {
         title: 'Units of Produce Sold',
         subtitle: 'Monthly - 2019',
-      },
+    },
     chartArea: { width: '100%' },
     colors: ['#60788f'],
     hAxis: {
-      title: 'Month'
+        title: 'Month'
     },
     vAxis: {
         title: 'Units of Produce',
@@ -38,27 +38,27 @@ const options={
     },
     legend: {
         position: "none"
-  }
+    }
 }
 
 const data = [
     ["Month", "Units of Produce"],
-    ['Jan', 12],
-    ['Feb', 5.5],
-    ['March', 14],
-    ['April', 5],
-    ['May', 3.5],
-    ['June', 7]
+    ['Jan', 75],
+    ['Feb', 60],
+    ['March', 80],
+    ['April', 120],
+    ['May', 140],
+    ['June', 155]
 ];
 
 const chartEvents = [
     {
-      eventName: "select",
-      callback({ chartWrapper }) {
-        console.log("Selected ", chartWrapper.getChart().getSelection());
-      }
+        eventName: "select",
+        callback({ chartWrapper }) {
+            console.log("Selected ", chartWrapper.getChart().getSelection());
+        }
     }
-  ];
+];
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -99,16 +99,8 @@ const styles = theme => ({
 
 class GlobalSalesChart extends Component {
     state = {
-        value: 0    
+        value: 0
     };
-
-    componentDidMount = () => {
-        window.onresize = () => {
-            this.setState({
-                width: this.refs.root.offsetWidth
-            })
-        }
-    }
 
 
     handleChange = (event, newValue) => {
@@ -131,6 +123,79 @@ class GlobalSalesChart extends Component {
             return 'grey'
         }
         console.log(this.props.globalSales);
+        let globalSalesArray = [];
+        let chartArray = [];
+        globalSalesArray = this.props.globalSales;
+
+        if (globalSalesArray.length > 0) {
+            for (let i = 0; i < globalSalesArray.length; i++) {
+                let month = '';
+                switch (parseFloat(((globalSalesArray[i].last_modified).split("-"))[1])) {
+                    case 1:
+                        month = 'Jan';
+                        break;
+                    case 2:
+                        month = 'Feb';
+                        break;
+                    case 3:
+                        month = 'March';
+                        break;
+                    case 4:
+                        month = 'April';
+                        break;
+                    case 5:
+                        month = 'May';
+                        break;
+                    case 6:
+                        month = 'June';
+                        break;
+                    case 7:
+                        month = 'July';
+                        break;
+                    case 8:
+                        month = 'Aug';
+                        break;
+                    case 9:
+                        month = 'Sept';
+                        break;
+                    case 10:
+                        month = 'Oct';
+                        break;
+                    case 11:
+                        month = 'Nov';
+                        break;
+                    case 12:
+                        month = 'Dec';
+                        break;
+
+                }
+                chartArray.push({ mth: month, productCount: globalSalesArray[i].sold_product_count })
+            }
+        }
+        let reducedChartArray = [];
+        //sum product count by distinct month
+        chartArray.reduce(function (res, value) {
+            if (!res[value.mth]) {
+                res[value.mth] = { mth: value.mth, "Total Product Count": 0 };
+                reducedChartArray.push(res[value.mth])
+            }
+            res[value.mth]["Total Product Count"] = parseInt(res[value.mth]["Total Product Count"]) + parseInt(value.productCount);
+
+            return res;
+        }, {});
+
+        console.log(reducedChartArray)
+
+        let newChartData = [
+            ["Month", "Units of Produce"],
+        ]
+
+        for(let i=0; i<reducedChartArray.length; i++){
+            newChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"]])
+        }
+
+        console.log(newChartData)
+
 
         return (
             <Grid container>
@@ -139,11 +204,11 @@ class GlobalSalesChart extends Component {
                 <div className={classes.root}>
 
                     <AppBar position="static">
-                        <Tabs value={this.state.value} 
-                            onChange={this.handleChange} 
+                        <Tabs value={this.state.value}
+                            onChange={this.handleChange}
                             aria-label="simple tabs example"
-                            // indicatorColor='white'
-                            >
+                        // indicatorColor='white'
+                        >
                             <Tab label="Units Sold" {...a11yProps(0)} />
                             <Tab label="Prices" {...a11yProps(1)} />
                             <Tab label="Sales" {...a11yProps(2)} />
@@ -154,7 +219,7 @@ class GlobalSalesChart extends Component {
                             <div style={{ width: '100%' }}>
                                 <Chart
                                     chartType="Bar"
-                                    data={data}
+                                    data={newChartData}
                                     options={options}
                                     width="100%"
                                     height="400px"
