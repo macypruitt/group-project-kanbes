@@ -24,7 +24,7 @@ VALUES ('2019-10-11 17:36:00','2019-10-01 17:36:00', '2019-10-08 12:18:00', 1, 1
 
 INSERT INTO "products" ("product_name", "product_sub_type")
 VALUES ('apple', 'granny smith'),
-('orange', 'navel');
+('orange', 'navel'),
 ('cantaloupe', 'european');
 
 INSERT INTO "suppliers" ("supplier_name", "contact_name", "contact_number", "address")
