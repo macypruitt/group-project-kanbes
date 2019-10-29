@@ -36,8 +36,10 @@ const options={
         title: 'Units of Produce',
         minValue: 0,
     },
-    legend: "none"
+    legend: {
+        position: "none"
   }
+}
 
 const data = [
     ["Month", "Units of Produce"],
@@ -140,7 +142,7 @@ class GlobalSalesChart extends Component {
                         <Tabs value={this.state.value} 
                             onChange={this.handleChange} 
                             aria-label="simple tabs example"
-                            indicatorColor='white'
+                            // indicatorColor='white'
                             >
                             <Tab label="Units Sold" {...a11yProps(0)} />
                             <Tab label="Prices" {...a11yProps(1)} />
@@ -156,7 +158,7 @@ class GlobalSalesChart extends Component {
                                     options={options}
                                     width="100%"
                                     height="400px"
-                                    legendToggle
+                                    // legendToggle
                                     chartEvents={chartEvents}
                                 />
                             </div>
