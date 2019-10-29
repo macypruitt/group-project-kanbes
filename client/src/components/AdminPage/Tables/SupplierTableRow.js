@@ -138,7 +138,7 @@ class SupplierTableRow extends Component {
         }
 
         ////formatting phone number
-        if (contact_number.length == 10){
+        if (contact_number && contact_number.length == 10){
             const phonePtOne = contact_number.slice(0,3)
             const phonePtTwo = contact_number.slice(3,6)
             const phonePtThree = contact_number.slice(6,10)

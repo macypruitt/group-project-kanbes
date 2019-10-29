@@ -226,6 +226,22 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
+         ////formatting store phone number
+         if (storePhone && storePhone.length == 10){
+            const phonePtOne = storePhone.slice(0,3)
+            const phonePtTwo = storePhone.slice(3,6)
+            const phonePtThree = storePhone.slice(6,10)
+            storePhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
+        ////formatting contact phone number
+        if (contactPhone && contactPhone.length == 10){
+            const phonePtOne = contactPhone.slice(0,3)
+            const phonePtTwo = contactPhone.slice(3,6)
+            const phonePtThree = contactPhone.slice(6,10)
+            contactPhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
         return (
             <tr>
                 <td className="store-col-width">{order}</td>

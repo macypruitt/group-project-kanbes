@@ -5,10 +5,10 @@ VALUES ('Maxfield', 'Kaniger', 'mkaniger', 'mkan@kanbesmarkets.org', 'mkaniger12
 
 INSERT INTO "stores" ("store_name", "address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
 VALUES ('Food Mart', '8025 Hickman Mills Drive, KCMO 64132', 'John Johnson', '8168888923', 'jjohnson@foodmart.com', true, '8168238453', 1),
-('One Stop', '4511 E. Truman Road, KCMO 64127', '8168908023', 'Sam Schandler', 'sschandler@onestop.com', true, '8167347239', 2),
-('Food Mart', '2101 E. 39th Street, KCMO 64109', '8167883243','Lara Benford', 'lbenford@foodmart.com', true, '8169872345', 3),
-('Food Mart', '4501 Cleveland Avenue, KCMO 64130', '8166988924','Oscar Sanford', 'osanford@foodmart.com', true, '8169023714', 4),
-('Food Mart', '5901 Troost Avenue, KCMO 64110', '8168377723','Ben Jacob', 'bjacob@foodmart.com', true, '8161478294', 5);
+('One Stop', '4511 E. Truman Road, KCMO 64127',  'Sam Schandler', '8168908023', 'sschandler@onestop.com', true, '8167347239', 2),
+('Food Mart', '2101 E. 39th Street, KCMO 64109', 'Lara Benford','8167883243', 'lbenford@foodmart.com', true, '8169872345', 3),
+('Food Mart', '4501 Cleveland Avenue, KCMO 64130', 'Oscar Sanford', '8166988924','osanford@foodmart.com', true, '8169023714', 4),
+('Food Mart', '5901 Troost Avenue, KCMO 64110', 'Ben Jacob','8168377723', 'bjacob@foodmart.com', true, '8161478294', 5);
 -- ('Food Mart', '8505 Woodland Avenue, KCMO 64131', 'update', 'update', 'update', true, 'update', 6),
 -- ('Brooklyn Market', '2119 Independence Avenue, KCMO 64124', 'update', 'update', 'update', true, 'update', 7),
 -- ('Superior Mini Mart', '3701 St. John Ave., KCMO 64123', 'update', 'update', 'update', true, 'update', 8),
@@ -25,10 +25,11 @@ VALUES ('2019-10-11 17:36:00','2019-10-01 17:36:00', '2019-10-08 12:18:00', 1, 1
 INSERT INTO "products" ("product_name", "product_sub_type")
 VALUES ('apple', 'granny smith'),
 ('orange', 'navel');
+('cantaloupe', 'european');
 
 INSERT INTO "suppliers" ("supplier_name", "contact_name", "contact_number", "address")
-VALUES ('C & C Produce', 'Tony Gaspipe', '1234567', '400 Main Street, Kansas City, MO'),
-('Stoney Crest Farm', 'Joe Farmer', '2345678', '501 Middle of Nowhere, Kansas City, MO'),
+VALUES ('C & C Produce', 'Tony Gaspipe', '8161234567', '400 Main Street, Kansas City, MO'),
+('Stoney Crest Farm', 'Joe Farmer', '8162345678', '501 Middle of Nowhere, Kansas City, MO'),
 ('After The Harvest', NULL, null, '999 Cherry Lane, KC, MO');
 
 INSERT INTO "incoming_warehouse" ("product_id", "user_id", "purchase_date", "bulk_purchase_price",
@@ -89,7 +90,13 @@ INSERT INTO "outgoing_store" (
 VALUES (1, 1, 3, 1, '2019-10-06 23:37:00', 1, 1, 10, 7, 1, .30,  'Low on stock. Had to reduce par to 7.'),
 (1, 2, 3, 2, '2019-10-07 21:37:00', 1, 1, 7, 5, 2, .40,  'Low on stock. Had to reduce par to 5.'),
 (2, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6, 1, .30, ''),
-(2, 2, 3, 2, '2019-10-15 23:37:00', 1, 1, 8, 7, 2, .40, 'Low on stock. Had to reduce par to 7.');
+(2, 2, 3, 2, '2019-10-18 23:37:00', 1, 1, 8, 7, 2, .40, '');
+(3, 2, 3, 2, '2019-10-08 21:37:00', 1, 1, 7, 5, 2, .40,  ''),
+(1, 1, 3, 3, '2019-10-09 19:37:00', 1, 1, 6, 6, 1, .30, ''),
+(1, 2, 3, 2, '2019-10-16 23:37:00', 1, 1, 8, 7, 2, .40, '');
+(1, 3, 3, 2, '2019-10-07 20:37:00', 1, 1, 7, 5, 2, .40,  ''),
+(1, 3, 3, 3, '2019-10-09 18:37:00', 1, 1, 6, 6, 1, .30, ''),
+(2, 3, 3, 2, '2019-10-15 22:37:00', 1, 1, 8, 7, 2, .40, '');
 
 INSERT INTO "store_inventory_junction" (
     "incoming_inventory_id",
