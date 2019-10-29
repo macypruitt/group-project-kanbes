@@ -14,18 +14,49 @@ import {
 } from '@material-ui/core';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import KanbeTemplate from '../../KanbeTemplate/KanbeTemplate';
-import BarChart from 'react-bar-chart';
+import { Chart } from "react-google-charts";
+
+// const styles = theme => ({
+//     root: {
+//         color: 'blue'
+//     }
+// )}
+
+const options={
+    chart: {
+        title: 'Units of Produce Sold',
+        subtitle: 'Monthly - 2019',
+      },
+    chartArea: { width: '100%' },
+    colors: ['#60788f'],
+    hAxis: {
+      title: 'Month'
+    },
+    vAxis: {
+        title: 'Units of Produce',
+        minValue: 0,
+    },
+    legend: "none"
+  }
 
 const data = [
-    { text: 'Jan',backgroundColor: '#60788f', value: 500 },
-    { text: 'Feb', value: 300 },
-    { text: 'March', value: 200 },
-    { text: 'April', value: 600 },
-    { text: 'May', value: 400 },
-    { text: 'June', value: 300 }
+    ["Month", "Units of Produce"],
+    ['Jan', 12],
+    ['Feb', 5.5],
+    ['March', 14],
+    ['April', 5],
+    ['May', 3.5],
+    ['June', 7]
 ];
 
-const margin = { top: 20, right: 50, bottom: 30, left: 60 };
+const chartEvents = [
+    {
+      eventName: "select",
+      callback({ chartWrapper }) {
+        console.log("Selected ", chartWrapper.getChart().getSelection());
+      }
+    }
+  ];
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -66,9 +97,7 @@ const styles = theme => ({
 
 class GlobalSalesChart extends Component {
     state = {
-        width: 1000,
-        value: 0,
-        colors: ['#43A19E', '#7B43A1', '#F2317A', '#FF9824', '#58CF6C']
+        value: 0    
     };
 
     componentDidMount = () => {
@@ -80,8 +109,8 @@ class GlobalSalesChart extends Component {
     }
 
 
-
     handleChange = (event, newValue) => {
+        console.log(newValue)
         this.setState({
             ...this.state,
             value: newValue
@@ -108,7 +137,11 @@ class GlobalSalesChart extends Component {
                 <div className={classes.root}>
 
                     <AppBar position="static">
-                        <Tabs value={this.value} onChange={this.handleChange} aria-label="simple tabs example">
+                        <Tabs value={this.state.value} 
+                            onChange={this.handleChange} 
+                            aria-label="simple tabs example"
+                            indicatorColor='white'
+                            >
                             <Tab label="Units Sold" {...a11yProps(0)} />
                             <Tab label="Prices" {...a11yProps(1)} />
                             <Tab label="Sales" {...a11yProps(2)} />
@@ -117,17 +150,15 @@ class GlobalSalesChart extends Component {
                     <TabPanel value={this.state.value} index={0}>
                         <div ref='root'>
                             <div style={{ width: '100%' }}>
-                                <BarChart
-                                    // colorScale={'#60788f'}
-                                    colors={this.state.colors}
-                                    ylabel='# units sold'
-                                    colorByLabel={false}
-                                    width={this.state.width}
-                                    height={500}
-                                    margin={margin}
+                                <Chart
+                                    chartType="Bar"
                                     data={data}
-                                    // color={'grey'}
-                                    onBarClick={this.handleBarClick} />
+                                    options={options}
+                                    width="100%"
+                                    height="400px"
+                                    legendToggle
+                                    chartEvents={chartEvents}
+                                />
                             </div>
                         </div>
                     </TabPanel>
