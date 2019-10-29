@@ -72,7 +72,7 @@ INSERT INTO "current_product_prices" (
     "current_price_per_unit",
     "status")
 VALUES (1, .30, true),
-(2, .32, true);
+(2, .32, true),
 (3, 1.75, true);
 
 INSERT INTO "outgoing_store" (
