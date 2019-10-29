@@ -447,7 +447,7 @@ class DriverTableRow extends Component {
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
-            lastModified = date + time
+            lastModified = date + time;
 
 
             editOrSaveButton =
@@ -507,6 +507,8 @@ class DriverTableRow extends Component {
                 </Select>
             </FormControl>
             lastModified = date + time
+
+            
         }
 
         if (this.state.isUpdatable) {
@@ -543,6 +545,13 @@ class DriverTableRow extends Component {
             />
         }
 
+        ////formatting date displayed
+        if(lastModified !== 'No Entry Yet Today'){
+        lastModified = lastModified.split("T")[0];   
+        lastModified = lastModified.split("-");  
+        lastModified = `${lastModified[1]}-${lastModified[2]}-${lastModified[0]}`
+        }
+        
         return (
 
             <tr id={this.props.key}>

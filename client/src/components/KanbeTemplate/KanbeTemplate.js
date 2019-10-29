@@ -162,7 +162,7 @@ class KanbeTemplate extends Component {
       <div className={this.props.classes.root}>
         <CssBaseline />
         <AppBar 
-          position="absolute"
+          position="fixed"
           className={clsx(this.props.classes.appBar, {
             [this.props.classes.appBarShift]: this.state.open,
           })}
