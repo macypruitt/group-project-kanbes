@@ -68,7 +68,6 @@ const styles = theme => ({
         marginTop: theme.spacing(2),
     },
 });
-<<<<<<< HEAD
 
 class InvoicePage extends Component {
     state = {
@@ -200,7 +199,7 @@ class InvoicePage extends Component {
                 let invoiceDate = ((item.invoice_date).split("T"))[0]
                 let startDate = ((item.start_date).split("T"))[0]
                 let endDate = ((item.end_date).split("T"))[0]
-                return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
+                return <MenuItem key={index} value={item}>(#{item.invoice_number}), ({invoiceDate}) : ({startDate}) - ({endDate})</MenuItem>
             })
         }
 
@@ -326,7 +325,7 @@ class InvoicePage extends Component {
                             // className={classes.selectEmpty}
                             >
                                 <MenuItem value="" disabled>
-                                    Invoice # - Invoice Date - Billing Start Date - Billing End Date
+                                    Invoice #, Invoice Date : Billing Start Date - Billing End Date
                         </MenuItem>
                                 {historicalInvoiceSelectorList}
                             </Select>

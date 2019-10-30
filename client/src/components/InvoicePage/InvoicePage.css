@@ -44,6 +44,12 @@
     text-align: right;
 }
 
+.invoice-msg-box{
+    float: left;
+    margin-top: 18px;
+    margin-left: 15px;
+}
+
 .invoice-header{
   
     width:100%;

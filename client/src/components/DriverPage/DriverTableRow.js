@@ -59,7 +59,8 @@ var currentDateTime = date + time
 class DriverTableRow extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
-        this.props.dispatch({ type: 'FETCH_SUPPLIERS' })
+        this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
+
     }
 
     state = {

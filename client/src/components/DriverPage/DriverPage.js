@@ -56,7 +56,7 @@ class DriverPage extends Component {
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder; 
         if (dataForDriver.length > 0) {
-            driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
+            driverTableHolder = <DriverTable dataForDriver={dataForDriver} isAdding={false} current_store={this.props.match.params.id}/>
         } else {
             driverTableHolder = <DriverTable />
         }
