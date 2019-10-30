@@ -8,7 +8,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import { connect } from "react-redux";
-// import { CSVLink } from "react-csv";
+import { CSVLink } from "react-csv";
 import "./globalSalesTable.css";
 import { Button, Grid, Pagination } from "@material-ui/core/";
 import PropTypes from "prop-types";
@@ -144,9 +144,9 @@ const EnhancedTableToolbar = props => {
                 </Typography>
             </div>
             <div className={classes.spacer} />
-            {/* <Button id="csvButton" variant="contained" color="primary">
-        <CSVLink data={csvData}>Export to CSV</CSVLink>
-      </Button> */}
+            <Button id="csvButton" variant="contained" color="primary">
+        <CSVLink data={this.reducedTableArray}>Export to CSV</CSVLink>
+      </Button>
         </Toolbar>
     );
 };
@@ -308,7 +308,7 @@ class storeTable extends Component {
             this.state.rowsPerPage -
             Math.min(
                 this.state.rowsPerPage,
-                csvData.length - this.state.page * this.state.rowsPerPage
+                reducedTableArray.length - this.state.page * this.state.rowsPerPage
             );
 
         return (
