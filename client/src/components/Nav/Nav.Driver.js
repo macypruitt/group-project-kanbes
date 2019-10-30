@@ -92,6 +92,7 @@ class NavDriver extends Component {
         })
 
         return (
+<<<<<<< HEAD
             <div className={'nav-list'}>
                 <List
                     component="nav"
@@ -112,6 +113,7 @@ class NavDriver extends Component {
                     </Collapse>
                 </List>
             </div>
+
         )
     }
 }

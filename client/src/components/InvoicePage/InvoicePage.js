@@ -68,6 +68,7 @@ const styles = theme => ({
         marginTop: theme.spacing(2),
     },
 });
+<<<<<<< HEAD
 
 class InvoicePage extends Component {
     state = {
