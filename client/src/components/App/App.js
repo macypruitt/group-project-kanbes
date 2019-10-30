@@ -25,7 +25,7 @@ import StorePage from '../StorePage/StorePage';
 import DriverPage from '../DriverPage/DriverPage';
 import DriverViewModal from '../DriverViewModal/DriverViewModal';
 import mapStoreToProps from '../../redux/mapStoreToProps';
-import PerformancePage from '../../components/PerformancePage/PerformancePage';
+import PerformancePage from '../PerformancePage/PerformancePage';
 import DirectorPage from '../DirectorPage/DirectorPage';
 import './App.css';
 
@@ -90,11 +90,6 @@ class App extends Component {
               path="/produce"
               component={ProducePage}
             />
-            <Route
-              exact
-              path="/director"
-              component={DirectorPage}
-            />
 
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
@@ -109,7 +104,7 @@ class App extends Component {
               path="/login"
               driverRedirect="/driver"
               managerRedirect="/manager"
-              directorRedirect="/director"
+              directorRedirect="/admin"
               component={LoginPage}
             />
             {/*This route is used for getting the first store in from activeStores on page load */}
@@ -129,18 +124,10 @@ class App extends Component {
               path="/manager"
               component={InvoicePage}
             />
-
-            <ProtectedRoute
+           <ProtectedRoute
               exact
               path="/director"
-              component={AdminPage}
-            />
-           
-            <Route
-            exact
-            path="/director"
-            component={AdminPage}
-            component={PerformancePage}
+              component={PerformancePage}
             />
             <Route
             exact 
