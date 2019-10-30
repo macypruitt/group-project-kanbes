@@ -16,3 +16,13 @@ h3{
 hr{
     border: 2px solid rgb(238, 235, 235)
 }
+
+.filterDiv{
+    position: fixed;
+    width:100%;
+    background: whitesmoke
+}
+
+.spacer{
+    margin-top:80px;
+}

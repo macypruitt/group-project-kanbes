@@ -16,16 +16,10 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import KanbeTemplate from '../../KanbeTemplate/KanbeTemplate';
 import { Chart } from "react-google-charts";
 
-// const styles = theme => ({
-//     root: {
-//         color: 'blue'
-//     }
-// )}
-
-const options = {
+const productCountChartOptions = {
     chart: {
         title: 'Units of Produce Sold',
-        subtitle: 'Monthly - 2019',
+        subtitle: 'Monthly',
     },
     chartArea: { width: '100%' },
     colors: ['#60788f'],
@@ -41,15 +35,46 @@ const options = {
     }
 }
 
-const data = [
-    ["Month", "Units of Produce"],
-    ['Jan', 75],
-    ['Feb', 60],
-    ['March', 80],
-    ['April', 120],
-    ['May', 140],
-    ['June', 155]
-];
+const pricesChartOptions = {
+    chart: {
+        title: 'Avg Product Prices',
+        subtitle: 'Monthly',
+    },
+    chartArea: { width: '100%' },
+    colors: ['#60788f'],
+    hAxis: {
+        title: 'Month'
+    },
+    vAxis: {
+        title: 'Avg Sale Price',
+        minValue: 0,
+    },
+    legend: {
+        position: "none"
+    }
+}
+
+const comboChartOptions = {
+    chart: {
+        title: 'Avg Product Prices',
+        subtitle: 'Monthly',
+    },
+    chartArea: { width: '100%' },
+    colors: ['#60788f'],
+    hAxis: {
+        title: 'Month'
+    },
+    vAxis: {
+        title: 'Avg Sale Price',
+        minValue: 0,
+    },
+    legend: {
+        position: "none"
+    },
+    seriesType: 'bars',
+    series: { 2: { type: 'line' } },
+}
+
 
 const chartEvents = [
     {
@@ -169,32 +194,43 @@ class GlobalSalesChart extends Component {
                         break;
 
                 }
-                chartArray.push({ mth: month, productCount: globalSalesArray[i].sold_product_count })
+                chartArray.push({ mth: month, productCount: globalSalesArray[i].sold_product_count, totalSales: globalSalesArray[i]["Total Sales"] })
             }
         }
         let reducedChartArray = [];
         //sum product count by distinct month
         chartArray.reduce(function (res, value) {
             if (!res[value.mth]) {
-                res[value.mth] = { mth: value.mth, "Total Product Count": 0 };
+                res[value.mth] = { mth: value.mth, "Total Product Count": 0, "Total Sales": 0 };
                 reducedChartArray.push(res[value.mth])
             }
             res[value.mth]["Total Product Count"] = parseInt(res[value.mth]["Total Product Count"]) + parseInt(value.productCount);
+            res[value.mth]["Total Sales"] = parseFloat(res[value.mth]["Total Sales"]) + parseFloat(value.totalSales);
 
             return res;
         }, {});
 
         console.log(reducedChartArray)
 
-        let newChartData = [
+        let productCountChartData = [
             ["Month", "Units of Produce"],
         ]
 
+        let pricesChartData = [
+            ["Month", "Avg Sale Price"],
+        ]
+
+        let comboChartData = [
+            ["Month", "Units of Produce", "Avg Sale Price"],
+        ]
+
         for(let i=0; i<reducedChartArray.length; i++){
-            newChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"]])
+            productCountChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"]])
+            pricesChartData.push([reducedChartArray[i].mth, (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
+            comboChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"], (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
         }
 
-        console.log(newChartData)
+        console.log(comboChartData)
 
 
         return (
@@ -219,8 +255,8 @@ class GlobalSalesChart extends Component {
                             <div style={{ width: '100%' }}>
                                 <Chart
                                     chartType="Bar"
-                                    data={newChartData}
-                                    options={options}
+                                    data={productCountChartData}
+                                    options={productCountChartOptions}
                                     width="100%"
                                     height="400px"
                                     // legendToggle
@@ -230,10 +266,34 @@ class GlobalSalesChart extends Component {
                         </div>
                     </TabPanel>
                     <TabPanel value={this.state.value} index={1}>
-                        Item Two
+                    <div ref='root'>
+                            <div style={{ width: '100%' }}>
+                                <Chart
+                                    chartType="Bar"
+                                    data={pricesChartData}
+                                    options={pricesChartOptions}
+                                    width="100%"
+                                    height="400px"
+                                    // legendToggle
+                                    chartEvents={chartEvents}
+                                />
+                            </div>
+                        </div>
                 </TabPanel>
                     <TabPanel value={this.state.value} index={2}>
-                        Item Three
+                    {/* <div ref='root'>
+                            <div style={{ width: '100%' }}>
+                                <Chart
+                                    chartType="ComboChart"
+                                    data={comboChartData}
+                                    options={comboChartOptions}
+                                    width="100%"
+                                    height="400px"
+                                    // legendToggle
+                                    chartEvents={chartEvents}
+                                />
+                            </div>
+                        </div> */}
                 </TabPanel>
                 </div>
             </Grid>

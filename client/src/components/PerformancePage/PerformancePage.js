@@ -207,10 +207,8 @@ class PerformancePage extends Component {
         return (
             <KanbeTemplate>
                 <Grid container spacing={3} className="admin-container">
-                    {/* <Grid item xs={12}>
-                        <h2>Kanbe's Performance Metrics</h2>
-                    </Grid> */}
-                    <Grid item xs={12}>
+                <div className="spacer"></div>
+                    <Grid className="filterDiv" item xs={12}>
                         <h3>FILTER BY...</h3>
                         <hr></hr>
                         <Grid container spacing={3} direction="row" alignItems="center">
