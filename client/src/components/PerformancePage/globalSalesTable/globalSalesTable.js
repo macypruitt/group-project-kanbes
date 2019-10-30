@@ -19,14 +19,24 @@ import Typography from "@material-ui/core/Typography";
 import { withRouter } from 'react-router';
 
 function desc(a, b, orderBy) {
-    if (parseFloat(b[orderBy]) < parseFloat(a[orderBy])) {
-        return -1;
-    }
-    if (parseFloat(b[orderBy]) > parseFloat(a[orderBy])) {
-        return 1;
-    }
-    return 0;
-}
+    if(orderBy === "storeName" || orderBy === "storeAddress"){
+     if ((b[orderBy]) < (a[orderBy])) {
+       return -1;
+     }
+     if ((b[orderBy]) > (a[orderBy])) {
+       return 1;
+     }
+     return 0;
+    } else {
+     if (parseFloat(b[orderBy]) < parseFloat(a[orderBy])) {
+       return -1;
+     }
+     if (parseFloat(b[orderBy]) > parseFloat(a[orderBy])) {
+       return 1;
+     }
+     return 0;
+   }
+   }
 
 function stableSort(array, cmp) {
     const stabilizedThis = array.map((el, index) => [el, index]);
@@ -178,29 +188,28 @@ const styles = theme => ({
 const columns = [
     {
         title: "Store Name",
-        field: "Store Name",
+        field: "storeName",
         align: "left",
-        // format: value => parseFloat(value).toFixed(4),
         numeric: true
     },
     {
         title: "Store Address",
-        field: "Store Address",
+        field: "storeAddress",
         align: "left",
-        // format: value => parseFloat(value).toFixed(4),
         numeric: true
     },
-    { title: "Units Sold", field: "Units Sold", numeric: false },
+    { title: "Units Sold",
+     field: "Total Product Count", numeric: false },
     {
-        title: "Avg Price",
+        title: "Avg Price per Unit Sold",
         field: "Avg Price",
-        // format: value => parseFloat(value * 100).toFixed(2),
+        format: value => "$"+(value.toFixed(2)),
         numeric: true
     },
     {
         title: "Total Sales",
         field: "Total Sales",
-        // format: value => (value * 100).toFixed(2) + "%",
+        format: value => "$"+(value.toFixed(2)),
         numeric: true
     }
 
@@ -211,38 +220,37 @@ class storeTable extends Component {
     columns = [
         {
             title: "Store Name",
-            field: "Store Name",
+            field: "storeName",
             align: "left",
-            // format: value => parseFloat(value).toFixed(4),
             numeric: true
         },
         {
             title: "Store Address",
-            field: "Store Address",
+            field: "storeAddress",
             align: "left",
-            // format: value => parseFloat(value).toFixed(4),
             numeric: true
         },
-        { title: "Units Sold", field: "Units Sold", numeric: false },
+        { title: "Units Sold",
+         field: "Total Product Count", numeric: false },
         {
-            title: "Avg Price",
+            title: "Avg Price per Unit Sold",
             field: "Avg Price",
-            // format: value => parseFloat(value * 100).toFixed(2),
+            format: value => "$"+(value.toFixed(2)),
             numeric: true
         },
         {
             title: "Total Sales",
             field: "Total Sales",
-            // format: value => (value * 100).toFixed(2) + "%",
+            format: value => "$"+(value.toFixed(2)),
             numeric: true
         }
     ];
 
     state = {
         page: 0,
-        rowsPerPage: 50,
-        order: "desc",
-        orderBy: "Store Name"
+        rowsPerPage: 15,
+        order: "asc",
+        orderBy: "storeName"
     };
 
     handleChangePage = (event, newPage) => {
@@ -271,96 +279,30 @@ class storeTable extends Component {
     render() {
         const { classes, theme } = this.props;
 
-        let data = this.props.globalSales;
-
         let globalSalesArray = [];
-        let chartArray = [];
+        let tableArray = [];
         globalSalesArray = this.props.globalSales;
 
         if (globalSalesArray.length > 0) {
             for (let i = 0; i < globalSalesArray.length; i++) {
-                let month = '';
-                switch (parseFloat(((globalSalesArray[i].last_modified).split("-"))[1])) {
-                    case 1:
-                        month = 'Jan';
-                        break;
-                    case 2:
-                        month = 'Feb';
-                        break;
-                    case 3:
-                        month = 'March';
-                        break;
-                    case 4:
-                        month = 'April';
-                        break;
-                    case 5:
-                        month = 'May';
-                        break;
-                    case 6:
-                        month = 'June';
-                        break;
-                    case 7:
-                        month = 'July';
-                        break;
-                    case 8:
-                        month = 'Aug';
-                        break;
-                    case 9:
-                        month = 'Sept';
-                        break;
-                    case 10:
-                        month = 'Oct';
-                        break;
-                    case 11:
-                        month = 'Nov';
-                        break;
-                    case 12:
-                        month = 'Dec';
-                        break;
-
-                }
-                chartArray.push({ mth: month, productCount: globalSalesArray[i].sold_product_count, totalSales: globalSalesArray[i]["Total Sales"] })
+                
+                tableArray.push({ storeId: globalSalesArray[i].store_id, storeName: globalSalesArray[i].store_name, storeAddress: globalSalesArray[i].store_address, productCount: globalSalesArray[i].sold_product_count, totalSales: globalSalesArray[i]["Total Sales"] })
             }
         }
-        let reducedChartArray = [];
-        //sum product count by distinct month
-        chartArray.reduce(function (res, value) {
-            if (!res[value.mth]) {
-                res[value.mth] = { mth: value.mth, "Total Product Count": 0, "Total Sales": 0 };
-                reducedChartArray.push(res[value.mth])
+        let reducedTableArray = [];
+        tableArray.reduce(function (res, value) {
+            if (!res[value.storeId]) {
+                res[value.storeId] = { storeId: value.storeId, storeName: value.storeName, storeAddress: value.storeAddress, "Total Product Count": 0, "Total Sales": 0, "Avg Price": 0};
+                reducedTableArray.push(res[value.storeId])
             }
-            res[value.mth]["Total Product Count"] = parseInt(res[value.mth]["Total Product Count"]) + parseInt(value.productCount);
-            res[value.mth]["Total Sales"] = parseFloat(res[value.mth]["Total Sales"]) + parseFloat(value.totalSales);
+            res[value.storeId]["Total Product Count"] = parseInt(res[value.storeId]["Total Product Count"]) + parseInt(value.productCount);
+            res[value.storeId]["Total Sales"] = parseFloat(res[value.storeId]["Total Sales"]) + parseFloat(value.totalSales);
+            res[value.storeId]["Avg Price"] = (res[value.storeId]["Total Sales"])/(res[value.storeId]["Total Product Count"]);
 
             return res;
         }, {});
 
-        console.log(reducedChartArray)
-
-        let productCountChartData = [
-            ["Month", "Units of Produce"],
-        ]
-
-        let pricesChartData = [
-            ["Month", "Avg Sale Price"],
-        ]
-
-        let salesChartData = [
-            ["Month", "Total Sales"],
-        ]
-
-        let comboChartData = [
-            ["Month", "Units of Produce", "Avg Sale Price"],
-        ]
-
-        for(let i=0; i<reducedChartArray.length; i++){
-            productCountChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"]])
-            pricesChartData.push([reducedChartArray[i].mth, (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
-            comboChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"], (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
-            salesChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Sales"]])
-        }
-
-
+        console.log(reducedTableArray)
 
         const emptyRows =
             this.state.rowsPerPage -
@@ -388,7 +330,7 @@ class storeTable extends Component {
                                         <TableBody>
                                             {
                                                 stableSort(
-                                                    data,
+                                                    reducedTableArray,
                                                     getSorting(this.state.order, this.state.orderBy)
                                                 )
                                                     //   {csvData
@@ -429,7 +371,7 @@ class storeTable extends Component {
                                     </Table>
                                 </div>
                                 <TablePagination
-                                    rowsPerPageOptions={[50, 100]}
+                                    rowsPerPageOptions={[15, 30]}
                                     component="div"
                                     count={csvData.length}
                                     rowsPerPage={this.state.rowsPerPage}
