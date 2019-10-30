@@ -16,7 +16,7 @@ CREATE TABLE "user" (
 CREATE TABLE "stores" (
 "id" SERIAL PRIMARY KEY,
 "store_name" VARCHAR(255) NOT NULL,
-"address" VARCHAR UNIQUE NOT NULL,
+"store_address" VARCHAR UNIQUE NOT NULL,
 "contact_name" VARCHAR(180),
 "contact_phone" VARCHAR(255),
 "contact_email" VARCHAR(100),

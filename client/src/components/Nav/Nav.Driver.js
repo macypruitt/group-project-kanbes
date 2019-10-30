@@ -73,7 +73,7 @@ class NavDriver extends Component {
         let storeNavData = storesArray.map((item, index) => {
 
             //Breaks down the store address on the navigation bar
-            let address = item.address;
+            let address = item.store_address;
             address = address.split(",");
             address = address[0];
 

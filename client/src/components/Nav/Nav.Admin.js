@@ -59,6 +59,10 @@ class NavAdmin extends Component {
     moveToInvoicePage = (event) => {
         this.props.history.push("/invoice");
     }
+
+    moveToPerformancePage = (event) => {
+        this.props.history.push("/director");
+    }
     
     ///Below are the Navigation to pages based on Warehouse and Performance, these are for the Executive Director and Program Manager
 
@@ -94,35 +98,36 @@ class NavAdmin extends Component {
             >
                 {/* This is the navigation for the Executive Director */}
                 
-                {/* <ListItem button onClick={this.handleToggle}>
+                {/* <ListItem button onClick={this.handleToggle}> */}
+        <ListItem button onClick={this.moveToPerformancePage}>
                     <ListItemIcon>
                         <DashboardIcon />
                     </ListItemIcon>
                     <ListItemText primary="Performance" />
-                    {this.state.expand ? <ExpandLess /> : <ExpandMore />}
+                    {/* {this.state.expand ? <ExpandLess /> : <ExpandMore />} */}
                 </ListItem>
-                    <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
-                        <List component="div" disablePadding>
-                        <ListItem button onClick={this.moveToStorePage} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <StoreIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Store" />
-                        </ListItem>
-                        <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <SupervisorAccountIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Supplier" />
-                        </ListItem>
-                        <ListItem button onClick={this.moveToProducePage} className={this.props.classes.nested}>
-                            <ListItemIcon>
-                            <ListAltIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Produce" />
-                        </ListItem>
-                        </List>
-                    </Collapse> */}
+                    {/* // <Collapse in={this.state.expand} timeout="auto" unmountOnExit>
+                    //     <List component="div" disablePadding>
+                    //     <ListItem button onClick={this.moveToStorePage} className={this.props.classes.nested}>
+                    //         <ListItemIcon>
+                    //         <StoreIcon />
+                    //         </ListItemIcon>
+                    //         <ListItemText primary="Store" />
+                    //     </ListItem>
+                    //     <ListItem button onClick={this.moveToSupplierPage} className={this.props.classes.nested}>
+                    //         <ListItemIcon>
+                    //         <SupervisorAccountIcon />
+                    //         </ListItemIcon>
+                    //         <ListItemText primary="Supplier" />
+                    //     </ListItem>
+                    //     <ListItem button onClick={this.moveToProducePage} className={this.props.classes.nested}>
+                    //         <ListItemIcon>
+                    //         <ListAltIcon />
+                    //         </ListItemIcon>
+                    //         <ListItemText primary="Produce" />
+                    //     </ListItem>
+                    //     </List>
+                    // </Collapse> */}
                 <ListItem button onClick={this.moveToAdminPage}>
                 <ListItemIcon>
                     <AssignmentIndIcon />

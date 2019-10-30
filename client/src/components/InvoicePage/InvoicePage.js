@@ -150,6 +150,11 @@ class InvoicePage extends Component {
 
     postInvoice = (event) => {
         this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
+        this.setState({
+            ...this.state,
+            newInvoiceHidden: true,
+            historicalInvoiceHidden: true
+        })
     }
 
     handleNewInvoiceClick = (event) => {
@@ -309,23 +314,25 @@ class InvoicePage extends Component {
 
         if (!this.state.historicalInvoiceHidden) {
             historicalInvoiceSelector =
-                <Paper className='historicalInvoiceSelector'>
-                    <FormControl >
-                        <FormHelperText>Select historical invoice</FormHelperText>
-                        <Select
-                            // value={values.age}
-                            onChange={this.handleChangeInvoiceParameters}
-                            name="age"
-                            displayEmpty
-                        // className={classes.selectEmpty}
-                        >
-                            <MenuItem value="" disabled>
-                                Invoice # - Invoice Date - Billing Start Date - Billing End Date
+                <div className="no-print">
+                    <Paper className='historicalInvoiceSelector'>
+                        <FormControl >
+                            <FormHelperText>Select historical invoice</FormHelperText>
+                            <Select
+                                // value={values.age}
+                                onChange={this.handleChangeInvoiceParameters}
+                                name="age"
+                                displayEmpty
+                            // className={classes.selectEmpty}
+                            >
+                                <MenuItem value="" disabled>
+                                    Invoice # - Invoice Date - Billing Start Date - Billing End Date
                         </MenuItem>
-                            {historicalInvoiceSelectorList}
-                        </Select>
-                    </FormControl>
-                </Paper>
+                                {historicalInvoiceSelectorList}
+                            </Select>
+                        </FormControl>
+                    </Paper>
+                </div>
         }
 
         if (!this.state.newInvoiceHidden) {

@@ -143,7 +143,7 @@ class StoreTableRow extends Component {
         ////row data is passed to this component through props from StoreTable.js
         let id = this.props.item.id
         let store_name = this.props.item.store_name;
-        let address = this.props.item.address;
+        let address = this.props.item.store_address;
         let order = this.props.item.delivery_route_order;
         let status = this.props.item.status ? <Done style={iconStylesCheck} /> : <Clear style={iconStylesX} />
         let contactEmail = this.props.item.contact_email;
@@ -224,6 +224,22 @@ class StoreTableRow extends Component {
             order = <Input className="row-input"
                 placeholder={order}
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
+        }
+
+         ////formatting store phone number
+         if (storePhone && storePhone.length == 10){
+            const phonePtOne = storePhone.slice(0,3)
+            const phonePtTwo = storePhone.slice(3,6)
+            const phonePtThree = storePhone.slice(6,10)
+            storePhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
+        ////formatting contact phone number
+        if (contactPhone && contactPhone.length == 10){
+            const phonePtOne = contactPhone.slice(0,3)
+            const phonePtTwo = contactPhone.slice(3,6)
+            const phonePtThree = contactPhone.slice(6,10)
+            contactPhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
         }
 
         return (

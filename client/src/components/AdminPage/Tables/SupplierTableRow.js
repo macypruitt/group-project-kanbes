@@ -137,6 +137,14 @@ class SupplierTableRow extends Component {
             editOrSaveButton = <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickAdd}>Add</Button>
         }
 
+        ////formatting phone number
+        if (contact_number && contact_number.length == 10){
+            const phonePtOne = contact_number.slice(0,3)
+            const phonePtTwo = contact_number.slice(3,6)
+            const phonePtThree = contact_number.slice(6,10)
+            contact_number = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+        
         return (
             <tr>
                 <td className="five-col-width">{supplier_name}</td>

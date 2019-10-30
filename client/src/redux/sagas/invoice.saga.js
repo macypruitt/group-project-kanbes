@@ -29,7 +29,7 @@ function* postInvoice(action) {
   try {
     const response = yield axios.post(`api/invoice/addInvoice`, action.payload);
    
-    // yield put({ type: 'SET_INVOICE', payload: response.data });
+    yield put({ type: 'FETCH_INVOICE_PARAMETERS', payload: response.data });
   } catch (error) {
     console.log('Prices get request failed', error);
   }
