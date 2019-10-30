@@ -10,7 +10,7 @@ const router: express.Router = express.Router();
 router.get('/', (req: Request, res: Response, next: express.NextFunction): void => {
 
     const queryText: string = `SELECT OS.store_id, OS.last_modified, OS.product_id,OS.supplier_id, OS.current_price_per_unit_id, OS.sold_product_count, 
-                            current_price_per_unit, OS.sold_price_per_unit,product_name, SUM(OS.sold_product_count) AS "Total Sold", 
+                            current_price_per_unit, OS.sold_price_per_unit,product_name, store_name,supplier_name, store_address, SUM(OS.sold_product_count) AS "Total Sold", 
                             SUM(OS."sold_product_count" * "sold_price_per_unit") AS "Total Sales" FROM "outgoing_store" OS
                             JOIN "user" ON "user"."id" = OS."user_id"
                             JOIN "products" ON "products"."id" = OS."product_id"
@@ -19,7 +19,7 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
                             JOIN "current_product_prices" ON "current_product_prices"."id" = OS."current_price_per_unit_id"
                             AND OS."product_id" = OS."current_price_per_unit_id"
                             GROUP BY OS.store_id,OS.last_modified, OS.product_id, OS.current_price_per_unit_id, current_price_per_unit,
-                            OS.sold_product_count, OS.sold_price_per_unit, OS.supplier_id, product_name;`;
+                            OS.sold_product_count, OS.sold_price_per_unit, OS.supplier_id, product_name, store_name, supplier_name, store_address;`;
 
 
 

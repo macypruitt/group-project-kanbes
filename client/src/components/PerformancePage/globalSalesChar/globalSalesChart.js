@@ -13,7 +13,6 @@ import {
     Box
 } from '@material-ui/core';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import KanbeTemplate from '../../KanbeTemplate/KanbeTemplate';
 import { Chart } from "react-google-charts";
 
 const productCountChartOptions = {
@@ -47,6 +46,25 @@ const pricesChartOptions = {
     },
     vAxis: {
         title: 'Avg Sale Price',
+        minValue: 0,
+    },
+    legend: {
+        position: "none"
+    }
+}
+
+const salesChartOptions = {
+    chart: {
+        title: 'Total Sales',
+        subtitle: 'Monthly',
+    },
+    chartArea: { width: '100%' },
+    colors: ['#60788f'],
+    hAxis: {
+        title: 'Month'
+    },
+    vAxis: {
+        title: 'Sales',
         minValue: 0,
     },
     legend: {
@@ -220,6 +238,10 @@ class GlobalSalesChart extends Component {
             ["Month", "Avg Sale Price"],
         ]
 
+        let salesChartData = [
+            ["Month", "Total Sales"],
+        ]
+
         let comboChartData = [
             ["Month", "Units of Produce", "Avg Sale Price"],
         ]
@@ -228,9 +250,8 @@ class GlobalSalesChart extends Component {
             productCountChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"]])
             pricesChartData.push([reducedChartArray[i].mth, (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
             comboChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Product Count"], (reducedChartArray[i]["Total Sales"]/reducedChartArray[i]["Total Product Count"])])
+            salesChartData.push([reducedChartArray[i].mth, reducedChartArray[i]["Total Sales"]])
         }
-
-        console.log(comboChartData)
 
 
         return (
@@ -281,19 +302,19 @@ class GlobalSalesChart extends Component {
                         </div>
                 </TabPanel>
                     <TabPanel value={this.state.value} index={2}>
-                    {/* <div ref='root'>
+                    <div ref='root'>
                             <div style={{ width: '100%' }}>
                                 <Chart
-                                    chartType="ComboChart"
-                                    data={comboChartData}
-                                    options={comboChartOptions}
+                                    chartType="Bar"
+                                    data={salesChartData}
+                                    options={salesChartOptions}
                                     width="100%"
                                     height="400px"
                                     // legendToggle
                                     chartEvents={chartEvents}
                                 />
                             </div>
-                        </div> */}
+                        </div>
                 </TabPanel>
                 </div>
             </Grid>

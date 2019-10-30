@@ -3,7 +3,7 @@ VALUES ('Maxfield', 'Kaniger', 'mkaniger', 'mkan@kanbesmarkets.org', 'mkaniger12
 ('Keith', 'Mulloy', 'kmulloy', 'kmulloy@kanbesmarkets.org', 'keithmulloy1234', 'Program Manager', 1),
 ('Ryan', 'Reynolds', 'rreynolds', 'ryguy@kanbesmarkets.org', 'ryanreynolds1234', 'Driver', 2);
 
-INSERT INTO "stores" ("store_name", "address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
+INSERT INTO "stores" ("store_name", "store_address", "contact_name", "contact_phone", "contact_email", "status", "store_phone_number", "delivery_route_order")
 VALUES ('Food Mart', '8025 Hickman Mills Drive, KCMO 64132', 'John Johnson', '8168888923', 'jjohnson@foodmart.com', true, '8168238453', 1),
 ('One Stop', '4511 E. Truman Road, KCMO 64127',  'Sam Schandler', '8168908023', 'sschandler@onestop.com', true, '8167347239', 2),
 ('Food Mart', '2101 E. 39th Street, KCMO 64109', 'Lara Benford','8167883243', 'lbenford@foodmart.com', true, '8169872345', 3),

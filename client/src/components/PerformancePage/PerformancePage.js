@@ -15,6 +15,7 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import './PerformancePage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import GlobalSalesChart from './globalSalesChar/globalSalesChart';
+import GlobalSalesTable from './globalSalesTable/globalSalesTable';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -61,15 +62,14 @@ class PerformancePage extends Component {
         product_name: false,
         product_sub_type: '',
         supplier_id: false,
-        selectedStartDate: new Date('2014-08-18T21:11:54'),
+        selectedStartDate: new Date('2019-09-01T21:11:54'),
         selectedEndDate: new Date('2022-08-18T21:11:54')
     };
 
     componentDidMount() {
-        // Grabs all active stores
-        this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
+        // this.props.dispatch({ type: 'FETCH_ACTIVE_STORES' });
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
-        this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
+        // this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
         this.props.dispatch({ type: 'FETCH_GLOBAL_SALES' });
     }
 
@@ -88,6 +88,7 @@ class PerformancePage extends Component {
     }
 
     handleStoreChange = (event) => {
+        console.log(event.target)
         if (event.target.value == 'All') {
             this.setState({
                 ...this.state,
@@ -124,7 +125,7 @@ class PerformancePage extends Component {
         } else {
             this.setState({
                 ...this.state,
-                supplier_id: event.target.value.id,
+                supplier_id: event.target.value,
             })
         }
     }
@@ -134,7 +135,6 @@ class PerformancePage extends Component {
 
         ////activeProducts and activeProductSubTypes will display all available options of products
         let activeProducts = [];
-        let activeProductSubTypes = [];
         let globalSalesArray = [];
         let totalSales = 0;
         let totalProductCount = 0;
@@ -142,7 +142,6 @@ class PerformancePage extends Component {
 
         ////their values come from the reducer
         activeProducts = this.props.store.activeProducts;
-        activeProductSubTypes = this.props.store.activeProducts;
         globalSalesArray = this.props.store.globalSales;
 
         //filter global Sales by product type
@@ -196,12 +195,12 @@ class PerformancePage extends Component {
         const distinctProductCount = distinctProductArray.length;
 
         ////creating a new array with only the names of products
-        let nameOfActiveProducts = activeProducts.map((item, index) => {
+        let namesOfProductsSold = globalSalesArray.map((item, index) => {
             return item.product_name
         })
 
         ////removing duplicate product types
-        const productsNoDuplicates = [...new Set(nameOfActiveProducts)];
+        const productsNoDuplicates = [...new Set(namesOfProductsSold)];
 
         ////creating drop-down for product
         if (activeProducts.length > 0) {
@@ -210,24 +209,37 @@ class PerformancePage extends Component {
             })
         }
 
+        ////creating a new array with only names of suppliers
+        let supplierNames = globalSalesArray.map((item, index) => {
+            return item.supplier_id + "-" + item.supplier_name
+        })
+
+        ////removing duplicate suppliers
+        const suppliersNoDuplicates = [...new Set(supplierNames)];
+
+        ////creating drop-down for suppliers
         let suppliers = [];
-        suppliers = this.props.store.suppliers
-        if (suppliers.length > 0) {
-            suppliers = suppliers.map((item, index) => {
-                return <MenuItem key={index} value={item}>{item.supplier_name}</MenuItem>
+        if (suppliersNoDuplicates.length > 0) {
+            suppliers = suppliersNoDuplicates.map((item, index) => {
+                return <MenuItem key={index} value={(item.split("-"))[0]}>{(item.split("-"))[1]}</MenuItem>
             })
         }
 
-        ////this generates the list on the drop down store selector
-        // const storeData = mockInvoiceData;
-        const storeData = this.props.store.activeStores;
+        ////creating a new array with only names of stores
+        let storeNames = globalSalesArray.map((item, index) => {
+            return item.store_id + "-" + item.store_name + "-" + item.store_address
+        })
 
+        ////removing duplicate stores
+        const storesNoDuplicates = [...new Set(storeNames)];
+
+        ////creating drop-down for stores
         let storeSelectorList;
-        if (storeData) {
-            storeSelectorList = storeData.map((item, index) => {
+        if (storesNoDuplicates.length > 0) {
+            storeSelectorList = storesNoDuplicates.map((item, index) => {
                 return (
-                    <MenuItem key={index} value={item.id}>
-                        {item.store_name} - {item.address}
+                    <MenuItem key={index} value={(item.split("-"))[0]}>
+                        {(item.split("-"))[1] + " - " + (item.split("-"))[2]}
                     </MenuItem>
                 )
             })
@@ -368,6 +380,7 @@ class PerformancePage extends Component {
                     <Grid item xs={12}>
                         <h3>BY STORE</h3>
                         <hr></hr>
+                        <GlobalSalesTable globalSales={globalSalesArray} />
                         <h3>OVER TIME</h3>
                         <hr></hr>
                         <GlobalSalesChart globalSales={globalSalesArray} />
