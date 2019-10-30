@@ -9,6 +9,7 @@ import storeInventorySaga from './storeInventory.saga';
 import pricesSaga from './prices.saga';
 import productsSaga from './products.saga';
 import invoiceSaga from './invoice.saga';
+import globalSales from './globalSales.sags';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -28,6 +29,7 @@ export default function* rootSaga() {
     storeInventorySaga(),
     pricesSaga(),
     productsSaga(),
-    invoiceSaga()
+    invoiceSaga(),
+    globalSales()
   ]);
 }
