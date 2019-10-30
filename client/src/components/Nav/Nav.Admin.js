@@ -160,12 +160,6 @@ class NavAdmin extends Component {
                         </ListItem>
                         </List>
                     </Collapse> */}
-                <ListItem button onClick={this.moveToInvoicePage}>
-                <ListItemIcon>
-                    <LayersIcon />
-                </ListItemIcon>
-                <ListItemText primary="Invoices" />
-                </ListItem>
             </List>
 
         )

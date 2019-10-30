@@ -11,7 +11,7 @@ import './AdminPage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 
 class AdminPage extends Component {
-
+    
     render() {
 
         return (

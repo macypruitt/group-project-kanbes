@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import LayersIcon from '@material-ui/icons/Layers';
 // import MenuItem from '@material-ui/core/MenuItem';
 import Collapse from '@material-ui/core/Collapse';
 import {
@@ -63,10 +64,14 @@ class NavDriver extends Component {
         this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
     }
 
+    moveToInvoicePage = (event) => {
+        this.props.history.push("/invoice");
+    }
+
 
 
     render() {
-    
+
         const storesArray = this.props.store.activeStores
 
 
@@ -80,7 +85,7 @@ class NavDriver extends Component {
             return (
 
 
-                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
+                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />
@@ -98,6 +103,12 @@ class NavDriver extends Component {
                     aria-labelledby="nested-list-subheader"
                     className={this.props.classes.root}
                 >
+                    <ListItem button onClick={this.moveToInvoicePage}>
+                        <ListItemIcon>
+                           <LayersIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Invoices" />
+                    </ListItem>
                     <ListItem button onClick={this.handleToggle}>
                         <ListItemIcon>
                             <LocalShippingIcon />

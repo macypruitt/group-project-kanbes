@@ -144,7 +144,6 @@ class KanbeTemplate extends Component {
     if (adminLevel == 2) {
       drawer =
         <div>
-          <Divider />
           <NavDriver />
         </div>
     }
