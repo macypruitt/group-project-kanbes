@@ -20,9 +20,9 @@ hr{
 .filterDiv{
     position: fixed;
     width:100%;
-    background: whitesmoke
+    background: #FAFAFA
 }
 
 .spacer{
-    margin-top:80px;
+    margin-top:150px;
 }

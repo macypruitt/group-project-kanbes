@@ -15,27 +15,29 @@ import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
 import './PerformancePage.css'
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import GlobalSalesChart from './globalSalesChar/globalSalesChart';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardTimePicker,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const styles = theme => ({
     buttonEdit: {
         margin: 2,
         color: 'blue'
-        //   backgroundColor: 'whitesmoke'
     },
     buttonNegative: {
         margin: 2,
         color: 'red'
-        //   backgroundColor: 'whitesmoke'
     },
     buttonPositive: {
         margin: 2,
         color: 'blue'
-        //   backgroundColor: 'whitesmoke'
     },
     buttonNew: {
         margin: 2,
         color: 'green'
-        //   backgroundColor: 'whitesmoke'
     },
     input: {
         display: 'none',
@@ -58,7 +60,9 @@ class PerformancePage extends Component {
         store_id: false,
         product_name: false,
         product_sub_type: '',
-        supplier_id: false
+        supplier_id: false,
+        selectedStartDate: new Date('2014-08-18T21:11:54'),
+        selectedEndDate: new Date('2022-08-18T21:11:54')
     };
 
     componentDidMount() {
@@ -67,6 +71,20 @@ class PerformancePage extends Component {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
         this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
         this.props.dispatch({ type: 'FETCH_GLOBAL_SALES' });
+    }
+
+    handleStartDateChange = (date) => {
+        this.setState({
+            ...this.state,
+            selectedStartDate: date
+        })
+    }
+
+    handleEndDateChange = (date) => {
+        this.setState({
+            ...this.state,
+            selectedEndDate: date
+        })
     }
 
     handleStoreChange = (event) => {
@@ -151,6 +169,17 @@ class PerformancePage extends Component {
             })
         }
 
+        //filter global Sales by date pickers
+        if (this.state.selectedStartDate && this.state.selectedEndDate && globalSalesArray.length > 0) {
+            let startDate = this.state.selectedStartDate;
+            let endDate = this.state.selectedEndDate;
+            globalSalesArray = globalSalesArray.filter(function (el) {
+
+                return Date.parse(el.last_modified) >= Date.parse(startDate)
+                    && Date.parse(el.last_modified) <= Date.parse(endDate)
+            })
+        }
+
         ///loop through global sales to get total sales $
         for (let i = 0; i < globalSalesArray.length; i++) {
             totalSales += parseFloat(globalSalesArray[i]["Total Sales"]);
@@ -207,12 +236,12 @@ class PerformancePage extends Component {
         return (
             <KanbeTemplate>
                 <Grid container spacing={3} className="admin-container">
-                <div className="spacer"></div>
+
                     <Grid className="filterDiv" item xs={12}>
                         <h3>FILTER BY...</h3>
                         <hr></hr>
-                        <Grid container spacing={3} direction="row" alignItems="center">
-                            <Grid item xs={4}>
+                        <Grid container spacing={2} direction="row" alignItems="center">
+                            <Grid item xs={2}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="product_name">{'Product'}</InputLabel>
                                     <Select
@@ -233,7 +262,7 @@ class PerformancePage extends Component {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={2}>
                                 <FormControl className={classes.formControl} >
                                     <InputLabel htmlFor="store">{'Store'}</InputLabel>
                                     <Select
@@ -255,7 +284,7 @@ class PerformancePage extends Component {
                                     </Select>
                                 </FormControl>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={2}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel htmlFor="supplier">{'Supplier'}</InputLabel>
                                     <Select
@@ -276,11 +305,47 @@ class PerformancePage extends Component {
                                     </Select>
                                 </FormControl>
                             </Grid>
+
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="Start Date"
+                                        value={this.state.selectedStartDate}
+                                        onChange={this.handleStartDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
+                            <Grid item xs={3}>
+                                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                    <KeyboardDatePicker
+                                        disableToolbar
+                                        variant="inline"
+                                        format="MM/dd/yyyy"
+                                        margin="normal"
+                                        id="date-picker-inline"
+                                        label="End Date"
+                                        value={this.state.selectedEndDate}
+                                        onChange={this.handleEndDateChange}
+                                        KeyboardButtonProps={{
+                                            'aria-label': 'change date',
+                                        }}
+                                    />
+                                </MuiPickersUtilsProvider>
+                            </Grid>
                         </Grid>
                     </Grid>
+                    {/* <div className="spacer"></div> */}
                     <Grid item xs={12}>
-                    <h3>AGGREGATES</h3>
-                    <hr></hr>
+                        <h3 className="spacer">AGGREGATES</h3>
+                        <hr></hr>
                         <h4>Kanbe's has sold...</h4>
                         <Grid container direction="row" spacing={3}>
                             <Grid item xs={4}>
@@ -301,11 +366,11 @@ class PerformancePage extends Component {
                         </Grid>
                     </Grid>
                     <Grid item xs={12}>
-                    <h3>BY STORE</h3>
-                    <hr></hr>
-                    <h3>OVER TIME</h3>
-                    <hr></hr>
-                    <GlobalSalesChart globalSales={globalSalesArray}/>
+                        <h3>BY STORE</h3>
+                        <hr></hr>
+                        <h3>OVER TIME</h3>
+                        <hr></hr>
+                        <GlobalSalesChart globalSales={globalSalesArray} />
                     </Grid>
                 </Grid >
             </KanbeTemplate>
