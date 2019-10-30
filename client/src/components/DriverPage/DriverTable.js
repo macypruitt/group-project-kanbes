@@ -29,7 +29,7 @@ const styles = theme => ({
 
 class DriverTable extends Component {
     state = {
-        isAdding: false,
+        isAdding: this.props.isAdding || false,
         itemsToSubmit: []
     };
 
@@ -52,7 +52,9 @@ class DriverTable extends Component {
         const { classes, theme } = this.props;
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
-        driverDataForRender = this.props.dataForDriver;
+        if(this.props.dataForDriver){
+            driverDataForRender = this.props.dataForDriver;
+        }
 
         ////if reducer holds data, map it into rows of the table
         if (driverDataForRender.length > 0) {
@@ -100,7 +102,6 @@ class DriverTable extends Component {
                 </table>
                 <br />
                 {addOrCancelButton}
-
             </div>
         );
     }

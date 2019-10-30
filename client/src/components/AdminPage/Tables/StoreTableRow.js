@@ -143,7 +143,7 @@ class StoreTableRow extends Component {
         ////row data is passed to this component through props from StoreTable.js
         let id = this.props.item.id
         let store_name = this.props.item.store_name;
-        let address = this.props.item.address;
+        let address = this.props.item.store_address;
         let order = this.props.item.delivery_route_order;
         let status = this.props.item.status ? <Done style={iconStylesCheck} /> : <Clear style={iconStylesX} />
         let contactEmail = this.props.item.contact_email;
@@ -226,17 +226,33 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
+         ////formatting store phone number
+         if (storePhone && storePhone.length == 10){
+            const phonePtOne = storePhone.slice(0,3)
+            const phonePtTwo = storePhone.slice(3,6)
+            const phonePtThree = storePhone.slice(6,10)
+            storePhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
+        ////formatting contact phone number
+        if (contactPhone && contactPhone.length == 10){
+            const phonePtOne = contactPhone.slice(0,3)
+            const phonePtTwo = contactPhone.slice(3,6)
+            const phonePtThree = contactPhone.slice(6,10)
+            contactPhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
         return (
             <tr>
-                <td>{order}</td>
-                <td>{store_name}</td>
-                <td>{address}</td>
-                <td>{status}</td>
-                <td>{contactName}</td>
-                <td>{contactPhone}</td>
-                <td>{contactEmail}</td>
-                <td>{storePhone}</td>
-                <td>{editOrSaveButton}</td>
+                <td className="store-col-width">{order}</td>
+                <td className="store-col-width">{store_name}</td>
+                <td className="store-col-width">{address}</td>
+                <td className="store-col-width">{status}</td>
+                <td className="store-col-width">{contactName}</td>
+                <td className="store-col-width">{contactPhone}</td>
+                <td className="store-col-width">{contactEmail}</td>
+                <td className="store-col-width">{storePhone}</td>
+                <td className="store-col-width">{editOrSaveButton}</td>
             </tr>
         );
     }

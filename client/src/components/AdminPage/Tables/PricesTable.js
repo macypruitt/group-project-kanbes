@@ -93,7 +93,7 @@ class PricesTable extends Component {
                 </div>
                 {/* Second table generates the table body */}
                 <div  className="tableFixedHead-scroll">
-                <table className="baseTable">
+                <table className="baseTable rows lowerTable">
                     <thead>
                     <tr>
                         <th className="product-col-width">Product Name</th>
