@@ -138,14 +138,14 @@ const EnhancedTableToolbar = props => {
 
     return (
         <Toolbar className={classes.root}>
-            <div className={classes.title}>
+            {/* <div className={classes.title}>
                 <Typography variant="h6" id="tableTitle">
                     Units Sold, Avg Price and Total Sales by Store
                 </Typography>
-            </div>
+            </div> */}
             <div className={classes.spacer} />
             <Button id="csvButton" variant="contained" color="primary">
-        <CSVLink data={this.reducedTableArray}>Export to CSV</CSVLink>
+        {/* <CSVLink data={globalSalesArray}>Export to CSV</CSVLink> */}
       </Button>
         </Toolbar>
     );

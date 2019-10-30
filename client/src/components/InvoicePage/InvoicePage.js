@@ -247,7 +247,7 @@ class InvoicePage extends Component {
             storeSelectorList = storeData.map((item, index) => {
                 return (
                     <MenuItem key={index} value={item.id}>
-                        {item.store_name} - {item.address}
+                        {item.store_name} - {item.store_address}
                     </MenuItem>
                 )
             })

@@ -34,7 +34,7 @@ class DriverPage extends Component {
                 let activeStoreItem = this.props.store.activeStores[i];
                 if (activeStoreItem.id === parseInt(this.props.match.params.id)) {
                     storeName = activeStoreItem.store_name;
-                    address = activeStoreItem.address;
+                    address = activeStoreItem.store_address;
                     matchStore = activeStoreItem;
                 }
             }
