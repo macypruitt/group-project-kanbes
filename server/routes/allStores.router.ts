@@ -45,7 +45,7 @@ router.post('/', (req: Request, res: Response, next: express.NextFunction): void
     const storePhoneNumber: string | null = req.body.store_phone_number;
     const deliveryRouteOrder: number = req.body.delivery_route_order;
 
-    const queryText: string = `INSERT INTO "stores" ("store_name", "address", "contact_name", 
+    const queryText: string = `INSERT INTO "stores" ("store_name", "store_address", "contact_name", 
                                 "contact_email", "contact_phone", "status", "store_phone_number", "delivery_route_order")
                                 VALUES($1, $2, $3, $4, $5, $6, $7, $8);`;
 

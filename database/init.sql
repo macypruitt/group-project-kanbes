@@ -84,11 +84,11 @@ CREATE TABLE "warehouse_inventory_junction" (
 CREATE TABLE "incoming_store" (
 "id" SERIAL PRIMARY KEY,
 "user_id" INT REFERENCES "user",
-"product_id" INT REFERENCES "products",
-"store_id" INT REFERENCES "stores",
+"product_id" INT REFERENCES "products" NOT NULL,
+"store_id" INT REFERENCES "stores" NOT NULL,
 "kanbe_sell_date" TIMESTAMP NOT NULL,
 "product_count" INT NOT NULL,
-"supplier_id" INT REFERENCES "suppliers",
+"supplier_id" INT REFERENCES "suppliers" NOT NULL,
 "notes" VARCHAR(400)
 );
 
@@ -101,10 +101,10 @@ CREATE TABLE "current_product_prices"(
 
 CREATE TABLE "outgoing_store" (
 "id" SERIAL PRIMARY KEY,
-"store_id" INT REFERENCES "stores",
-"product_id" INT REFERENCES "products",
-"user_id" INT REFERENCES "user",
-"supplier_id" INT REFERENCES "suppliers",
+"store_id" INT REFERENCES "stores" NOT NULL,
+"product_id" INT REFERENCES "products" NOT NULL,
+"user_id" INT REFERENCES "user" NOT NULL,
+"supplier_id" INT REFERENCES "suppliers" NOT NULL,
 "last_modified" TIMESTAMP,
 "sold_product_count" INT,
 "shrink_product_count" INT,
