@@ -58,6 +58,7 @@ class DriverTable extends Component {
 
         ////if reducer holds data, map it into rows of the table
         if (driverDataForRender.length > 0) {
+            console.log('driverDataForRender: ', driverDataForRender);
             driverDataForRender = driverDataForRender.map((item, index) => {
                 return <DriverTableRow key={index} item={item} />
             })
