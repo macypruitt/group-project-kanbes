@@ -57,6 +57,16 @@ class InvoiceTable extends Component {
                     </tbody>
                 </table>
                 
+
+
+
+                <div className="invoice-msg-box">
+                    Make all checks payable to Kanbe's Markets
+                    <br/>
+                    Thank you for your business!
+                    
+                </div>
+
                 <div className="totals-box">
                     Total Sales: ${totalCounter}
                     <br/>
