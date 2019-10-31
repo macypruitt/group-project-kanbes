@@ -20,7 +20,8 @@ hr{
 .filterDiv{
     position: fixed;
     width:100%;
-    background: #FAFAFA
+    background: #FAFAFA;
+    z-index: 1
 }
 
 .spacer{
