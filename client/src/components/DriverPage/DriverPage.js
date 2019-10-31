@@ -61,7 +61,7 @@ class DriverPage extends Component {
             driverTableHolder = <DriverTable />
         }
 
-        console.log('paraaaaaam',this.props.match.params.id);
+        
         var today = new Date();
         var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();

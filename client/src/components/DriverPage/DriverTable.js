@@ -68,7 +68,6 @@ class DriverTable extends Component {
     }
 
     render() {
-        console.log('raaaaaaamzzzz', this.props.match.params.id)
         
         const { classes, theme } = this.props;
         ////this prevents error if driver reducer data is unavailable

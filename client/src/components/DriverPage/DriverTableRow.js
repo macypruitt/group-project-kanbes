@@ -291,7 +291,7 @@ class DriverTableRow extends Component {
             })
         }
 
-        console.log(activeProductSubTypes)
+       
         ////creating drop-down for sub-type
         if (activeProducts.length > 0 && this.state.item.product_id) {
             ////if there is already a entry
