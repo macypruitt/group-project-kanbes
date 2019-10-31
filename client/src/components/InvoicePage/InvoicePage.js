@@ -176,6 +176,7 @@ class InvoicePage extends Component {
         console.log(item)
         this.setState({
             ...this.state,
+            invoiceNum: item.target.value.invoice_number,
             historicalInvoiceDate: item.target.value.invoice_date,
             historicalStartDate: item.target.value.start_date,
             historicalEndDate: item.target.value.end_date
@@ -194,12 +195,19 @@ class InvoicePage extends Component {
         let updatedInvoiceData = [];
         let historicalInvoiceSelectorList;
 
-        if (invoiceParameters.length > 0) {
+
+
+        if (invoiceParameters.length > 0 && this.state.store_id) {
+            let storeId = this.state.store_id
+
             historicalInvoiceSelectorList = invoiceParameters.map((item, index) => {
-                let invoiceDate = ((item.invoice_date).split("T"))[0]
-                let startDate = ((item.start_date).split("T"))[0]
-                let endDate = ((item.end_date).split("T"))[0]
-                return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
+                console.log(item)
+                if (item.store_id == storeId) {
+                    let invoiceDate = ((item.invoice_date).split("T"))[0]
+                    let startDate = ((item.start_date).split("T"))[0]
+                    let endDate = ((item.end_date).split("T"))[0]
+                    return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
+                }
             })
         }
 
@@ -222,8 +230,8 @@ class InvoicePage extends Component {
                 return Date.parse(el.last_modified) >= Date.parse(startDate)
                     && Date.parse(el.last_modified) <= Date.parse(endDate)
             })
-            console.log(invoiceData)
         }
+
 
         //group array by product
         invoiceData.reduce(function (res, value) {
