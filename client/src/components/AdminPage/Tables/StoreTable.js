@@ -168,23 +168,6 @@ class StoreTable extends Component {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 {editorSaveDeliveryButton}
                 {addOrCancelButton}
                 

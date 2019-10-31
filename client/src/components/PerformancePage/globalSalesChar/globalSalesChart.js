@@ -147,7 +147,6 @@ class GlobalSalesChart extends Component {
 
 
     handleChange = (event, newValue) => {
-        console.log(newValue)
         this.setState({
             ...this.state,
             value: newValue
@@ -165,7 +164,7 @@ class GlobalSalesChart extends Component {
         const scale = value => {
             return 'grey'
         }
-        console.log(this.props.globalSales);
+
         let globalSalesArray = [];
         let chartArray = [];
         globalSalesArray = this.props.globalSales;
@@ -228,7 +227,6 @@ class GlobalSalesChart extends Component {
             return res;
         }, {});
 
-        console.log(reducedChartArray)
 
         let productCountChartData = [
             ["Month", "Units of Produce"],

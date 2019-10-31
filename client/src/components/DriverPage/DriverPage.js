@@ -34,7 +34,7 @@ class DriverPage extends Component {
                 let activeStoreItem = this.props.store.activeStores[i];
                 if (activeStoreItem.id === parseInt(this.props.match.params.id)) {
                     storeName = activeStoreItem.store_name;
-                    address = activeStoreItem.address;
+                    address = activeStoreItem.store_address;
                     matchStore = activeStoreItem;
                 }
             }
@@ -56,7 +56,7 @@ class DriverPage extends Component {
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder; 
         if (dataForDriver.length > 0) {
-            driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
+            driverTableHolder = <DriverTable dataForDriver={dataForDriver} isAdding={false} current_store={this.props.match.params.id}/>
         } else {
             driverTableHolder = <DriverTable />
         }

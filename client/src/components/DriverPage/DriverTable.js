@@ -8,6 +8,9 @@ import PropTypes from "prop-types";
 import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
 import './DriverTable.css';
+import Swal from 'sweetalert2-react';
+import { withRouter } from 'react-router';
+
 
 const styles = theme => ({
     buttonPositive: {
@@ -30,8 +33,17 @@ const styles = theme => ({
 class DriverTable extends Component {
     state = {
         isAdding: this.props.isAdding || false,
-        itemsToSubmit: []
+        itemsToSubmit: [],
+        show: false
     };
+
+
+    componentDidMount(){
+        this.setState({
+            ...this.state,
+            isAdding: false,
+        }, ()=> console.log('staaaaate', this.state))
+    }
 
     clickAddProduct = (event) => {
         ////'Add Product' button changes state, triggering render of new row
@@ -48,14 +60,23 @@ class DriverTable extends Component {
         })
     }
 
+    clickSaveWithoutData = (event) => {
+        this.setState({
+            ...this.state,
+            show: true
+        })
+    }
+
     render() {
+        console.log('raaaaaaamzzzz', this.props.match.params.id)
+        
         const { classes, theme } = this.props;
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
-        if(this.props.dataForDriver){
+        if (this.props.dataForDriver) {
             driverDataForRender = this.props.dataForDriver;
         }
-
+        
         ////if reducer holds data, map it into rows of the table
         if (driverDataForRender.length > 0) {
             driverDataForRender = driverDataForRender.map((item, index) => {
@@ -73,35 +94,45 @@ class DriverTable extends Component {
         </div>
         if (this.state.isAdding) {
             const emptyItem = {}
-            newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddProduct={this.clickAddProduct} />
+            newRow = <DriverTableRow editable={true} addable={true} item={emptyItem} clickAddProduct={this.clickAddProduct} clickSaveProductWithoutData={this.clickSaveWithoutData}/>
             addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
             <div>
-                <table className="driver-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Sub-type</th>
-                            <th>Supplier</th>
-                            <th>Standard Par</th>
-                            <th>Last Par</th>
-                            <th>Sold</th>
-                            <th>Shrink</th>
-                            <th># Stocked</th>
-                            <th>Notes</th>
-                            <th>Last Modified</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {driverDataForRender}
-                        {newRow}
-                    </tbody>
-                </table>
-                <br />
-                {addOrCancelButton}
+                <div>
+                    <Swal
+                        show={this.state.show}
+                        title="ALERT!"
+                        text="You did not fill out all inputs"
+                        onConfirm={() => this.setState({ show: false })}
+                    />
+                </div>
+                <div>
+                    <table className="driver-table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Sub-type</th>
+                                <th>Supplier</th>
+                                <th>Standard Par</th>
+                                <th>Last Par</th>
+                                <th>Sold</th>
+                                <th>Shrink</th>
+                                <th># Stocked</th>
+                                <th>Notes</th>
+                                <th>Last Modified</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {driverDataForRender}
+                            {newRow}
+                        </tbody>
+                    </table>
+                    <br />
+                    {addOrCancelButton}
+                </div>
             </div>
         );
     }
@@ -115,5 +146,5 @@ DriverTable.propTypes = {
 };
 
 export default connect(mapStoreToProps)(
-    withStyles(styles, { withTheme: true })(DriverTable)
+    withStyles(styles, { withTheme: true })(withRouter(DriverTable))
 );
