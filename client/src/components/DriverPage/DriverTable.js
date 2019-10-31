@@ -9,6 +9,8 @@ import DriverTableRow from './DriverTableRow';
 import { Button } from '@material-ui/core';
 import './DriverTable.css';
 import Swal from 'sweetalert2-react';
+import { withRouter } from 'react-router';
+
 
 const styles = theme => ({
     buttonPositive: {
@@ -35,6 +37,14 @@ class DriverTable extends Component {
         show: false
     };
 
+
+    componentDidMount(){
+        this.setState({
+            ...this.state,
+            isAdding: false,
+        }, ()=> console.log('staaaaate', this.state))
+    }
+
     clickAddProduct = (event) => {
         ////'Add Product' button changes state, triggering render of new row
         this.setState({
@@ -58,13 +68,15 @@ class DriverTable extends Component {
     }
 
     render() {
+        console.log('raaaaaaamzzzz', this.props.match.params.id)
+        
         const { classes, theme } = this.props;
         ////this prevents error if driver reducer data is unavailable
         let driverDataForRender = [];
         if (this.props.dataForDriver) {
             driverDataForRender = this.props.dataForDriver;
         }
-
+        
         ////if reducer holds data, map it into rows of the table
         if (driverDataForRender.length > 0) {
             driverDataForRender = driverDataForRender.map((item, index) => {
@@ -134,5 +146,5 @@ DriverTable.propTypes = {
 };
 
 export default connect(mapStoreToProps)(
-    withStyles(styles, { withTheme: true })(DriverTable)
+    withStyles(styles, { withTheme: true })(withRouter(DriverTable))
 );
