@@ -5,6 +5,7 @@ import InvoiceTable from '../InvoicePage/InvoiceTable';
 import InvoiceHeader from './InvoiceHeader';
 import './InvoicePage.css';
 // import Select from 'react-select';
+import Swal from 'sweetalert2-react';
 import {
     Button,
     Select,
@@ -80,7 +81,8 @@ class InvoicePage extends Component {
         historicalInvoiceHidden: true,
         historicalStartDate: '',
         historicalEndDate: '',
-        historicalInvoiceDate: ''
+        historicalInvoiceDate: '',
+        show: false
     };
 
     componentDidMount() {
@@ -148,12 +150,19 @@ class InvoicePage extends Component {
     }
 
     postInvoice = (event) => {
-        this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
-        this.setState({
-            ...this.state,
-            newInvoiceHidden: true,
-            historicalInvoiceHidden: true
-        })
+        if (!this.state.store_id) {
+            this.setState({
+                ...this.state,
+                show: true
+            })
+        } else {
+            this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
+            this.setState({
+                ...this.state,
+                newInvoiceHidden: true,
+                historicalInvoiceHidden: true
+            })
+        }
     }
 
     handleNewInvoiceClick = (event) => {
@@ -420,6 +429,14 @@ class InvoicePage extends Component {
 
             <KanbeTemplate>
                 <div className="invoice-container">
+                    <div>
+                        <Swal
+                            show={this.state.show}
+                            title="ALERT!"
+                            text="Remember to Select a Store!"
+                            onConfirm={() => this.setState({ show: false })}
+                        />
+                    </div>
                     <div className="no-print" id="decisionButtons">
                         <Grid container spacing={3}>
                             <Grid item xs={4} className="storeSelector">
