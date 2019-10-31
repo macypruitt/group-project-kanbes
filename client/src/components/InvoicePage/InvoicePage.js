@@ -104,6 +104,8 @@ class InvoicePage extends Component {
         this.setState({
             ...this.state,
             endDate: date
+        },()=>{
+            console.log(this.state)
         })
     }
 
@@ -210,7 +212,6 @@ class InvoicePage extends Component {
             let storeId = this.state.store_id
 
             historicalInvoiceSelectorList = invoiceParameters.map((item, index) => {
-                console.log(item)
                 if (item.store_id == storeId) {
                     let invoiceDate = ((item.invoice_date).split("T"))[0]
                     let startDate = ((item.start_date).split("T"))[0]
@@ -222,23 +223,24 @@ class InvoicePage extends Component {
         }
 
         //filter invoice results by billing date pickers
-        if (this.state.startDate && this.state.endDate && this.props.store.invoice.length > 0) {
+        if (this.state.startDate && this.state.endDate && this.props.store.invoice.length > 0 && this.state.historicalInvoiceHidden) {
+            console.log('in new invoice')
             let startDate = this.state.startDate;
             let endDate = this.state.endDate;
             invoiceData = this.props.store.invoice;
             invoiceData = invoiceData.filter(function (el) {
 
-                return Date.parse(el.last_modified) >= Date.parse(startDate.format("MM/DD/YYYY"))
-                    && Date.parse(el.last_modified) <= Date.parse(endDate.format("MM/DD/YYYY"))
+                return moment(el.last_modified).isBetween(startDate,endDate )
+                
             })
-        } else if (this.state.historicalStartDate && this.state.historicalEndDate && this.props.store.invoice.length > 0) {
+        } else if (this.state.historicalStartDate && this.state.historicalEndDate && this.props.store.invoice.length > 0 && !this.state.historicalInvoiceHidden) {
+            console.log('in historical invoice selector')
             let startDate = this.state.historicalStartDate;
             let endDate = this.state.historicalEndDate;
             invoiceData = this.props.store.invoice;
             invoiceData = invoiceData.filter(function (el) {
 
-                return Date.parse(el.last_modified) >= Date.parse(startDate)
-                    && Date.parse(el.last_modified) <= Date.parse(endDate)
+                    return moment(el.last_modified).isBetween(startDate,endDate )
             })
         }
 

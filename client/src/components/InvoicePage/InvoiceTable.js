@@ -6,7 +6,6 @@ class InvoiceTable extends Component {
    
 
     render() {
-        console.log(this.props.tableDataToRender)
         let totalCounter = 0;
 
         let tableData = this.props.tableDataToRender
