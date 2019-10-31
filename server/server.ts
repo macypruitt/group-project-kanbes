@@ -39,7 +39,7 @@ app.use('/api/invoice', invoiceRouter);
 app.use('/api/allCurrentProducts', currentProducts)
 
 // Serve static files
-app.use(express.static('build'));
+app.use(express.static('client/build'));
 
 // App Set //
 const PORT: number | string = process.env.PORT || 5000;
