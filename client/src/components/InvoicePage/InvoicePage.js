@@ -5,6 +5,7 @@ import InvoiceTable from '../InvoicePage/InvoiceTable';
 import InvoiceHeader from './InvoiceHeader';
 import './InvoicePage.css';
 // import Select from 'react-select';
+import Swal from 'sweetalert2-react';
 import {
     Button,
     Select,
@@ -80,7 +81,8 @@ class InvoicePage extends Component {
         historicalInvoiceHidden: true,
         historicalStartDate: '',
         historicalEndDate: '',
-        historicalInvoiceDate: ''
+        historicalInvoiceDate: '',
+        show: false
     };
 
     componentDidMount() {
@@ -148,12 +150,19 @@ class InvoicePage extends Component {
     }
 
     postInvoice = (event) => {
-        this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
-        this.setState({
-            ...this.state,
-            newInvoiceHidden: true,
-            historicalInvoiceHidden: true
-        })
+        if (!this.state.store_id) {
+            this.setState({
+                ...this.state,
+                show: true
+            })
+        } else {
+            this.props.dispatch({ type: 'POST_INVOICE', payload: this.state });
+            this.setState({
+                ...this.state,
+                newInvoiceHidden: true,
+                historicalInvoiceHidden: true
+            })
+        }
     }
 
     handleNewInvoiceClick = (event) => {
@@ -176,6 +185,7 @@ class InvoicePage extends Component {
         console.log(item)
         this.setState({
             ...this.state,
+            invoiceNum: item.target.value.invoice_number,
             historicalInvoiceDate: item.target.value.invoice_date,
             historicalStartDate: item.target.value.start_date,
             historicalEndDate: item.target.value.end_date
@@ -194,12 +204,20 @@ class InvoicePage extends Component {
         let updatedInvoiceData = [];
         let historicalInvoiceSelectorList;
 
-        if (invoiceParameters.length > 0) {
+
+
+        if (invoiceParameters.length > 0 && this.state.store_id) {
+            let storeId = this.state.store_id
+
             historicalInvoiceSelectorList = invoiceParameters.map((item, index) => {
-                let invoiceDate = ((item.invoice_date).split("T"))[0]
-                let startDate = ((item.start_date).split("T"))[0]
-                let endDate = ((item.end_date).split("T"))[0]
-                return <MenuItem key={index} value={item}>(#{item.invoice_number}), ({invoiceDate}) : ({startDate}) - ({endDate})</MenuItem>
+                console.log(item)
+                if (item.store_id == storeId) {
+                    let invoiceDate = ((item.invoice_date).split("T"))[0]
+                    let startDate = ((item.start_date).split("T"))[0]
+                    let endDate = ((item.end_date).split("T"))[0]
+                    return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
+                }
+
             })
         }
 
@@ -222,8 +240,8 @@ class InvoicePage extends Component {
                 return Date.parse(el.last_modified) >= Date.parse(startDate)
                     && Date.parse(el.last_modified) <= Date.parse(endDate)
             })
-            console.log(invoiceData)
         }
+
 
         //group array by product
         invoiceData.reduce(function (res, value) {
@@ -247,7 +265,7 @@ class InvoicePage extends Component {
             storeSelectorList = storeData.map((item, index) => {
                 return (
                     <MenuItem key={index} value={item.id}>
-                        {item.store_name} - {item.address}
+                        {item.store_name} - {item.store_address}
                     </MenuItem>
                 )
             })
@@ -412,6 +430,14 @@ class InvoicePage extends Component {
 
             <KanbeTemplate>
                 <div className="invoice-container">
+                    <div>
+                        <Swal
+                            show={this.state.show}
+                            title="ALERT!"
+                            text="Remember to Select a Store!"
+                            onConfirm={() => this.setState({ show: false })}
+                        />
+                    </div>
                     <div className="no-print" id="decisionButtons">
                         <Grid container spacing={3}>
                             <Grid item xs={4} className="storeSelector">
