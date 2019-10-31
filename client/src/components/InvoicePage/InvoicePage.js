@@ -121,6 +121,7 @@ class InvoicePage extends Component {
             store_id: event.target.value
         }, () => {
             this.props.dispatch({ type: 'FETCH_INVOICE', payload: this.state.store_id });
+            console.log(this.state.store_id, 'store id of selected store');
             this.setInvoiceNumber()
         })
     }
@@ -193,13 +194,14 @@ class InvoicePage extends Component {
         let tableDataToRender;
         let updatedInvoiceData = [];
         let historicalInvoiceSelectorList;
-
-        if (invoiceParameters.length > 0) {
+       
+        if (invoiceParameters.length > 0 && this.props.store) {
+        
             historicalInvoiceSelectorList = invoiceParameters.map((item, index) => {
                 let invoiceDate = ((item.invoice_date).split("T"))[0]
                 let startDate = ((item.start_date).split("T"))[0]
                 let endDate = ((item.end_date).split("T"))[0]
-                return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
+                return <MenuItem key={index} value={item}>({item.invoice_number}): ({invoiceDate}):({startDate}) - ({endDate})</MenuItem>
             })
         }
 
@@ -247,7 +249,7 @@ class InvoicePage extends Component {
             storeSelectorList = storeData.map((item, index) => {
                 return (
                     <MenuItem key={index} value={item.id}>
-                        {item.store_name} - {item.address}
+                        {item.store_name} - {item.store_address}
                     </MenuItem>
                 )
             })
@@ -273,7 +275,7 @@ class InvoicePage extends Component {
 
         ////if values have been entered, they will render on the page
         if (this.state.historicalStartDate) {
-            startDateToRender = ((this.state.historicalStartDate).split("T"))[0]
+            startDateToRender = ((this.state.historicalStartDate.split("T")))[0]
         }
         else if (this.state.startDate) {
             startDateToRender = this.state.startDate.format("MM/DD/YYYY");
