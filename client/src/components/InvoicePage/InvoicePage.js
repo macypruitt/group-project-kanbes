@@ -217,6 +217,7 @@ class InvoicePage extends Component {
                     let endDate = ((item.end_date).split("T"))[0]
                     return <MenuItem key={index} value={item}>({item.invoice_number}) - ({invoiceDate}) - ({startDate}) - ({endDate})</MenuItem>
                 }
+
             })
         }
 
