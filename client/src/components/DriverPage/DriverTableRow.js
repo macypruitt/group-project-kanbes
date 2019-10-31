@@ -86,7 +86,8 @@ class DriverTableRow extends Component {
             isEditable: !this.state.isEditable,
             item: {
                 ...this.props.item,
-                last_modified: this.state.currentTimeStamp
+                last_modified: this.state.currentTimeStamp,
+                store_id: this.props.match.params.id
             }
         }, () => {
             console.log(this.state)

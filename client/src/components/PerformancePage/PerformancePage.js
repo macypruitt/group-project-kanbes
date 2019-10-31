@@ -305,6 +305,7 @@ class PerformancePage extends Component {
                                         label="Supplier"
                                         className="selector"
                                         margin="normal"
+                                        placeholder={'All'}
                                         onChange={(event) => this.handleChangeSupplierName(event, 'supplier')}
                                         value={this.state.supplier}
                                         inputProps={{
