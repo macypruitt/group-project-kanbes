@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
@@ -6,7 +6,7 @@ import {
   Switch,
 } from 'react-router-dom';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 // import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -31,16 +31,16 @@ import './App.css';
 
 
 class App extends Component {
-  componentDidMount () {
-    this.props.dispatch({type: 'FETCH_USER'});
+  componentDidMount() {
+    this.props.dispatch({ type: 'FETCH_USER' });
   }
-  
+
   render() {
-    
+
 
     return (
-     
-      
+
+
       <Router>
         <div>
           {/* <Nav /> */}
@@ -49,21 +49,11 @@ class App extends Component {
             <Redirect exact from="/" to="/login" />
             {/* Visiting localhost:3000/about will show the about page.
             This is a route anyone can see, no login necessary */}
-            <Route
-              exact
-              path="/about"
-              component={KanbeTemplate}
-            />
-            
+
             <Route
               exact
               path="/admin"
               component={AdminPage}
-            />
-            <Route
-              exact
-              path="/invoice"
-              component={InvoicePage}
             />
             <Route
               exact
@@ -95,8 +85,8 @@ class App extends Component {
             Visiting localhost:3000/user will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
-            
-           
+
+
             {/* This works the same as the other protected route, except that if the user is logged in,
             they will be redirected to the authRedirect path provided. */}
             <ProtectedRoute
@@ -104,7 +94,7 @@ class App extends Component {
               path="/login"
               driverRedirect="/driver"
               managerRedirect="/manager"
-              directorRedirect="/admin"
+              directorRedirect="/director"
               component={LoginPage}
             />
             {/*This route is used for getting the first store in from activeStores on page load */}
@@ -124,15 +114,20 @@ class App extends Component {
               path="/manager"
               component={InvoicePage}
             />
-           <ProtectedRoute
+            <ProtectedRoute
               exact
               path="/director"
               component={PerformancePage}
             />
+            <ProtectedRoute
+              exact
+              path="/invoice"
+              component={InvoicePage}
+            />
             <Route
-            exact 
-            path="/modal"
-            component={DriverViewModal}
+              exact
+              path="/modal"
+              component={DriverViewModal}
             />
 
             {/* If none of the other routes matched, we will show a 404. */}
@@ -140,9 +135,10 @@ class App extends Component {
           </Switch>
           <Footer />
         </div>
-      
-    </Router>
-  )}
+
+      </Router>
+    )
+  }
 }
 
 export default connect(mapStoreToProps)(App);

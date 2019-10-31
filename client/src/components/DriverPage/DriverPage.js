@@ -52,7 +52,7 @@ class DriverPage extends Component {
         if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
         }
-
+        console.log('Data test for driver is ', dataForDriver);
         ////driverTableHolder shows a table only if reducer is holding data
         let driverTableHolder; 
         if (dataForDriver.length > 0) {
