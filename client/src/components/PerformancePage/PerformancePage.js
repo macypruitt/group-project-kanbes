@@ -22,6 +22,9 @@ import {
     KeyboardTimePicker,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import MomentUtils from '@date-io/moment';
+import moment from 'moment';
+
 
 const styles = theme => ({
     buttonEdit: {
@@ -174,8 +177,7 @@ class PerformancePage extends Component {
             let endDate = this.state.selectedEndDate;
             globalSalesArray = globalSalesArray.filter(function (el) {
 
-                return Date.parse(el.last_modified) >= Date.parse(startDate)
-                    && Date.parse(el.last_modified) <= Date.parse(endDate)
+                return moment(el.last_modified).isBetween(startDate,endDate)
             })
         }
 
