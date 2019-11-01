@@ -17,11 +17,11 @@ router.get('/', (req: Request, res: Response, next: express.NextFunction): void 
                             JOIN "stores" ON "stores"."id" = OS."store_id"
                             JOIN "suppliers" ON "suppliers"."id" = OS."supplier_id"
                             JOIN "current_product_prices" ON "current_product_prices"."id" = OS."current_price_per_unit_id"
-                            AND OS."product_id" = OS."current_price_per_unit_id"
+                            
                             GROUP BY OS.store_id,OS.last_modified, OS.product_id, OS.current_price_per_unit_id, current_price_per_unit,
                             OS.sold_product_count, OS.sold_price_per_unit, OS.supplier_id, product_name, store_name, supplier_name, store_address;`;
 
-
+                            //AND OS."product_id" = OS."current_price_per_unit_id"
 
     pool.query(queryText)
         .then((result) => {

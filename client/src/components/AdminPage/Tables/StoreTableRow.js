@@ -87,11 +87,14 @@ class StoreTableRow extends Component {
             ...this.state,
             deliveryOrderArray: storeArray,
             [event.target.name]: event.target.value
-        })
-        console.log(this.state);
-
-        //dispatch to reducer that holds delivery route array globally and then dispatch that array from store table component on save
+        },()=>{
+            //dispatch to reducer that holds delivery route array globally and then dispatch that array from store table component on save
         this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_ARRAY', payload: this.state.deliveryOrderArray })
+            console.log(this.state);
+        })
+        
+
+        
     }
 
     clickSave = (event) => {

@@ -86,7 +86,8 @@ class DriverTableRow extends Component {
             isEditable: !this.state.isEditable,
             item: {
                 ...this.props.item,
-                last_modified: this.state.currentTimeStamp
+                last_modified: this.state.currentTimeStamp,
+                store_id: this.props.match.params.id
             }
         }, () => {
             console.log(this.state)
@@ -215,7 +216,8 @@ class DriverTableRow extends Component {
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         // this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
     clickSaveUpdate = (event) => {
@@ -224,8 +226,9 @@ class DriverTableRow extends Component {
             isUpdatable: false
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
 
@@ -291,7 +294,7 @@ class DriverTableRow extends Component {
             })
         }
 
-        console.log(activeProductSubTypes)
+       
         ////creating drop-down for sub-type
         if (activeProducts.length > 0 && this.state.item.product_id) {
             ////if there is already a entry

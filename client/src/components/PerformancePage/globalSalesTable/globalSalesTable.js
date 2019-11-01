@@ -143,10 +143,10 @@ const EnhancedTableToolbar = props => {
                     Units Sold, Avg Price and Total Sales by Store
                 </Typography>
             </div> */}
-            <div className={classes.spacer} />
-            <Button id="csvButton" variant="contained" color="primary">
+            {/* <div className={classes.spacer} />
+            <Button id="csvButton" variant="contained" color="primary"> */}
         {/* <CSVLink data={globalSalesArray}>Export to CSV</CSVLink> */}
-      </Button>
+      {/* </Button> */}
         </Toolbar>
     );
 };
@@ -317,7 +317,7 @@ class storeTable extends Component {
                     <Grid container>
                         <Grid item xs={12} justify="flex-end" container spacing={0}>
                             <Paper className={classes.root}>
-                                <EnhancedTableToolbar />
+                                {/* <EnhancedTableToolbar /> */}
                                 <div className={classes.tableWrapper}>
                                     <Table stickyHeader aria-labelledby="tableTitle">
                                         <EnhancedTableHead

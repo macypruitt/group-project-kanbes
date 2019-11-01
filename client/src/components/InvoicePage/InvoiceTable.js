@@ -6,10 +6,18 @@ class InvoiceTable extends Component {
    
 
     render() {
-        console.log(this.props.tableDataToRender)
         let totalCounter = 0;
 
-        const tableData = this.props.tableDataToRender
+        let tableData = this.props.tableDataToRender
+tableData = tableData.sort(function(a,b){
+    var keyA = a.product_name
+    var keyB = b.product_name;
+    //compare two names
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+});
+
         let tableToRender;
         
         if(this.props.tableDataToRender.length > 0){
