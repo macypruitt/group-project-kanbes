@@ -12,6 +12,7 @@ import warehouseInventoryRouter from './routes/warehouseInventory.router';
 import invoiceRouter from './routes/invoice.router';
 import currentProducts from './routes/allCurrentProducts.router';
 import globalSales from './routes/globalSales.router';
+import todaysSales from './routes/todaysSalesByStore.router';
 require('dotenv').config();
 
 const app: any = express();
@@ -38,7 +39,9 @@ app.use('/api/allCurrentPrices', pricesRouter);
 app.use('/api/warehouse/inventory', warehouseInventoryRouter);
 app.use('/api/invoice', invoiceRouter);
 app.use('/api/allCurrentProducts', currentProducts);
-app.use('/api/globalSales', globalSales)
+app.use('/api/globalSales', globalSales);
+app.use('/api/todaysSales', todaysSales);
+
 
 // Serve static files
 app.use(express.static('build'));
