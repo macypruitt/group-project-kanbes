@@ -216,7 +216,8 @@ class DriverTableRow extends Component {
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         // this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
     clickSaveUpdate = (event) => {
@@ -225,8 +226,9 @@ class DriverTableRow extends Component {
             isUpdatable: false
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
 

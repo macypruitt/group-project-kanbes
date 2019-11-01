@@ -375,7 +375,7 @@ class PerformancePage extends Component {
                             </Grid>
                             <Grid item xs={4}>
                                 <Paper className="aggregates">
-                                    ...totalling <h1>${totalSales.toFixed(2)}</h1> worth of produce.
+                                    ...totalling <h1>${totalSales.toFixed(2)}</h1> worth of produce (total: Kanbe and Store).
                                 </Paper>
                             </Grid>
                         </Grid>

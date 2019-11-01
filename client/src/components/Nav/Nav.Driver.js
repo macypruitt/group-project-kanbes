@@ -60,7 +60,8 @@ class NavDriver extends Component {
 
     moveToDriverPage = (id) => {
         this.props.history.push(`/driver/${id}`);
-        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
+        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: id});
     }
 
 

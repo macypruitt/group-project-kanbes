@@ -19,12 +19,18 @@ class DriverPage extends Component {
             this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
         }
         this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload: { firstStore } });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
     render() {
+        console.log(this.props.store.todaysSales[0])
         let storeName;
         let address;
         let matchStore;
+        let dailySales= 0;
+        if(this.props.store.todaysSales.length > 0){
+        dailySales = this.props.store.todaysSales[0]["Total Sales"]
+        }
 
         {/* This code is checking to see if there is a store and params id available, 
             if both conditions are met, it will loop through active store array and 
@@ -73,11 +79,14 @@ class DriverPage extends Component {
                         <Grid item xs={12}>
                             <h1>{storeName}</h1>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <p>{address}</p>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <p>Today's Date: {date}</p>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <p>Today's Gross Sales: ${dailySales}</p>
                         </Grid>
                         <Grid item xs={12}>
                             {driverTableHolder}
