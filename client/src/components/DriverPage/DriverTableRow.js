@@ -170,40 +170,16 @@ class DriverTableRow extends Component {
         //         }
         //     })
         // }
-        if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: parseInt(event.target.value)
-                }
-            }, () => {
-                const newLastPar = this.state.item.last_par - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
-                console.log('last par', this.state.item.last_par)
-                console.log('sold',this.state.item.sold_product_count )
-                console.log('shrink', this.state.item.shrink_product_count)
-                console.log('product count', this.state.item.product_count)
-                this.setState({
-                    ...this.state,
-                    item: {
-                        ...this.state.item,
-                        last_par: newLastPar
-                    }
-                },()=>{
-                    console.log(this.state.item)
-                })
-            })
-        }
-        else {
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: event.target.value
-                }
-            })
-        }
+         const fieldValue = event.target.value;
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                [dataKey]: fieldValue
+            }
+        }, () => {
+            console.log(this.state);
+        })
     }
 
     setValues = (value) => {
@@ -516,6 +492,13 @@ class DriverTableRow extends Component {
                 <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveUpdate}>Save Update</Button>
                     <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
                 </div>
+            last_par = <Input
+                type="tel"
+                pattern="[0-9]*"
+                className="row-input"
+                placeholder={this.props.item.sold_product_count}
+                onChange={(event) => this.handleChangeInputText(event, 'last_par')}
+            />
             sold = <Input
                 type="tel"
                 pattern="[0-9]*"
