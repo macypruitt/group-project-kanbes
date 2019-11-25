@@ -4,6 +4,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalShippingIcon from '@material-ui/icons/LocalShipping';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import LayersIcon from '@material-ui/icons/Layers';
 // import MenuItem from '@material-ui/core/MenuItem';
 import Collapse from '@material-ui/core/Collapse';
 import {
@@ -60,27 +61,32 @@ class NavDriver extends Component {
 
     moveToDriverPage = (id) => {
         this.props.history.push(`/driver/${id}`);
-        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id })
+        this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: id });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: id});
+    }
+
+    moveToInvoicePage = (event) => {
+        this.props.history.push("/invoice");
     }
 
 
 
     render() {
-    
+
         const storesArray = this.props.store.activeStores
 
 
         let storeNavData = storesArray.map((item, index) => {
 
             //Breaks down the store address on the navigation bar
-            let address = item.address;
+            let address = item.store_address;
             address = address.split(",");
             address = address[0];
 
             return (
 
 
-                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)}  className={this.props.classes.nested}>
+                <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
                             <ListItemText primary={item.store_name} secondary={address} />
@@ -98,6 +104,12 @@ class NavDriver extends Component {
                     aria-labelledby="nested-list-subheader"
                     className={this.props.classes.root}
                 >
+                    <ListItem button onClick={this.moveToInvoicePage}>
+                        <ListItemIcon>
+                           <LayersIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Invoices" />
+                    </ListItem>
                     <ListItem button onClick={this.handleToggle}>
                         <ListItemIcon>
                             <LocalShippingIcon />

@@ -6,29 +6,37 @@ class InvoiceTable extends Component {
    
 
     render() {
-        
         let totalCounter = 0;
 
-        const tableData = this.props.tableDataToRender
+        let tableData = this.props.tableDataToRender
+tableData = tableData.sort(function(a,b){
+    var keyA = a.product_name
+    var keyB = b.product_name;
+    //compare two names
+    if (keyA < keyB) return -1;
+    if (keyA > keyB) return 1;
+    return 0;
+});
+
         let tableToRender;
         
         if(this.props.tableDataToRender.length > 0){
             tableToRender = tableData.map((item, index) => {
                 const rowTotal = Number.parseFloat(
-                                    item.sold_product_count 
-                                    * item.unit_sale_price).toFixed(2);
+                                    item["Total Sales"]).toFixed(2);
+                                    
                 totalCounter += parseFloat(rowTotal);
                 
 
                 return(
                     <tr key={index}>
-                        <td>{item.sold_product_count}</td>
+                        <td>{item["Total Product Count"]}</td>
                         <td>{item.product_name}</td>
                         <td className="money-column">
-                            {item.unit_sale_price}
+                            ${item.sold_price_per_unit}
                         </td>
                         <td className="money-column">
-                            {rowTotal}
+                            ${rowTotal}
                             
                         </td>
                     </tr>
@@ -57,12 +65,22 @@ class InvoiceTable extends Component {
                     </tbody>
                 </table>
                 
+
+
+
+                <div className="invoice-msg-box">
+                    Make all checks payable to Kanbe's Markets
+                    <br/>
+                    Thank you for your business!
+                    
+                </div>
+
                 <div className="totals-box">
-                    Total Sales: {totalCounter}
+                    Total Sales: ${totalCounter}
                     <br/>
-                    Store: {storeKeepsThirtyPercent}
+                    Store: ${storeKeepsThirtyPercent}
                     <br/>
-                    Kanbe's Due: {kanbesDueSeventyPercent}
+                    Kanbe's Due: ${kanbesDueSeventyPercent}
                 </div>
 
                 

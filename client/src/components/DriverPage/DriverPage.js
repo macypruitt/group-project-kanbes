@@ -4,11 +4,10 @@ import mapStoreToProps from '../../redux/mapStoreToProps';
 import KanbeTemplate from '../KanbeTemplate/KanbeTemplate';
 import { withRouter } from 'react-router';
 import DriverTable from './DriverTable';
-import Grid from '@material-ui/core/Grid';
-import './DriverPage.css'
+import { Grid, Button } from '@material-ui/core';
+import './DriverPage.css';
 
 class DriverPage extends Component {
-
 
     componentDidMount() {
         {/* This code is getting the store inventory. If there is no params id
@@ -20,16 +19,18 @@ class DriverPage extends Component {
             this.props.dispatch({ type: 'FETCH_STORE_INVENTORY', payload: selectedStoreId });
         }
         this.props.dispatch({ type: 'FETCH_ACTIVE_STORES', payload: { firstStore } });
-
-
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
-
     render() {
-        console.log(this.props.match.params.id)
+        console.log(this.props.store.todaysSales[0])
         let storeName;
         let address;
         let matchStore;
+        let dailySales= 0;
+        if(this.props.store.todaysSales.length > 0){
+        dailySales = this.props.store.todaysSales[0]["Total Sales"]
+        }
 
         {/* This code is checking to see if there is a store and params id available, 
             if both conditions are met, it will loop through active store array and 
@@ -39,7 +40,7 @@ class DriverPage extends Component {
                 let activeStoreItem = this.props.store.activeStores[i];
                 if (activeStoreItem.id === parseInt(this.props.match.params.id)) {
                     storeName = activeStoreItem.store_name;
-                    address = activeStoreItem.address;
+                    address = activeStoreItem.store_address;
                     matchStore = activeStoreItem;
                 }
             }
@@ -50,7 +51,6 @@ class DriverPage extends Component {
             address = this.props.store.activeStores[0].address
             matchStore = this.props.store.activeStores[0];
         }
-
         
         ////this simulates the array data from the database query; it will be replaced with reducer data
         let dataForDriver = [];
@@ -58,14 +58,16 @@ class DriverPage extends Component {
         if (this.props.store.storeInventory.length > 0) {
             dataForDriver = this.props.store.storeInventory
         }
-
-
+        console.log('Data test for driver is ', dataForDriver);
         ////driverTableHolder shows a table only if reducer is holding data
-        let driverTableHolder;
+        let driverTableHolder; 
         if (dataForDriver.length > 0) {
-            driverTableHolder = <DriverTable dataForDriver={dataForDriver} />
+            driverTableHolder = <DriverTable dataForDriver={dataForDriver} isAdding={false} current_store={this.props.match.params.id}/>
+        } else {
+            driverTableHolder = <DriverTable />
         }
 
+        
         var today = new Date();
         var date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
         var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -77,18 +79,21 @@ class DriverPage extends Component {
                         <Grid item xs={12}>
                             <h1>{storeName}</h1>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <p>{address}</p>
                         </Grid>
-                        <Grid item xs={6}>
+                        <Grid item xs={4}>
                             <p>Today's Date: {date}</p>
+                        </Grid>
+                        <Grid item xs={4}>
+                            <p>Today's Gross Sales: ${dailySales}</p>
                         </Grid>
                         <Grid item xs={12}>
                             {driverTableHolder}
                         </Grid>
+                        <Grid>
+                        </Grid>
                     </Grid>
-
-
                 </div>
             </KanbeTemplate>
         )

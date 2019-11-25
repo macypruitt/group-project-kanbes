@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import mapStoreToProps from '../../redux/mapStoreToProps';
 import { withStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
+import { Button, Input } from '@material-ui/core';
 import PropTypes from "prop-types";
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -10,6 +10,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { withRouter } from 'react-router';
+import { Edit, Done, Clear } from "@material-ui/icons";
+import Swal from 'sweetalert2-react';
 
 
 const styles = theme => ({
@@ -58,10 +60,12 @@ var currentDateTime = date + time
 class DriverTableRow extends Component {
     componentDidMount() {
         this.props.dispatch({ type: 'FETCH_PRODUCTS' });
-        this.props.dispatch({ type: 'FETCH_SUPPLIERS' })
+        this.props.dispatch({ type: 'FETCH_SUPPLIERS' });
+
     }
 
     state = {
+        show: false,
         isEditable: this.props.editable || false,
         isAddable: this.props.addable || false,
         isUpdatable: this.props.updatable || false,
@@ -76,15 +80,14 @@ class DriverTableRow extends Component {
         }
     };
 
-
-
     clickEdit = (event) => {
         this.setState({
             ...this.state,
             isEditable: !this.state.isEditable,
             item: {
                 ...this.props.item,
-                last_modified: this.state.currentTimeStamp
+                last_modified: this.state.currentTimeStamp,
+                store_id: this.props.match.params.id
             }
         }, () => {
             console.log(this.state)
@@ -106,105 +109,44 @@ class DriverTableRow extends Component {
     }
 
     handleChangeInputText(event, dataKey) {
-
-        // const fieldValue = event.target.value;
-        // let lastPar = this.state.item.last_par;
-        // if (dataKey === "sold_product_count" && event.target.value || dataKey === "shrink_product_count" && event.target.value) {
-
-        //     lastPar -= parseFloat(event.target.value)
-
+        console.log('dataKey ', dataKey, ' event ', event.target.value)
+        // if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
         //     this.setState({
         //         ...this.state,
         //         item: {
         //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
+        //             [dataKey]: parseInt(event.target.value)
         //         }
-        //     })
-        // } else if (dataKey === "sold_product_count" && !event.target.value || dataKey === "shrink_product_count" && !event.target.value) {
-
-        //     lastPar += parseFloat(this.state.item[dataKey])
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
+        //     }, () => {
+        //         const newLastPar = this.state.item.last_par - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
+        //         console.log('last par', this.state.item.last_par)
+        //         console.log('sold',this.state.item.sold_product_count )
+        //         console.log('shrink', this.state.item.shrink_product_count)
+        //         console.log('product count', this.state.item.product_count)
+        //         this.setState({
+        //             ...this.state,
+        //             item: {
+        //                 ...this.state.item,
+        //                 last_par: newLastPar
+        //             }
+        //         },()=>{
+        //             console.log(this.state.item)
+        //         })
         //     })
         // }
+        // else 
+        // {
 
-        // else if (dataKey === "product_count" && event.target.value) {
-        //     lastPar += parseFloat(event.target.value)
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
+        this.setState({
+            ...this.state,
+            item: {
+                ...this.state.item,
+                [dataKey]: event.target.value
+            }
+        }, () => {
+            console.log(this.state.item)
+        })
         // }
-
-        // else if (dataKey === "product_count" && !event.target.value) {
-        //     lastPar -= parseFloat(this.state.item[dataKey])
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue,
-        //             last_par: lastPar
-        //         }
-        //     })
-        // }
-
-        // else {
-
-        //     this.setState({
-        //         ...this.state,
-        //         item: {
-        //             ...this.state.item,
-        //             [dataKey]: fieldValue
-        //         }
-        //     })
-        // }
-        if (dataKey === 'sold_product_count' || dataKey === 'shrink_product_count' || dataKey === 'product_count') {
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: parseInt(event.target.value)
-                }
-            }, () => {
-                const newLastPar = this.state.item.last_par - (this.state.item.sold_product_count + this.state.item.shrink_product_count) + this.state.item.product_count;
-                console.log('last par', this.state.item.last_par)
-                console.log('sold',this.state.item.sold_product_count )
-                console.log('shrink', this.state.item.shrink_product_count)
-                console.log('product count', this.state.item.product_count)
-                this.setState({
-                    ...this.state,
-                    item: {
-                        ...this.state.item,
-                        last_par: newLastPar
-                    }
-                },()=>{
-                    console.log(this.state.item)
-                })
-            })
-        }
-        else {
-
-            this.setState({
-                ...this.state,
-                item: {
-                    ...this.state.item,
-                    [dataKey]: event.target.value
-                }
-            })
-        }
     }
 
     setValues = (value) => {
@@ -217,19 +159,17 @@ class DriverTableRow extends Component {
     }
 
     handleChangeProductName(event) {
+        console.log(event.target.value)
         this.setValues(event.target.value);
         this.setState({
             ...this.state,
             product_name: event.target.value,
             item: {
                 ...this.state.item,
-                product_name: event.target.value.product_name,
-                product_id: event.target.value.product_id,
-                current_price_per_unit: event.target.value.current_price_per_unit,
-                current_price_per_unit_id: event.target.value.id,
-                sold_price_per_unit: event.target.value.current_price_per_unit,
-
+                product_name: event.target.value
             }
+        }, () => {
+            console.log(this.state.item)
         })
 
     }
@@ -245,6 +185,8 @@ class DriverTableRow extends Component {
                 supplier_id: event.target.value.id,
                 supplier_name: event.target.value.supplier_name
             }
+        }, () => {
+            console.log(this.state.item)
         })
     }
 
@@ -256,8 +198,14 @@ class DriverTableRow extends Component {
             product_sub_type: event.target.value,
             item: {
                 ...this.state.item,
-                product_sub_type: event.target.value.product_sub_type
+                product_id: event.target.value.product_id,
+                product_sub_type: event.target.value.product_sub_type,
+                current_price_per_unit: event.target.value.current_price_per_unit,
+                current_price_per_unit_id: event.target.value.id,
+                sold_price_per_unit: event.target.value.current_price_per_unit,
             }
+        }, () => {
+            console.log(this.state.item)
         })
 
     }
@@ -268,7 +216,8 @@ class DriverTableRow extends Component {
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
         // this.props.dispatch({ type: "ADD_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
     clickSaveUpdate = (event) => {
@@ -277,8 +226,9 @@ class DriverTableRow extends Component {
             isUpdatable: false
         })
         ////WILL BE SENT TO DATABASE ONCE CONNECTED TO SERVER
-        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item })
-        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item })
+        this.props.dispatch({ type: "UPDATE_OUTGOING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: "UPDATE_INCOMING_STORE", payload: this.state.item });
+        this.props.dispatch({ type: 'FETCH_TODAYS_SALES', payload: this.props.match.params.id});
     }
 
 
@@ -298,48 +248,74 @@ class DriverTableRow extends Component {
     }
 
     clickSaveNewProduct = event => {
+        if (!this.state.item.supplier_id || !this.state.item.product_sub_type || !this.state.item.product_id) {
+            this.props.clickSaveProductWithoutData();
+        } else {
+            this.setState({
+                ...this.state,
 
-        this.setState({
-            ...this.state,
-
-            item: {
-                ...this.state.item,
-                last_modified: this.state.currentTimeStamp,
-                user_id: this.props.store.user.id,
-                store_id: this.props.match.params.id
-            }
-        }, () => {
-            console.log('state at save new product', this.state)
-            //     ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
-            this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
-            this.props.clickAddProduct();
-        })
-
+                item: {
+                    ...this.state.item,
+                    last_modified: this.state.currentTimeStamp,
+                    user_id: this.props.store.user.id,
+                    store_id: this.props.match.params.id
+                }
+            }, () => {
+                console.log('state at save new product', this.state)
+                //     ////WILL BE POSTED TO DATABASE ONCE CONNECTED TO SERVER
+                this.props.dispatch({ type: "ADD_INCOMING_STORE", payload: this.state.item })
+                this.props.clickAddProduct();
+            })
+        }
     }
 
     render() {
+
+        ////activeProducts and activeProductSubTypes will display all available options of products
         let activeProducts = [];
         let activeProductSubTypes = [];
-        activeProductSubTypes = this.props.store.activeProducts;
+
+        ////their values come from the reducer
         activeProducts = this.props.store.activeProducts;
+        activeProductSubTypes = this.props.store.activeProducts;
+
+        ////creating a new array with only the names of products
+        let nameOfActiveProducts = activeProducts.map((item, index) => {
+            return item.product_name
+        })
+
+        ////removing duplicate product types
+        const productsNoDuplicates = [...new Set(nameOfActiveProducts)];
+
+        ////creating drop-down for product
         if (activeProducts.length > 0) {
-            activeProducts = activeProducts.map((item, index) => {
-                return <MenuItem key={index} value={item}>{item.product_name}</MenuItem>
+            activeProducts = productsNoDuplicates.map((item, index) => {
+                return <MenuItem key={index} value={item}>{item}</MenuItem>
             })
         }
 
+       
+        ////creating drop-down for sub-type
         if (activeProducts.length > 0 && this.state.item.product_id) {
-
+            ////if there is already a entry
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 if (item.product_id === this.state.item.product_id) {
                     return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
                 }
             })
         } else {
+            ////for a new row
+            activeProductSubTypes = activeProductSubTypes.filter((item, index) => {
+                ////filtering sub-type according to product
+                return item.product_name == this.state.product_name;
+            })
+            ////generating drop-down for filtered sub-types
             activeProductSubTypes = activeProductSubTypes.map((item, index) => {
                 return <MenuItem key={index} value={item}>{item.product_sub_type}</MenuItem>
             })
         }
+
+
 
 
         let suppliers = [];
@@ -379,57 +355,58 @@ class DriverTableRow extends Component {
             restocked = '';
             notes = '';
             lastModified = 'No Entry Yet Today';
-            editOrSaveButton = <Button className={classes.buttonNew} onClick={this.clickEdit}>New Entry</Button>;
+            editOrSaveButton = <Button className={classes.buttonNew} onClick={this.clickEdit}><Edit /></Button>;
         }
 
 
         ////if Edit button is clicked, text inputs appear and Edit button becomes Save button
         if (this.state.isEditable) {
 
-            standard_par = <input
+            standard_par = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={standard_par}
                 onChange={(event) => this.handleChangeInputText(event, 'standard_par')}
             />
-            last_par = <input
+
+            last_par = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.state.item.last_par}
                 onChange={(event) => this.handleChangeInputText(event, 'last_par')}
             />
-            sold = <input
+            sold = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
-            shrink = <input
+            shrink = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
             />
-            restocked = <input
+            restocked = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
-            notes = <input
+            notes = <Input
                 type="text"
                 className="row-input"
                 onChange={(event) => this.handleChangeInputText(event, 'notes')}
             />
-            lastModified = date + time
+            lastModified = date + time;
 
 
             editOrSaveButton =
-                <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}>Save New Entry</Button>
-                    <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
+                <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveEntry}><Done /></Button>
+                    <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}><Clear /></Button>
                 </div>
         }
 
@@ -484,6 +461,8 @@ class DriverTableRow extends Component {
                 </Select>
             </FormControl>
             lastModified = date + time
+
+
         }
 
         if (this.state.isUpdatable) {
@@ -491,28 +470,28 @@ class DriverTableRow extends Component {
                 <div><Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSaveUpdate}>Save Update</Button>
                     <Button className={classes.buttonNegative} onClick={this.clickCancelUpdate}>Cancel</Button>
                 </div>
-            sold = <input
+            sold = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.sold_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'sold_product_count')}
             />
-            shrink = <input
+            shrink = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.shrink_product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'shrink_product_count')}
             />
-            restocked = <input
+            restocked = <Input
                 type="tel"
                 pattern="[0-9]*"
                 className="row-input"
                 placeholder={this.props.item.product_count}
                 onChange={(event) => this.handleChangeInputText(event, 'product_count')}
             />
-            notes = <input
+            notes = <Input
                 type="text"
                 className="row-input"
                 placeholder={this.props.item.notes}
@@ -520,21 +499,31 @@ class DriverTableRow extends Component {
             />
         }
 
-        return (
+        ////formatting date displayed
+        if (lastModified !== 'No Entry Yet Today') {
+            lastModified = lastModified.split("T")[0];
+            lastModified = lastModified.split("-");
+            lastModified = `${lastModified[1]}-${lastModified[2]}-${lastModified[0]}`
+        }
 
-            <tr id={this.props.key}>
-                <td>{product_name}</td>
-                <td>{product_sub_type}</td>
-                <td>{supplier}</td>
-                <td>{standard_par}</td>
-                <td>{last_par}</td>
-                <td>{sold}</td>
-                <td>{shrink}</td>
-                <td>{restocked}</td>
-                <td>{notes}</td>
-                <td>{lastModified}</td>
-                <td>{editOrSaveButton}</td>
-            </tr>
+        return (
+          
+                
+
+                <tr id={this.props.key}>
+                    <td>{product_name}</td>
+                    <td>{product_sub_type}</td>
+                    <td>{supplier}</td>
+                    <td>{standard_par}</td>
+                    <td>{last_par}</td>
+                    <td>{sold}</td>
+                    <td>{shrink}</td>
+                    <td>{restocked}</td>
+                    <td>{notes}</td>
+                    <td>{lastModified}</td>
+                    <td>{editOrSaveButton}</td>
+                </tr>
+          
         );
     }
 }

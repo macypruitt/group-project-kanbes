@@ -9,8 +9,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import columnWidthFinder from './columnWidthFinder';
-
+import FormFields from '../../FormFields/FormFields';
+import { Done, Clear } from "@material-ui/icons";
 
 const styles = theme => ({
     buttonPositive: {
@@ -39,10 +39,7 @@ const styles = theme => ({
     },
 });
 
-
-
 class StoreTableRow extends Component {
-
 
     state = {
         isEditable: this.props.editable || false,
@@ -90,11 +87,14 @@ class StoreTableRow extends Component {
             ...this.state,
             deliveryOrderArray: storeArray,
             [event.target.name]: event.target.value
-        })
-        console.log(this.state);
-
-        //dispatch to reducer that holds delivery route array globally and then dispatch that array from store table component on save
+        },()=>{
+            //dispatch to reducer that holds delivery route array globally and then dispatch that array from store table component on save
         this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_ARRAY', payload: this.state.deliveryOrderArray })
+            console.log(this.state);
+        })
+        
+
+        
     }
 
     clickSave = (event) => {
@@ -133,20 +133,22 @@ class StoreTableRow extends Component {
         })
     }
 
-  
-
     render() {
-
+        ////styling for drop down check menu
+        const iconStylesCheck = {
+            color: "green"
+          };
+          const iconStylesX = {
+            color: "red"
+          };
         const { classes, theme } = this.props;
+
         ////row data is passed to this component through props from StoreTable.js
         let id = this.props.item.id
         let store_name = this.props.item.store_name;
-        let address = this.props.item.address;
+        let address = this.props.item.store_address;
         let order = this.props.item.delivery_route_order;
-        let status = this.props.item.status
-        if (this.props.item.status === true | this.props.item.status === false) {
-            status = this.props.item.status.toString();
-        }
+        let status = this.props.item.status ? <Done style={iconStylesCheck} /> : <Clear style={iconStylesX} />
         let contactEmail = this.props.item.contact_email;
         let contactName = this.props.item.contact_name;
         let contactPhone = this.props.item.contact_phone;
@@ -167,38 +169,53 @@ class StoreTableRow extends Component {
                 placeholder={store_name}
                 onChange={(event) => this.handleChangeInputText(event, 'store_name')}
             />
+
             address = <Input className="row-input"
                 placeholder={address}
-                onChange={(event) => this.handleChangeInputText(event, 'address')} />
-            status = <FormControl className={classes.formControl}>
-                {/* <InputLabel htmlFor="status">{status}</InputLabel> */}
-                <Select
-                    className={classes.selectEmpty}
-                    displayEmpty
-                    // placeholder={status.toString()}
-                    onChange={(event) => this.handleChangeInputText(event, 'status')}
-                    value={this.state.item.status}
-                    inputProps={{
-                        name: 'status',
-                        id: 'status',
-                    }}
-                >
-                    <MenuItem value={'true'}>True</MenuItem>
-                    <MenuItem value={'false'}>False</MenuItem>
-                </Select>
-            </FormControl>
+                onChange={(event) => this.handleChangeInputText(event, 'address')} 
+            />
+
+            status = <FormControl>
+                        <div>
+                            <Select
+                                className="iconDropdown"
+                                onChange={event => this.handleChangeInputText(event, "status")}
+                                value={this.state.status}
+                                inputProps={{
+                                name: "status",
+                                id: "status-select"
+                                }}
+                            >
+                            <MenuItem value={true}>
+                                <Done style={iconStylesCheck} />
+                            </MenuItem>
+                                <MenuItem value={false}>
+                                <Clear style={iconStylesX} />
+                            </MenuItem>
+                        </Select>
+                        </div>
+                    </FormControl>
+
             contactEmail = <Input className="row-input"
                 placeholder={contactEmail}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_email')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_email')} 
+            />
+
             contactName = <Input className="row-input"
                 placeholder={contactName}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_name')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_name')} 
+            />
+
             contactPhone = <Input className="row-input"
                 placeholder={contactPhone}
-                onChange={(event) => this.handleChangeInputText(event, 'contact_phone')} />
+                onChange={(event) => this.handleChangeInputText(event, 'contact_phone')} 
+            />
+
             storePhone = <Input className="row-input"
                 placeholder={storePhone}
-                onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} />
+                onChange={(event) => this.handleChangeInputText(event, 'store_phone_number')} 
+            />
+
             editOrSaveButton = <div> <Button className={classes.buttonPositive} data-id={this.props.item.id} onClick={this.clickSave}>Save</Button>
                 <Button className={classes.buttonNegative} onClick={this.clickCancelEdit}>Cancel</Button>
             </div>
@@ -212,20 +229,33 @@ class StoreTableRow extends Component {
                 onChange={(event) => this.handleChangeInputText(event, 'delivery_route_order')} />
         }
 
-        ////this function calculates column width
-        let width = columnWidthFinder(9);
-        
+         ////formatting store phone number
+         if (storePhone && storePhone.length == 10){
+            const phonePtOne = storePhone.slice(0,3)
+            const phonePtTwo = storePhone.slice(3,6)
+            const phonePtThree = storePhone.slice(6,10)
+            storePhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
+        ////formatting contact phone number
+        if (contactPhone && contactPhone.length == 10){
+            const phonePtOne = contactPhone.slice(0,3)
+            const phonePtTwo = contactPhone.slice(3,6)
+            const phonePtThree = contactPhone.slice(6,10)
+            contactPhone = `(${phonePtOne})${phonePtTwo}-${phonePtThree}`;
+        }
+
         return (
             <tr>
-                <td style={width}>{order}</td>
-                <td style={width}>{store_name}</td>
-                <td style={width}>{address}</td>
-                <td style={width}>{status}</td>
-                <td style={width}>{contactName}</td>
-                <td style={width}>{contactPhone}</td>
-                <td style={width}>{contactEmail}</td>
-                <td style={width}>{storePhone}</td>
-                <td style={width}>{editOrSaveButton}</td>
+                <td className="store-col-width">{order}</td>
+                <td className="store-col-width">{store_name}</td>
+                <td className="store-col-width">{address}</td>
+                <td className="store-col-width">{status}</td>
+                <td className="store-col-width">{contactName}</td>
+                <td className="store-col-width">{contactPhone}</td>
+                <td className="store-col-width">{contactEmail}</td>
+                <td className="store-col-width">{storePhone}</td>
+                <td className="store-col-width">{editOrSaveButton}</td>
             </tr>
         );
     }

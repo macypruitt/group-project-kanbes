@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import StoreTableRow from './StoreTableRow';
 import Swal from 'sweetalert2-react';
-import columnWidthFinder from './columnWidthFinder';
 
 const styles = theme => ({
     buttonPositive: {
@@ -69,10 +68,9 @@ class StoreTable extends Component {
     }
 
     clickSaveDeliveryOrder = (event) => {
-        this.setState({
-            orderIsEditable: false
-        })
-        
+        console.log(this.props.store.deliveryOrderArray)
+
+
         //check if delivery order array has duplicate values
         var values = this.props.store.deliveryOrderArray
         console.log(values)
@@ -83,12 +81,16 @@ class StoreTable extends Component {
         });
         console.log(isDuplicate);
 
-        if (isDuplicate)
+        if (isDuplicate) {
             this.setState({ show: true })
+        } else if (!isDuplicate) {
+            this.setState({
+                orderIsEditable: false
+            })
+            this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
+            this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
 
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ROUTES', payload: this.props.store.deliveryOrderArray })
-        this.props.dispatch({ type: 'UPDATE_DELIVERY_ORDER_STATE', payload: this.props.store.editDeliveryOrderStatus })
-
+        }
     }
 
     render() {
@@ -103,7 +105,6 @@ class StoreTable extends Component {
                     key={index}
                     item={item}
                 />
-
             )
         })
 
@@ -113,13 +114,13 @@ class StoreTable extends Component {
         if (this.state.isAdding) {
             const emptyItem = {}
             newRow = <StoreTableRow clickAddStore={this.clickAddStore} editable={true} addable={true} item={emptyItem} />
-            addOrCancelButton =  <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         let editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickEditDeliveryOrder}>Edit Delivery Order</Button>
         if (this.props.store.editDeliveryOrderStatus) {
             editorSaveDeliveryButton = <Button className={classes.buttonPositive} onClick={this.clickSaveDeliveryOrder}>Save New Delivery Order</Button>
-            addOrCancelButton =  <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
+            addOrCancelButton = <Button className={classes.buttonNegative} onClick={this.clickAddCancel}>Cancel</Button>
         }
 
         return (
@@ -131,7 +132,7 @@ class StoreTable extends Component {
                                 <th >Delivery Order</th>
                                 <th >Store name</th>
                                 <th >Address</th>
-                                <th >Active?</th>
+                                <th >Status</th>
                                 <th >Store Contact Name</th>
                                 <th >Store Contact Phone</th>
                                 <th >Store Contact Email</th>
@@ -146,19 +147,19 @@ class StoreTable extends Component {
                     </table>
                 </div>
 
-                <div  className="tableFixedHead-scroll">
-                    <table className="baseTable">
+                <div className="tableFixedHead-scroll">
+                    <table className="baseTable rows">
                         <thead>
                             <tr>
-                                <th >Delivery Order</th>
-                                <th >Store name</th>
-                                <th >Address</th>
-                                <th >Active?</th>
-                                <th >Store Contact Name</th>
-                                <th >Store Contact Phone</th>
-                                <th >Store Contact Email</th>
-                                <th >Store Phone</th>
-                                <th >Actions</th>
+                                <th className="store-col-width">Delivery Order</th>
+                                <th className="store-col-width">Store name</th>
+                                <th className="store-col-width">Address</th>
+                                <th className="store-col-width">Active?</th>
+                                <th className="store-col-width">Store Contact Name</th>
+                                <th className="store-col-width">Store Contact Phone</th>
+                                <th className="store-col-width">Store Contact Email</th>
+                                <th className="store-col-width">Store Phone</th>
+                                <th className="store-col-width">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -166,30 +167,13 @@ class StoreTable extends Component {
                             {newRow}
                         </tbody>
                     </table>
-            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                </div>
 
 
 
                 {editorSaveDeliveryButton}
                 {addOrCancelButton}
-                
+
                 <Swal
                     show={this.state.show}
                     title="ALERT!"

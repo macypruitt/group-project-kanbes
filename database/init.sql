@@ -16,7 +16,7 @@ CREATE TABLE "user" (
 CREATE TABLE "stores" (
 "id" SERIAL PRIMARY KEY,
 "store_name" VARCHAR(255) NOT NULL,
-"address" VARCHAR UNIQUE NOT NULL,
+"store_address" VARCHAR UNIQUE NOT NULL,
 "contact_name" VARCHAR(180),
 "contact_phone" VARCHAR(255),
 "contact_email" VARCHAR(100),
@@ -41,9 +41,11 @@ CREATE TABLE "products" (
 
 CREATE TABLE "invoices" (
     "id" SERIAL PRIMARY KEY,
+    "invoice_date" TIMESTAMP NOT NULL,
     "start_date" TIMESTAMP NOT NULL,
     "end_date" TIMESTAMP NOT NULL,
-    "store_id" INT REFERENCES "stores"
+    "store_id" INT REFERENCES "stores",
+    "invoice_number" VARCHAR(80) NOT NULL
 );
 
 CREATE TABLE "incoming_warehouse" (
@@ -82,11 +84,11 @@ CREATE TABLE "warehouse_inventory_junction" (
 CREATE TABLE "incoming_store" (
 "id" SERIAL PRIMARY KEY,
 "user_id" INT REFERENCES "user",
-"product_id" INT REFERENCES "products",
-"store_id" INT REFERENCES "stores",
+"product_id" INT REFERENCES "products" NOT NULL,
+"store_id" INT REFERENCES "stores" NOT NULL,
 "kanbe_sell_date" TIMESTAMP NOT NULL,
 "product_count" INT NOT NULL,
-"supplier_id" INT REFERENCES "suppliers",
+"supplier_id" INT REFERENCES "suppliers" NOT NULL,
 "notes" VARCHAR(400)
 );
 
@@ -99,10 +101,10 @@ CREATE TABLE "current_product_prices"(
 
 CREATE TABLE "outgoing_store" (
 "id" SERIAL PRIMARY KEY,
-"store_id" INT REFERENCES "stores",
-"product_id" INT REFERENCES "products",
-"user_id" INT REFERENCES "user",
-"supplier_id" INT REFERENCES "suppliers",
+"store_id" INT REFERENCES "stores" NOT NULL,
+"product_id" INT REFERENCES "products" NOT NULL,
+"user_id" INT REFERENCES "user" NOT NULL,
+"supplier_id" INT REFERENCES "suppliers" NOT NULL,
 "last_modified" TIMESTAMP,
 "sold_product_count" INT,
 "shrink_product_count" INT,
