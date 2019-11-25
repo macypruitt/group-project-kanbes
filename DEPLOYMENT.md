@@ -99,8 +99,12 @@ The following steps are for basic Postgres database deployment to Heroku.
 
 ## Deploying Codebase
 
-1. Make necessary [Code Prep](/#code-prep) before deploying
+Make necessary [Code Prep](/#code-prep) before deploying to Heroku.
+
+1. From the Heroku app page click on the **Deploy** tab
+1. In the **Deployment Method** section select the **Container Registry** option
 1. Bring up the terminal in the project directory
+1. run: docker-compose up web
 1. run: `heroku login`
     - follow the login prompts
 1. run: `heroku git:remote -a kantrack-staging`
