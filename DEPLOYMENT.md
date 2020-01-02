@@ -28,7 +28,7 @@ The following steps are for basic Postgres database deployment to Heroku.
 
 ## Deploying Codebase
 
-Make necessary [Code Prep](/#code-prep) before deploying to Heroku.
+The necessary [Code Prep](/#code-prep) must be completed before deploying to Heroku.
 
 1. From the Heroku app page click on the **Deploy** tab
 1. In the **Deployment Method** section select the **Container Registry** option
@@ -42,9 +42,27 @@ Make necessary [Code Prep](/#code-prep) before deploying to Heroku.
 1. (optional) run: `heroku open --app=kantrack-staging`
 1. (optional) run: `heroku logs --tail --app=kantrack-staging`
 
+
+### Deploying After Creating App in Heroku GUI (heroku.yml)
+
+1. run: `heroku login`
+    - follow the login prompts
 1. run: `heroku git:remote -a kantrack-staging`
-1. ensure that the `heroku.yml` file is setup
+    - ensure that the `heroku.yml` file is setup (see [Code Prep](/#code-prep) section)
 1. run: `heroku stack:set container --app=kantrack-staging`
+1. run: `git push heroku master`
+
+1. had to run `heroku ps:scale web=1` because of heroku error
+
+### Deploying Entirely from Command Line (heroku.yml)
+
+> Note: All terminal commands should be run from the project root directory. 
+
+1. run: `heroku login`
+    - follow the login prompts
+1. run: `heroku create kantrack-staging`
+    - ensure that the `heroku.yml` file is setup (see [Code Prep](/#code-prep) section)
+1. run: `heroku stack:set container`
 1. run: `git push heroku master`
 
 
@@ -119,3 +137,8 @@ Make necessary [Code Prep](/#code-prep) before deploying to Heroku.
     ```
 
 1. Create `./package.json` file with all server and FE dependency requirements
+
+
+### Email Message Setup
+
+2 legged authentication
