@@ -85,15 +85,20 @@ async function mail(password: string, userEmail: any) {
     auth: transportAuthOptions,
   });
 
-  let info = await transporter.sendMail({
-    from: process.env.FROM, // sender address
-    to: userEmail, // list of receivers
-    subject: 'Your password', // Subject line
-    text: password, // plain text body
-    html: `
-      <p>Your new password: ${password} for Kanbe's Market application</p>
-      ` // html body
-  });
+  try {
+    await transporter.verify();
+    await transporter.sendMail({
+      from: process.env.FROM, // sender address
+      to: userEmail, // list of receivers
+      subject: 'Your password', // Subject line
+      text: password, // plain text body
+      html: `
+        <p>Your new password: ${password} for Kanbe's Market application</p>
+        ` // html body
+    });
+  } catch(err) {
+    console.log(err);
+  }
 }
 
 
