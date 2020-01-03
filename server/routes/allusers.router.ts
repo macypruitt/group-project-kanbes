@@ -60,16 +60,25 @@ router.post('/newUser', (req: Request, res: Response, next: express.NextFunction
 
 // async..await is not allowed in global scope, must use a wrapper
 async function mail(password: string, userEmail: any) {
+  let transportAuthOptions: object = {
+    type: 'login',
+    user: USERNAME,
+    pass: PASSWORD,
+  };
+
+  if (CLIENT_ID != null && PRIVATE_KEY != null) {
+    transportAuthOptions = {
+      type: 'OAuth2',
+      user: USERNAME,
+      pass: PASSWORD,
+      serviceClient: CLIENT_ID,
+      privateKey: PRIVATE_KEY,
+    };
+  }
 
   let transporter: nodemailer.Transporter = nodemailer.createTransport({
     service: 'gmail',
-    auth: {
-      type: CLIENT_ID != null && PRIVATE_KEY != null ? 'OAuth2': 'login',
-      user: USERNAME,
-      pass: PASSWORD,
-      serviceClient: CLIENT_ID != null ? CLIENT_ID: null,
-      privateKey: PRIVATE_KEY != null ? PRIVATE_KEY: null,
-    },
+    auth: transportAuthOptions,
   });
 
   let info = await transporter.sendMail({
