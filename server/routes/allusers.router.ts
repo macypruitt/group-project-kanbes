@@ -13,7 +13,11 @@ const PASSWORD: string = process.env.PASSWORD != null ? process.env.PASSWORD: ''
 const CLIENT_ID: string | null = process.env.GSUITE_CLIENT_ID != null ? process.env.GSUITE_CLIENT_ID: null;
 const PRIVATE_KEY: string | null = process.env.GSUITE_PRIVATE_KEY != null ? process.env.GSUITE_PRIVATE_KEY: null;
 
-console.log('username ', process.env.USERNAME, ' password ', process.env.PASSWORD)
+console.log('username:', process.env.USERNAME,
+  '\npassword:', process.env.PASSWORD,
+  '\nclient id:', process.env.GSUITE_CLIENT_ID,
+  '\nprivate key:', process.env.GSUITE_CLIENT_ID
+);
 
 //get all users
 router.get('/', (req: Request, res: Response, next: express.NextFunction): void => {
