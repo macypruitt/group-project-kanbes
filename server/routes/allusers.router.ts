@@ -10,8 +10,8 @@ require('dotenv').config()
 const router: express.Router = express.Router();
 const USERNAME: string = process.env.USERNAME != null ? process.env.USERNAME : '';
 const PASSWORD: string = process.env.PASSWORD != null ? process.env.PASSWORD: '';
-const CLIENT_ID: string = process.env.GSUITE_CLIENT_ID != null ? process.env.GSUITE_CLIENT_ID: null;
-const PRIVATE_KEY: string = process.env.GSUITE_PRIVATE_KEY != null ? process.env.GSUITE_PRIVATE_KEY: null;
+const CLIENT_ID: string | null = process.env.GSUITE_CLIENT_ID != null ? process.env.GSUITE_CLIENT_ID: null;
+const PRIVATE_KEY: string | null = process.env.GSUITE_PRIVATE_KEY != null ? process.env.GSUITE_PRIVATE_KEY: null;
 
 console.log('username ', process.env.USERNAME, ' password ', process.env.PASSWORD)
 
