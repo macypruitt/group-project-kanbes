@@ -5,19 +5,22 @@ import { encryptPassword } from '../modules/encryption';
 import generatePassword from 'password-generator';
 // @ts-ignore
 import * as nodemailer from 'nodemailer';
-require('dotenv').config()
+require('dotenv').config();
+
+console.log(
+  '-----------------',
+  '\nusername:', process.env.USERNAME,
+  '\npassword:', process.env.PASSWORD,
+  '\nclient id:', process.env.EMAIL_CLIENT_ID,
+  '\nprivate key:', process.env.EMAIL_PRIVATE_KEY,
+  '\n-----------------'
+);
 
 const router: express.Router = express.Router();
 const USERNAME: string = process.env.USERNAME != null ? process.env.USERNAME : '';
 const PASSWORD: string = process.env.PASSWORD != null ? process.env.PASSWORD: '';
-const CLIENT_ID: string | null = process.env.GSUITE_CLIENT_ID != null ? process.env.GSUITE_CLIENT_ID: null;
-const PRIVATE_KEY: string | null = process.env.GSUITE_PRIVATE_KEY != null ? process.env.GSUITE_PRIVATE_KEY: null;
-
-console.log('username:', process.env.USERNAME,
-  '\npassword:', process.env.PASSWORD,
-  '\nclient id:', process.env.GSUITE_CLIENT_ID,
-  '\nprivate key:', process.env.GSUITE_CLIENT_ID
-);
+const CLIENT_ID: string | null = process.env.EMAIL_CLIENT_ID != null ? process.env.EMAIL_CLIENT_ID: null;
+const PRIVATE_KEY: string | null = process.env.EMAIL_PRIVATE_KEY != null ? process.env.EMAIL_PRIVATE_KEY: null;
 
 //get all users
 router.get('/', (req: Request, res: Response, next: express.NextFunction): void => {
@@ -79,6 +82,8 @@ async function mail(password: string, userEmail: any) {
       privateKey: PRIVATE_KEY,
     };
   }
+
+  console.log('Auth options: ', transportAuthOptions);
 
   let transporter: nodemailer.Transporter = nodemailer.createTransport({
     service: 'gmail',

@@ -57,6 +57,8 @@ services:
       CHOKIDAR_USEPOLLING: 'true'
       USERNAME: ${USERNAME}
       PASSWORD: ${PASSWORD}
+      EMAIL_CLIENT_ID: ${GSUITE_CLIENT_ID} # testing GSUITE OAuth2
+      EMAIL_PRIVATE_KEY: ${GSUITE_PRIVATE_KEY} # testing GSUITE OAuth2
       NODE_ENV: development
     volumes:
       - './server:/app/server'
@@ -65,24 +67,3 @@ services:
     depends_on:
       - database
     command: npm run server
-  ##
-  ## CONTAINER for Final Production Deployment
-  ## to test service run:
-  ##     docker-compose up --build -d web
-  ## ----------------------------------------
-  web:
-    build:
-      context: ./
-      dockerfile: Dockerfile.prod
-    ports:
-      - 8080:8080
-    env_file: .env
-    environment:
-      NODE_ENV: production
-    volumes:
-      - './:/app'
-      - './client:/app/client'
-      - './server:/app/server'
-      - '/app/client/node_modules'
-      - '/app/node_modules'
-    command: npm run start
