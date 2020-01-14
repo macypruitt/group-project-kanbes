@@ -137,8 +137,3 @@ The necessary [Code Prep](/#code-prep) must be completed before deploying to Her
     ```
 
 1. Create `./package.json` file with all server and FE dependency requirements
-
-
-### Email Message Setup
-
-2 legged authentication
