@@ -73,17 +73,19 @@ async function mail(password: string, userEmail: any) {
     pass: PASSWORD,
   };
 
-  if (CLIENT_ID != null && PRIVATE_KEY != null) {
-    transportAuthOptions = {
-      type: 'OAuth2',
-      user: USERNAME,
-      pass: PASSWORD,
-      serviceClient: CLIENT_ID,
-      privateKey: PRIVATE_KEY,
-    };
-  }
+  // Hiding GMAIL GSUITE OAuth2 Configuration
+  // ==========
+  // if (CLIENT_ID != null && PRIVATE_KEY != null) {
+  //   transportAuthOptions = {
+  //     type: 'OAuth2',
+  //     user: USERNAME,
+  //     pass: PASSWORD,
+  //     serviceClient: CLIENT_ID,
+  //     privateKey: PRIVATE_KEY,
+  //   };
+  // }
 
-  console.log('Auth options: ', transportAuthOptions);
+  // console.log('Auth options: ', transportAuthOptions);
 
   let transporter: nodemailer.Transporter = nodemailer.createTransport({
     service: 'gmail',
