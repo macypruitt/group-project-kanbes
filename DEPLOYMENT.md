@@ -25,6 +25,10 @@ The following steps are for basic Postgres database deployment to Heroku.
     - Database
 1. After connecting run the setup queries available at `database/init.sql`
 
+### Upgrading DB
+
+[Heroku DB Plan Upgrade](https://devcenter.heroku.com/articles/upgrading-heroku-postgres-databases#upgrading-with-pg-copy) using `pg:copy`
+
 
 ## Deploying Codebase
 
