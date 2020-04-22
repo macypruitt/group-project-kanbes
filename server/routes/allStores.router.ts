@@ -100,7 +100,7 @@ router.put('/:id', (req: Request, res: Response, next: express.NextFunction): vo
     const deliveryRouteOrder: number = req.body.delivery_route_order;
 
     const storeId: string = req.params.id;
-    const queryText: string = `UPDATE "stores" SET "store_name" = $1, "address" = $2, "contact_name" = $3, 
+    const queryText: string = `UPDATE "stores" SET "store_name" = $1, "store_address" = $2, "contact_name" = $3, 
                     "contact_email" = $4, "contact_phone" = $5, "status" = $6, "store_phone_number" = $7, "delivery_route_order" = $8
                     WHERE "id" = $9;`;
 
