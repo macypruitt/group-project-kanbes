@@ -1,4 +1,4 @@
-const activeStoresReducer = (state = [], action) => {
+const activeStoresReducer = (state = {}, action) => {
     switch (action.type) {
       case 'SET_ACTIVE_STORES':
         return action.payload;

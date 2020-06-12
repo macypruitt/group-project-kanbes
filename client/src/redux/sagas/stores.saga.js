@@ -15,9 +15,17 @@ function* fetchStores() {
 
 function* fetchActiveStores(action) {
   try {
-
     const response = yield axios.get('api/all/stores/active');
-    yield put({ type: 'SET_ACTIVE_STORES', payload: response.data });
+
+    // create object with store id as key
+    let activeStoreObject = {};
+    for(const store of response.data){
+      const storeId= store.id;
+      activeStoreObject[storeId] = store;
+    }
+
+    yield put({ type: 'SET_ACTIVE_STORES', payload: activeStoreObject });
+
     //allows driverpage to get inventory of the first store
     if(action.payload != null && action.payload.firstStore){
       yield put({ type: 'FETCH_STORE_INVENTORY', payload: response.data[0].id })

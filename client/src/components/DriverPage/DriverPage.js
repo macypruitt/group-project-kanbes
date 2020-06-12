@@ -23,14 +23,11 @@ class DriverPage extends Component {
     }
 
     render() {
-        console.log(this.props.store.todaysSales[0])
+
         let storeName;
         let address;
         let matchStore;
-        let dailySales= 0;
-        if(this.props.store.todaysSales.length > 0){
-        dailySales = this.props.store.todaysSales[0]["Total Sales"]
-        }
+        let dailySales= this.props.store.todaysSales.length > 0 ? this.props.store.todaysSales[0]["Total Sales"] : 0;
 
         {/* This code is checking to see if there is a store and params id available, 
             if both conditions are met, it will loop through active store array and 

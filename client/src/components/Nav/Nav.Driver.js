@@ -72,20 +72,13 @@ class NavDriver extends Component {
 
 
     render() {
-
-        const storesArray = this.props.store.activeStores
-
-
-        let storeNavData = storesArray.map((item, index) => {
-
+        let storeNavData = Object.values(this.props.store.activeStores).map((item, index) => {
             //Breaks down the store address on the navigation bar
             let address = item.store_address;
             address = address.split(",");
             address = address[0];
 
             return (
-
-
                 <ListItem key={index} button onClick={() => this.moveToDriverPage(item.id)} className={this.props.classes.nested}>
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
@@ -93,7 +86,6 @@ class NavDriver extends Component {
                         </Grid>
                     </Grid>
                 </ListItem>
-
             )
         })
 
